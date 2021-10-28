@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F58BB4502729EF8300462654 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58BB44F2729EF8300462654 /* RegistrationViewController.swift */; };
+		F58BB452272A7F1A00462654 /* MainBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58BB451272A7F1A00462654 /* MainBookViewController.swift */; };
 		F5F80CE7272013C500E61826 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F80CE6272013C500E61826 /* AppDelegate.swift */; };
 		F5F80CE9272013C500E61826 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F80CE8272013C500E61826 /* SceneDelegate.swift */; };
 		F5F80CEB272013C500E61826 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F80CEA272013C500E61826 /* ViewController.swift */; };
@@ -17,7 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F58BB44F2729EF8300462654 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		F58BB451272A7F1A00462654 /* MainBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBookViewController.swift; sourceTree = "<group>"; };
 		F5F80CE3272013C500E61826 /* BFY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BFY.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5F80CE6272013C500E61826 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5F80CE8272013C500E61826 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -65,7 +65,7 @@
 				F5F80CEF272013CD00E61826 /* Assets.xcassets */,
 				F5F80CF1272013CD00E61826 /* LaunchScreen.storyboard */,
 				F5F80CF4272013CD00E61826 /* Info.plist */,
-				F58BB44F2729EF8300462654 /* RegistrationViewController.swift */,
+				F58BB451272A7F1A00462654 /* MainBookViewController.swift */,
 			);
 			path = BFY;
 			sourceTree = "<group>";
@@ -143,7 +143,7 @@
 			files = (
 				F5F80CEB272013C500E61826 /* ViewController.swift in Sources */,
 				F5F80CE7272013C500E61826 /* AppDelegate.swift in Sources */,
-				F58BB4502729EF8300462654 /* RegistrationViewController.swift in Sources */,
+				F58BB452272A7F1A00462654 /* MainBookViewController.swift in Sources */,
 				F5F80CE9272013C500E61826 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
