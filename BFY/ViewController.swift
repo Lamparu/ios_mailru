@@ -7,23 +7,7 @@
 
 import UIKit
 
-extension UIColor {
-   convenience init(red: Int, green: Int, blue: Int) {
-       assert(red >= 0 && red <= 255, "Invalid red component")
-       assert(green >= 0 && green <= 255, "Invalid green component")
-       assert(blue >= 0 && blue <= 255, "Invalid blue component")
 
-       self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
-   }
-
-   convenience init(rgb: Int) {
-       self.init(
-           red: (rgb >> 16) & 0xFF,
-           green: (rgb >> 8) & 0xFF,
-           blue: rgb & 0xFF
-       )
-   }
-}
 
 class ViewController: UIViewController {
 
@@ -44,6 +28,7 @@ class ViewController: UIViewController {
         createViewImageConstraint()
         
         let RegButton = UIButton()
+        RegButton.addTarget(self, action: #selector(didTapRegButton), for: .touchUpInside)
         RegButton.setTitle("Регистрация", for: .normal)
         RegButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 36)
         RegButton.setTitleColor(.black, for: .normal)
@@ -63,6 +48,14 @@ class ViewController: UIViewController {
         createButtonRegConstraint(button: RegButton)
         createButtonSignInConstraint(button: SignInButton, to: RegButton)
         
+    }
+    
+    @objc private func didTapRegButton(_ sender: UIButton)
+    {
+        let MainBookVC = MainBookViewController()
+        let navController = UINavigationController(rootViewController: MainBookVC)
+//        self.present(navController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(MainBookVC, animated: true)
     }
     
     func applyShadowOnButtons(button: UIButton)

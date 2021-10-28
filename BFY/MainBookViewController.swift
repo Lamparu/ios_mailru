@@ -21,6 +21,7 @@ class MainBookViewController: UIViewController {
         super.viewDidLoad()
 
         view.addSubview(viewRectangle)
+        view.backgroundColor = .red
         
         createRectViewConstraint()
         // Do any additional setup after loading the view.
