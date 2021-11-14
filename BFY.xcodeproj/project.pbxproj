@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F58BB452272A7F1A00462654 /* MainBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58BB451272A7F1A00462654 /* MainBookViewController.swift */; };
+		F58BB452272A7F1A00462654 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58BB451272A7F1A00462654 /* RegistrationViewController.swift */; };
+		F5BE1ABA274188D000A17D23 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BE1AB9274188D000A17D23 /* SignInViewController.swift */; };
 		F5CE4D3F272AF4E90095040D /* UIColor+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5CE4D3E272AF4E90095040D /* UIColor+extensions.swift */; };
 		F5F80CE7272013C500E61826 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F80CE6272013C500E61826 /* AppDelegate.swift */; };
 		F5F80CE9272013C500E61826 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F80CE8272013C500E61826 /* SceneDelegate.swift */; };
@@ -17,7 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F58BB451272A7F1A00462654 /* MainBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBookViewController.swift; sourceTree = "<group>"; };
+		F58BB451272A7F1A00462654 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		F5BE1AB9274188D000A17D23 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		F5CE4D3E272AF4E90095040D /* UIColor+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extensions.swift"; sourceTree = "<group>"; };
 		F5F80CE3272013C500E61826 /* BFY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BFY.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5F80CE6272013C500E61826 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -73,7 +75,8 @@
 				F5F80CEF272013CD00E61826 /* Assets.xcassets */,
 				F5F80CF1272013CD00E61826 /* LaunchScreen.storyboard */,
 				F5F80CF4272013CD00E61826 /* Info.plist */,
-				F58BB451272A7F1A00462654 /* MainBookViewController.swift */,
+				F58BB451272A7F1A00462654 /* RegistrationViewController.swift */,
+				F5BE1AB9274188D000A17D23 /* SignInViewController.swift */,
 			);
 			path = BFY;
 			sourceTree = "<group>";
@@ -150,7 +153,8 @@
 			files = (
 				F5F80CEB272013C500E61826 /* ViewController.swift in Sources */,
 				F5F80CE7272013C500E61826 /* AppDelegate.swift in Sources */,
-				F58BB452272A7F1A00462654 /* MainBookViewController.swift in Sources */,
+				F5BE1ABA274188D000A17D23 /* SignInViewController.swift in Sources */,
+				F58BB452272A7F1A00462654 /* RegistrationViewController.swift in Sources */,
 				F5F80CE9272013C500E61826 /* SceneDelegate.swift in Sources */,
 				F5CE4D3F272AF4E90095040D /* UIColor+extensions.swift in Sources */,
 			);

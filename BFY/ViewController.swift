@@ -12,10 +12,10 @@ import UIKit
 class ViewController: UIViewController {
 
     let viewImage: UIImageView = {
-        let imageName = "BFY.png"
-        let image = UIImage(named: imageName)
+        let image = UIImage(named: "BFY.png")
         let imageView = UIImageView(image: image!)
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        
         return imageView
     }()
     
@@ -36,6 +36,7 @@ class ViewController: UIViewController {
         applyShadowOnButtons(button: RegButton)
         
         let SignInButton = UIButton()
+        SignInButton.addTarget(self, action: #selector(didTapSignInButton), for: .touchUpInside)
         SignInButton.setTitle("Вход", for: .normal)
         SignInButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 36)
         SignInButton.setTitleColor(.black, for: .normal)
@@ -48,14 +49,28 @@ class ViewController: UIViewController {
         createButtonRegConstraint(button: RegButton)
         createButtonSignInConstraint(button: SignInButton, to: RegButton)
         
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+//        backButton.image = UIImage(named: "box_filled")
+        backButton.tintColor = UIColor(rgb: 0x6A7F60)
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     
     @objc private func didTapRegButton(_ sender: UIButton)
     {
-        let MainBookVC = MainBookViewController()
-        let navController = UINavigationController(rootViewController: MainBookVC)
+        let regVC = RegistrationViewController()
+        // let navController = UINavigationController(rootViewController: regVC)
 //        self.present(navController, animated: true, completion: nil)
-        self.navigationController?.pushViewController(MainBookVC, animated: true)
+        
+        self.navigationController?.pushViewController(regVC, animated: true)
+    }
+    
+    @objc private func didTapSignInButton(_ sender: UIButton)
+    {
+        let signinVC = SignInViewController()
+        // let navController = UINavigationController(rootViewController: regVC)
+//        self.present(navController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(signinVC, animated: true)
     }
     
     func applyShadowOnButtons(button: UIButton)
@@ -86,5 +101,6 @@ class ViewController: UIViewController {
         viewImage.heightAnchor.constraint(equalToConstant: 200).isActive = true
         viewImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -90).isActive = true
     }
+    
     
 }

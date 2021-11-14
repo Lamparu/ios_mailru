@@ -19,13 +19,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let winScene = (scene as? UIWindowScene) else { return }
 
         window = UIWindow(windowScene: winScene)
+       
         let HelloVC = ViewController()
-        
-        let MainBookVC = MainBookViewController()
+        // let regVC = RegistrationViewController()
         
         
         let navController = UINavigationController(rootViewController: HelloVC)
-        
         
         
         window?.rootViewController = navController
