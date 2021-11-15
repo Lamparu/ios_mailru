@@ -70,6 +70,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         return label
     }()
     
+    let rememberButton = UIButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -98,7 +100,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         //continueSignInButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         continueSignInButton.setTitle("Войти", for: .normal)
         continueSignInButton.titleLabel?.textAlignment = .center
-        continueSignInButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 32)
+        //continueSignInButton.titleEdgeInsets
+        //continueSignInButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 32)
         continueSignInButton.setTitleColor(UIColor(rgb: 0xfffcf4), for: .normal)
         continueSignInButton.backgroundColor = UIColor(rgb: 0x6A7F60)
         continueSignInButton.layer.cornerRadius = 20
@@ -115,9 +118,9 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         forgetButton.layer.borderWidth = 2
         forgetButton.translatesAutoresizingMaskIntoConstraints = false
         
-        let rememberButton = UIButton()
+        //let rememberButton = UIButton()
         rememberButton.translatesAutoresizingMaskIntoConstraints = false
-        rememberButton.setBackgroundImage(UIImage(named: "box_empty"), for: .normal)
+        rememberButton.setImage(UIImage(named: "box_empty"), for: .normal)
         rememberButton.addTarget(self, action: #selector(didTapRememberButton), for: .touchUpInside)
         
         let rememberTextButton = UIButton()
@@ -125,13 +128,14 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         rememberTextButton.setTitle("Запомнить меня", for: .normal)
         rememberTextButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
         rememberTextButton.setTitleColor(.black, for: .normal)
-//        rememberTextButton.addTarget(self, action: #selector(didTapRememberButton), for: .touchUpInside)
+        rememberTextButton.addTarget(self, action: #selector(didTapTextRememberButton), for: .touchUpInside)
         
         
         view.addSubview(continueSignInButton)
         view.addSubview(forgetButton)
-        view.addSubview(rememberButton)
+        
         view.addSubview(rememberTextButton)
+        view.addSubview(rememberButton)
         
         createContinueSignInButtonConstraint(button: continueSignInButton)
         createForgetButtonConstraint(button: forgetButton)
@@ -240,14 +244,25 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         button.layer.masksToBounds = false
     }
     
-    @objc private func didTapRememberButton(_ sender: UIButton) {
-        if sender.isSelected {
-            sender.setBackgroundImage(UIImage(named: "box_filled"), for: .normal)
-            sender.isSelected = false
+    private func changeRememberButtonState()
+    {
+        if rememberButton.isSelected {
+            rememberButton.setBackgroundImage(UIImage(named: "box_filled"), for: .normal)
+            rememberButton.isSelected = false
         } else {
-            sender.setBackgroundImage(UIImage(named: "box_empty"), for:.normal)
-            sender.isSelected = true
+            rememberButton.setBackgroundImage(UIImage(named: "box_empty"), for:.normal)
+            rememberButton.isSelected = true
         }
+    }
+    
+    @objc private func didTapRememberButton(_ sender: UIButton) {
+        
+        changeRememberButtonState()
+        //sender.isSelected = !sender.isSelected
+    }
+    
+    @objc private func didTapTextRememberButton(_ sender: UIButton) {
+        changeRememberButtonState()
         //sender.isSelected = !sender.isSelected
     }
     
