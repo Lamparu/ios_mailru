@@ -19,7 +19,7 @@ extension UIColor {
 }
 
 
-class ViewController: UIViewController {
+class MainBookViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -171,8 +171,7 @@ class ViewController: UIViewController {
     }
 
     
-    @objc private func didTapRegButton(_ sender: UIButton)
-        {
+    @objc private func didTapRegButton(_ sender: UIButton) {
             let Timer = TimerViewContoller()
            let navController = UINavigationController(rootViewController: Timer)
             self.present(navController, animated: true, completion: nil)
@@ -181,13 +180,17 @@ class ViewController: UIViewController {
             
         }
     
-    func applyShadowOnButtons(button: UIButton)
-        {
+    func applyShadowOnButtons(button: UIButton) {
             button.layer.shadowColor = UIColor.black.cgColor
             button.centerXAnchor.constraint(equalTo: mainFrame.centerXAnchor).isActive = true
             button.centerYAnchor.constraint(equalTo: mainFrame.bottomAnchor, constant: 70).isActive = true
             button.heightAnchor.constraint(equalToConstant: 105).isActive = true
             button.widthAnchor.constraint(equalToConstant: 105).isActive = true
+        }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            self.view.endEditing(true)
+            return false
         }
 
 
