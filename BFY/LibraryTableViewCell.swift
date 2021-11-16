@@ -9,31 +9,37 @@ import UIKit
 
 class LibraryTableViewCell: UITableViewCell {
     
-    
-    init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, containerView: UIView) {
+    var containerView: UIView = UIView()
+    var bookTitle: UILabel = UILabel()
+    var bookAuthor: UILabel = UILabel()
+    var bookImageView: UIImageView = UIImageView()
+        
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         backgroundColor = UIColor(rgb: 0xfffcf4)
+        
+        setupContainerView()
+        
+        [containerView, bookTitle, bookAuthor, bookImageView].forEach { self.addSubview($0) }
+                
+        setupConstraints()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    var containerView: UIView!
-    var bookTitle: UILabel!
-    var bookAuthor: UILabel!
-    var bookImageView: UIImageView!
     
 //    var containerViewHeightConstraint: NSLayoutConstraint!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-        
+    private func setupContainerView() {
+        containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.layer.cornerRadius = 8
         containerView.layer.masksToBounds = true
         containerView.backgroundColor = UIColor(rgb: 0xbcc3b0)
-        
+    }
+
+    private func setupConstraints() {
         createContainerViewConstraint()
 //        createBookImageViewConstraint(label: bookImageView)
         createBookTitleConstraint()
@@ -45,7 +51,6 @@ class LibraryTableViewCell: UITableViewCell {
     func configure (with book: Book) {
         bookTitle.text = book.title
         bookAuthor.text = book.author
-        
     }
     
 //    func setupViews(he: CGFloat) {
@@ -53,15 +58,13 @@ class LibraryTableViewCell: UITableViewCell {
 //        }
     
     func createContainerViewConstraint() {
-        containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        containerView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        containerView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         containerView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         
 //        containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: 1)
-//
 //        containerViewHeightConstraint.priority = UILayoutPriority.init(999)
-//
 //        containerViewHeightConstraint.isActive = true
     }
     
@@ -73,14 +76,14 @@ class LibraryTableViewCell: UITableViewCell {
         bookTitle.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
         bookTitle.centerYAnchor.constraint(equalTo: containerView.topAnchor, constant: 20).isActive = true
         bookTitle.widthAnchor.constraint(equalToConstant: 255).isActive = true
-        bookTitle.heightAnchor.constraint(equalToConstant: 28).isActive = true
+        bookTitle.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
     
     func createBookAuthorConstraint() {
         bookAuthor.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
-        bookAuthor.topAnchor.constraint(equalTo: bookTitle.bottomAnchor, constant: 30).isActive = true
+        bookAuthor.topAnchor.constraint(equalTo: bookTitle.bottomAnchor, constant: 10).isActive = true
         bookAuthor.widthAnchor.constraint(equalTo: bookTitle.widthAnchor).isActive = true
-        bookAuthor.heightAnchor.constraint(equalToConstant: 28).isActive = true
+        bookAuthor.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
     
 
