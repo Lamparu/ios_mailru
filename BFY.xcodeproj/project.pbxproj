@@ -17,9 +17,7 @@
 		F5F80CE7272013C500E61826 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F80CE6272013C500E61826 /* AppDelegate.swift */; };
 		F5F80CE9272013C500E61826 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F80CE8272013C500E61826 /* SceneDelegate.swift */; };
 		F5F80CEB272013C500E61826 /* MainBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F80CEA272013C500E61826 /* MainBookViewController.swift */; };
-		F5F80CEE272013C500E61826 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5F80CEC272013C500E61826 /* Main.storyboard */; };
 		F5F80CF0272013CD00E61826 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5F80CEF272013CD00E61826 /* Assets.xcassets */; };
-		F5F80CF3272013CD00E61826 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5F80CF1272013CD00E61826 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,9 +32,7 @@
 		F5F80CE6272013C500E61826 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5F80CE8272013C500E61826 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F5F80CEA272013C500E61826 /* MainBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBookViewController.swift; sourceTree = "<group>"; };
-		F5F80CED272013C500E61826 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F5F80CEF272013CD00E61826 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F5F80CF2272013CD00E61826 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F5F80CF4272013CD00E61826 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,9 +75,7 @@
 				F5F80CE6272013C500E61826 /* AppDelegate.swift */,
 				F5F80CE8272013C500E61826 /* SceneDelegate.swift */,
 				F5F80CEA272013C500E61826 /* MainBookViewController.swift */,
-				F5F80CEC272013C500E61826 /* Main.storyboard */,
 				F5F80CEF272013CD00E61826 /* Assets.xcassets */,
-				F5F80CF1272013CD00E61826 /* LaunchScreen.storyboard */,
 				F5F80CF4272013CD00E61826 /* Info.plist */,
 				1D05AD812742CD8100A84FDE /* TimerViewController.swift */,
 			);
@@ -146,11 +140,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5F80CF3272013CD00E61826 /* LaunchScreen.storyboard in Resources */,
 				1D05AD7C2742CD5300A84FDE /* stopwatch_off.png in Resources */,
 				F5F80CF0272013CD00E61826 /* Assets.xcassets in Resources */,
 				1D05AD802742CD5300A84FDE /* timer_on.png in Resources */,
-				F5F80CEE272013C500E61826 /* Main.storyboard in Resources */,
 				1D05AD7F2742CD5300A84FDE /* stopwatch_on.png in Resources */,
 				1D05AD7D2742CD5300A84FDE /* bookImage.jpeg in Resources */,
 				1D05AD7E2742CD5300A84FDE /* playButton.png in Resources */,
@@ -173,25 +165,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		F5F80CEC272013C500E61826 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F5F80CED272013C500E61826 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		F5F80CF1272013CD00E61826 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F5F80CF2272013CD00E61826 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		F5F80CF5272013CD00E61826 /* Debug */ = {
