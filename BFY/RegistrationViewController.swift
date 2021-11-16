@@ -175,8 +175,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    func createRegLabelConstraint()
-    {
+    func createRegLabelConstraint() {
         regLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         regLabel.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 165).isActive = true
         regLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
@@ -188,80 +187,70 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         regLabel.layer.masksToBounds = false
     }
     
-    func createLoginLabelConstraint()
-    {
+    func createLoginLabelConstraint() {
         loginLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         loginLabel.centerYAnchor.constraint(equalTo: regLabel.bottomAnchor, constant: 70).isActive = true
         loginLabel.widthAnchor.constraint(equalToConstant: 245).isActive = true
         loginLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
     }
     
-    func createLoginTextFieldConstraint()
-    {
+    func createLoginTextFieldConstraint() {
         loginTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         loginTextField.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 2).isActive = true
         loginTextField.widthAnchor.constraint(equalTo: loginLabel.widthAnchor).isActive = true
         loginTextField.heightAnchor.constraint(equalToConstant: 35).isActive = true
     }
     
-    func createEmailLabelConstraint()
-    {
+    func createEmailLabelConstraint() {
         emailLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         emailLabel.centerYAnchor.constraint(equalTo: loginTextField.bottomAnchor, constant: 30).isActive = true
         emailLabel.widthAnchor.constraint(equalTo: loginLabel.widthAnchor).isActive = true
         emailLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
     }
     
-    func createEmailTextFieldConstraint()
-    {
+    func createEmailTextFieldConstraint() {
         emailTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         emailTextField.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 2).isActive = true
         emailTextField.widthAnchor.constraint(equalTo: loginLabel.widthAnchor).isActive = true
         emailTextField.heightAnchor.constraint(equalToConstant: 35).isActive = true
     }
     
-    func createPasswordLabelConstraint()
-    {
+    func createPasswordLabelConstraint() {
         passwordLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         passwordLabel.centerYAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 30).isActive = true
         passwordLabel.widthAnchor.constraint(equalTo: loginLabel.widthAnchor).isActive = true
         passwordLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
     }
     
-    func createPasswordTextFieldConstraint()
-    {
+    func createPasswordTextFieldConstraint() {
         passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         passwordTextField.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 2).isActive = true
         passwordTextField.widthAnchor.constraint(equalTo: loginLabel.widthAnchor).isActive = true
         passwordTextField.heightAnchor.constraint(equalToConstant: 35).isActive = true
     }
     
-    func createPasswordAgainLabelConstraint()
-    {
+    func createPasswordAgainLabelConstraint() {
         passwordAgainLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         passwordAgainLabel.centerYAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 30).isActive = true
         passwordAgainLabel.widthAnchor.constraint(equalTo: loginLabel.widthAnchor).isActive = true
         passwordAgainLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
     }
     
-    func createPasswordAgainTextFieldConstraint()
-    {
+    func createPasswordAgainTextFieldConstraint() {
         passwordAgainTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         passwordAgainTextField.topAnchor.constraint(equalTo: passwordAgainLabel.bottomAnchor, constant: 2).isActive = true
         passwordAgainTextField.widthAnchor.constraint(equalTo: loginLabel.widthAnchor).isActive = true
         passwordAgainTextField.heightAnchor.constraint(equalToConstant: 35).isActive = true
     }
     
-    func createContinueRegButtonConstraint(button: UIButton)
-    {
+    func createContinueRegButtonConstraint(button: UIButton) {
         button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         button.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 130).isActive = true
         button.widthAnchor.constraint(equalToConstant: 240).isActive = true
         button.heightAnchor.constraint(equalToConstant: 65).isActive = true
     }
     
-    func applyShadowOnButtons(button: UIButton)
-    {
+    func applyShadowOnButtons(button: UIButton) {
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 0, height: 3)
         button.layer.shadowOpacity = 0.6
@@ -269,8 +258,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         button.layer.masksToBounds = false
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool
-    {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
     }

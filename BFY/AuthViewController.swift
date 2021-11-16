@@ -7,9 +7,7 @@
 
 import UIKit
 
-
-
-class ViewController: UIViewController {
+class AuthViewController: UIViewController {
 
     let viewImage: UIImageView = {
         let image = UIImage(named: "BFY.png")
@@ -56,8 +54,7 @@ class ViewController: UIViewController {
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     
-    @objc private func didTapRegButton(_ sender: UIButton)
-    {
+    @objc private func didTapRegButton(_ sender: UIButton) {
         let regVC = RegistrationViewController()
         // let navController = UINavigationController(rootViewController: regVC)
 //        self.present(navController, animated: true, completion: nil)
@@ -65,16 +62,14 @@ class ViewController: UIViewController {
         self.navigationController?.pushViewController(regVC, animated: true)
     }
     
-    @objc private func didTapSignInButton(_ sender: UIButton)
-    {
+    @objc private func didTapSignInButton(_ sender: UIButton) {
         let signinVC = SignInViewController()
         // let navController = UINavigationController(rootViewController: regVC)
 //        self.present(navController, animated: true, completion: nil)
         self.navigationController?.pushViewController(signinVC, animated: true)
     }
     
-    func applyShadowOnButtons(button: UIButton)
-    {
+    func applyShadowOnButtons(button: UIButton) {
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 0, height: 3)
         button.layer.shadowOpacity = 0.6
@@ -82,21 +77,18 @@ class ViewController: UIViewController {
         button.layer.masksToBounds = false
     }
     
-    func createButtonSignInConstraint(button: UIButton, to: UIButton)
-    {
+    func createButtonSignInConstraint(button: UIButton, to: UIButton) {
         button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         button.centerYAnchor.constraint(equalTo: to.bottomAnchor, constant: 30).isActive = true
     }
     
-    func createButtonRegConstraint(button: UIButton)
-    {
+    func createButtonRegConstraint(button: UIButton) {
         button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         button.centerYAnchor.constraint(equalTo: viewImage.bottomAnchor, constant: 50).isActive = true
     }
     
     
-    func createViewImageConstraint()
-    {
+    func createViewImageConstraint() {
         viewImage.widthAnchor.constraint(equalToConstant: 400).isActive = true
         viewImage.heightAnchor.constraint(equalToConstant: 200).isActive = true
         viewImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -90).isActive = true

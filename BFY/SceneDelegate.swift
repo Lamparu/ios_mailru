@@ -21,11 +21,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: winScene)
        
         let authVC = AuthViewController()
-        let signInVC = SignInViewController()
+//        let signInVC = SignInViewController()
         
         
         let authController = UINavigationController(rootViewController: authVC)
-        let continueToMainController = UINavigationController(rootViewController: signInVC)
+//        let continueToMainController = UINavigationController(rootViewController: signInVC)
         
         
         window?.rootViewController = authController
