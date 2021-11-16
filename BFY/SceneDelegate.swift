@@ -20,14 +20,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window = UIWindow(windowScene: winScene)
        
-        let HelloVC = ViewController()
-        // let regVC = RegistrationViewController()
+        let authVC = AuthViewController()
+        let signInVC = SignInViewController()
         
         
-        let navController = UINavigationController(rootViewController: HelloVC)
+        let authController = UINavigationController(rootViewController: authVC)
+        let continueToMainController = UINavigationController(rootViewController: signInVC)
         
         
-        window?.rootViewController = navController
+        window?.rootViewController = authController
 
         window?.makeKeyAndVisible()
     }
