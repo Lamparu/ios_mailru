@@ -72,7 +72,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     
     let continueSignInButton: UIButton = {
         let button = UIButton()
-    //continueSignInButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapContinueButton), for: .touchUpInside)
         button.setTitle("Войти", for: .normal)
         button.titleLabel?.textAlignment = .center
     //continueSignInButton.titleEdgeInsets
@@ -266,11 +266,11 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc private func didTapContinueButton(_ sender: UIButton) {
-//        let bookVC = MainBookViewController()
-        // let navController = UINavigationController(rootViewController: regVC)
+        let bookVC = MainBookViewController()
+//         let navController = UINavigationController(rootViewController: regVC)
 //        self.present(navController, animated: true, completion: nil)
         
-//        self.navigationController?.pushViewController(bookVC, animated: true)
+        self.navigationController?.pushViewController(bookVC, animated: true)
     }
     
 //    @objc private func didTapRememberButton(_ sender: UIButton, buttonImage: UIButton, buttonText: UIButton) {
