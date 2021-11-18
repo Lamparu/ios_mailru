@@ -14,6 +14,8 @@
 		518FECDB2742CF5D00C16A1A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518FECDA2742CF5D00C16A1A /* SceneDelegate.swift */; };
 		51B09C732744284B00A3EFF8 /* UIColor+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B09C722744284B00A3EFF8 /* UIColor+extensions.swift */; };
 		51B09C7727442CE700A3EFF8 /* BooksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B09C7627442CE700A3EFF8 /* BooksTableViewController.swift */; };
+		51B09C79274444A300A3EFF8 /* BookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B09C78274444A300A3EFF8 /* BookManager.swift */; };
+		51D09B632746EB450083F029 /* bookImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 51D09B622746EB450083F029 /* bookImage.png */; };
 		F5F80CF0272013CD00E61826 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5F80CEF272013CD00E61826 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +27,8 @@
 		518FECDA2742CF5D00C16A1A /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		51B09C722744284B00A3EFF8 /* UIColor+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extensions.swift"; sourceTree = "<group>"; };
 		51B09C7627442CE700A3EFF8 /* BooksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksTableViewController.swift; sourceTree = "<group>"; };
+		51B09C78274444A300A3EFF8 /* BookManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookManager.swift; sourceTree = "<group>"; };
+		51D09B622746EB450083F029 /* bookImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bookImage.png; path = Assets.xcassets/bookImage.png; sourceTree = "<group>"; };
 		F5F80CE3272013C500E61826 /* BFY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BFY.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5F80CEF272013CD00E61826 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F5F80CF4272013CD00E61826 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -70,6 +74,7 @@
 			children = (
 				51B09C752744293100A3EFF8 /* Extentions */,
 				F5F80CEF272013CD00E61826 /* Assets.xcassets */,
+				51D09B622746EB450083F029 /* bookImage.png */,
 				F5F80CF4272013CD00E61826 /* Info.plist */,
 				518FECD22742CF1400C16A1A /* AppDelegate.swift */,
 				518FECDA2742CF5D00C16A1A /* SceneDelegate.swift */,
@@ -77,6 +82,7 @@
 				518FECD82742CF4F00C16A1A /* LibraryViewController.swift */,
 				518FECD62742CF3B00C16A1A /* LibraryTableViewCell.swift */,
 				518FECD42742CF2500C16A1A /* Book.swift */,
+				51B09C78274444A300A3EFF8 /* BookManager.swift */,
 			);
 			path = BFY;
 			sourceTree = "<group>";
@@ -140,6 +146,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51D09B632746EB450083F029 /* bookImage.png in Resources */,
 				F5F80CF0272013CD00E61826 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,6 +160,7 @@
 			files = (
 				51B09C732744284B00A3EFF8 /* UIColor+extensions.swift in Sources */,
 				518FECDB2742CF5D00C16A1A /* SceneDelegate.swift in Sources */,
+				51B09C79274444A300A3EFF8 /* BookManager.swift in Sources */,
 				51B09C7727442CE700A3EFF8 /* BooksTableViewController.swift in Sources */,
 				518FECD52742CF2500C16A1A /* Book.swift in Sources */,
 				518FECD32742CF1400C16A1A /* AppDelegate.swift in Sources */,

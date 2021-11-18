@@ -37,15 +37,26 @@ extension BooksTableViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 88
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "LibraryTableViewCell", for: indexPath) as? LibraryTableViewCell else {
-            return UITableViewCell() // если не получится скастить ячейку типа LibraryTableViewCell, то вернет дефолтную UITableViewCell
+            return UITableViewCell()
         }
         return cell
     }
+    
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 0
+//    }
+//    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let headerView = UIView()
+//        headerView.backgroundColor = UIColor.clear
+////        headerView.heightAnchor.constraint(equalToConstant: 2).isActive = true
+//        return headerView
+//    }
 }
 
 

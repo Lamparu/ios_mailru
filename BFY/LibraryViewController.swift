@@ -30,6 +30,8 @@ final class LibraryViewController: BooksTableViewController {
     }
     
     private func setupTableView() {
+        books = BookManager.shared.loadBooks()
+        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor(rgb: 0xfffcf4)
@@ -69,7 +71,7 @@ final class LibraryViewController: BooksTableViewController {
         tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
         tableView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -60).isActive = true
-        tableView.heightAnchor.constraint(equalToConstant: 600).isActive = true
+        tableView.heightAnchor.constraint(equalToConstant: 500).isActive = true
     }
 
     func createAddBookButtonConstraint(button: UIButton) {

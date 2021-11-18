@@ -12,7 +12,12 @@ class LibraryTableViewCell: UITableViewCell {
     var containerView: UIView = UIView()
     var bookTitle: UILabel = UILabel()
     var bookAuthor: UILabel = UILabel()
-    var bookImageView: UIImageView = UIImageView()
+    let bookImageView: UIImageView = {
+        let imageName = "bookImage.png"
+        let image = UIImage(named: imageName)
+        let imageView = UIImageView(image: image)
+        return imageView
+    }()
         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -20,6 +25,9 @@ class LibraryTableViewCell: UITableViewCell {
         backgroundColor = UIColor(rgb: 0xfffcf4)
         
         setupContainerView()
+        setupBookTitle()
+        setupBookAuthor()
+        setupBookImageView()
         
         [containerView, bookTitle, bookAuthor, bookImageView].forEach { self.addSubview($0) }
                 
@@ -29,19 +37,43 @@ class LibraryTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-//    var containerViewHeightConstraint: NSLayoutConstraint!
-    
+        
     private func setupContainerView() {
-        containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.layer.cornerRadius = 8
         containerView.layer.masksToBounds = true
         containerView.backgroundColor = UIColor(rgb: 0xbcc3b0)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupBookTitle() {
+        bookTitle.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
+//        bookTitle.textColor = UIColor(rgb: 0x6A7F60)
+        bookTitle.textColor = UIColor.black
+        bookTitle.textAlignment = .left
+        bookTitle.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupBookAuthor() {
+        bookAuthor.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
+//        bookAuthor.textColor = UIColor(rgb: 0x6A7F60)
+        bookAuthor.textColor = UIColor.black
+        bookAuthor.textAlignment = .left
+        bookAuthor.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupBookImageView() {
+        bookImageView.contentMode = .scaleAspectFit
+        bookImageView.translatesAutoresizingMaskIntoConstraints = false
+        bookImageView.backgroundColor = UIColor.clear
+        bookImageView.layer.borderWidth = 1
+        bookImageView.layer.borderColor = UIColor.black.cgColor
+        bookImageView.layer.cornerRadius = 4
+        bookImageView.layer.masksToBounds = true
     }
 
     private func setupConstraints() {
         createContainerViewConstraint()
-//        createBookImageViewConstraint(label: bookImageView)
+        createBookImageViewConstraint()
         createBookTitleConstraint()
 //        createBookTitleConstraint(label: bookTitle, to: bookImageView)
         createBookAuthorConstraint()
@@ -53,35 +85,39 @@ class LibraryTableViewCell: UITableViewCell {
         bookAuthor.text = book.author
     }
     
-//    func setupViews(he: CGFloat) {
-//        containerViewHeightConstraint.constant = he
-//        }
-    
     func createContainerViewConstraint() {
-        containerView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-        containerView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        containerView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        
-//        containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: 1)
-//        containerViewHeightConstraint.priority = UILayoutPriority.init(999)
-//        containerViewHeightConstraint.isActive = true
+        containerView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 3).isActive = true
+        containerView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -3).isActive = true
+        containerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 6).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -6).isActive = true
+        containerView.layer.shadowColor = UIColor.black.cgColor
+        containerView.layer.shadowOffset = CGSize(width: 0, height: 3)
+        containerView.layer.shadowOpacity = 0.7
+        containerView.layer.shadowRadius = 3
+        containerView.layer.masksToBounds = false
     }
     
-//    func createBookImageViewConstraint(label: UIImageView) {
-//        
-//    }
+    func createBookImageViewConstraint() {
+        bookImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 15).isActive = true
+        bookImageView.rightAnchor.constraint(equalTo: containerView.leftAnchor, constant: 60).isActive = true
+        bookImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 6).isActive = true
+        bookImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8).isActive = true
+    }
     
     func createBookTitleConstraint() {
-        bookTitle.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
-        bookTitle.centerYAnchor.constraint(equalTo: containerView.topAnchor, constant: 20).isActive = true
+//        bookTitle.centerXAnchor.constraint(equalTo: bookImageView.leftAnchor, constant: 20).isActive = true
+        bookTitle.leftAnchor.constraint(equalTo: bookImageView.rightAnchor, constant: 15).isActive = true
+        bookTitle.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -15).isActive = true
+        bookTitle.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10).isActive = true
         bookTitle.widthAnchor.constraint(equalToConstant: 255).isActive = true
         bookTitle.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
     
     func createBookAuthorConstraint() {
-        bookAuthor.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
-        bookAuthor.topAnchor.constraint(equalTo: bookTitle.bottomAnchor, constant: 10).isActive = true
+//        bookAuthor.centerXAnchor.constraint(equalTo: containerView.leftAnchor, constant: 200).isActive = true
+        bookAuthor.leftAnchor.constraint(equalTo: bookImageView.rightAnchor, constant: 15).isActive = true
+        bookAuthor.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -15).isActive = true
+        bookAuthor.topAnchor.constraint(equalTo: bookTitle.bottomAnchor).isActive = true
         bookAuthor.widthAnchor.constraint(equalTo: bookTitle.widthAnchor).isActive = true
         bookAuthor.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
