@@ -9,45 +9,27 @@ import UIKit
 
 final class LibraryViewController: BooksTableViewController {
 
-    private var books: [Book] = [.init(title: "Руслан и Людмила", author: "А.С. Пушкин", image: URL(string: ""))]
+    private var books: [Book] = [.init(title: "Гордость и предубеждение", author: "Джейн Остен", image: URL(string: ""))]
 
+    let searchBookBar = UISearchBar()
+//    let addBookButtonContainerView: UIView = UIView()
     let addBookButton = UIButton()
+    let addBookLabel1 = UILabel()
+    let addBookLabel2 = UILabel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupUI()
+        setupSearchBookBar()
         setupTableView()
-        setupButtons()
+        setupAddBookButton()
+        setupAddBookLabel1()
+        setupAddBookLabel2()
         
-        [tableView, addBookButton].forEach { view.addSubview($0) }
+        [searchBookBar, tableView, addBookButton, addBookLabel1, addBookLabel2].forEach { view.addSubview($0) }
         
         setupConstraints()
-    }
-    
-    private func setupUI() {
-        view.backgroundColor = UIColor(rgb: 0xfffcf4)
-    }
-    
-    private func setupTableView() {
-        books = BookManager.shared.loadBooks()
-        
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = UIColor(rgb: 0xfffcf4)
-    }
-    
-    private func setupButtons() {
-//        addBookButton.addTarget(self, action: #selector(didTapAddBookButton), for: .touchUpInside)
-        addBookButton.setTitle("Не нашли книгу?", for: .normal)
-        addBookButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
-        addBookButton.setTitleColor(.black, for: .normal)
-        addBookButton.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    private func setupConstraints() {
-        createLibraryTableConstraint(tableView: tableView)
-        createAddBookButtonConstraint(button: addBookButton)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -67,17 +49,107 @@ final class LibraryViewController: BooksTableViewController {
         return books.count
     }
     
-    func createLibraryTableConstraint(tableView: UITableView) {
+    @objc private func didTapAddBookButton(_ sender: UIButton) {
+        let AddNewBookViewController = AddNewBookViewController()
+        let navController = UINavigationController(rootViewController: AddNewBookViewController)
+        self.present(navController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(AddNewBookViewController, animated: true)
+   }
+    
+    private func setupUI() {
+        view.backgroundColor = UIColor(rgb: 0xfffcf4)
+    }
+    
+    private func setupSearchBookBar() {
+        searchBookBar.barTintColor = UIColor(rgb: 0xfffcf4)
+        searchBookBar.tintColor = UIColor(rgb: 0x666568)
+//        searchBookBar.isTranslucent = true
+        searchBookBar.showsCancelButton = true
+        searchBookBar.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupTableView() {
+        books = BookManager.shared.loadBooks()
+        
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = UIColor(rgb: 0xfffcf4)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupAddBookButton() {
+        addBookButton.addTarget(self, action: #selector(didTapAddBookButton), for: .touchUpInside)
+        addBookButton.setImage(UIImage(named: "addNewBook.png"), for: .normal)
+//        let imageName = "addNewBook.png"
+//        let image = UIImage(named: imageName)
+//        addBookButton.setImage(UIImage(named: imageName), for: .normal)
+//        addBookButton.layer.cornerRadius=50
+//        addBookButton.layer.masksToBounds = true
+        addBookButton.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupAddBookLabel1() {
+        addBookLabel1.text = "Не нашли книгу?"
+        addBookLabel1.font = UIFont(name: "AppleSDGothicNeo-Light", size: 26)
+        addBookLabel1.textColor = UIColor.black
+//        addBookLabel1.textColor = UIColor(rgb: 0x6A7F60)
+        addBookLabel1.textAlignment = .left
+        addBookLabel1.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupAddBookLabel2() {
+        addBookLabel2.text = "Вы можете добавить ее вручную"
+        addBookLabel2.font = UIFont(name: "AppleSDGothicNeo-Light", size: 18)
+        addBookLabel2.numberOfLines = 0
+        addBookLabel2.textColor = UIColor.black
+//        addBookLabel2.textColor = UIColor(rgb: 0x6A7F60)
+        addBookLabel2.textAlignment = .left
+        addBookLabel2.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupConstraints() {
+        createSearchBookBarConstraint()
+        createLibraryTableConstraint()
+        createAddBookButtonConstraint()
+        createAddBookLabel1Constraint()
+        createAddBookLabel2Constraint()
+    }
+    
+    private func createSearchBookBarConstraint() {
+        searchBookBar.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        searchBookBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        searchBookBar.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -60).isActive = true
+        searchBookBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    }
+    
+    private func createLibraryTableConstraint() {
         tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
+        tableView.topAnchor.constraint(equalTo: searchBookBar.bottomAnchor, constant: 10).isActive = true
         tableView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -60).isActive = true
-        tableView.heightAnchor.constraint(equalToConstant: 500).isActive = true
+        tableView.heightAnchor.constraint(equalToConstant: 530).isActive = true
     }
 
-    func createAddBookButtonConstraint(button: UIButton) {
-        button.centerXAnchor.constraint(equalTo: tableView.centerXAnchor).isActive = true
-        button.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100).isActive = true
-        button.widthAnchor.constraint(equalTo: tableView.widthAnchor).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 28).isActive = true
+    private func createAddBookButtonConstraint() {
+        addBookButton.leftAnchor.constraint(equalTo: tableView.leftAnchor, constant: -10).isActive = true
+        addBookButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 15).isActive = true
+        addBookButton.widthAnchor.constraint(equalToConstant: 54).isActive = true
+        addBookButton.heightAnchor.constraint(equalToConstant: 54).isActive = true
+        addBookButton.layer.shadowColor = UIColor.black.cgColor
+        addBookButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+        addBookButton.layer.shadowOpacity = 0.7
+        addBookButton.layer.masksToBounds = false
+    }
+    
+    private func createAddBookLabel1Constraint() {
+        addBookLabel1.leftAnchor.constraint(equalTo: addBookButton.rightAnchor, constant: 10).isActive = true
+        addBookLabel1.rightAnchor.constraint(equalTo: tableView.rightAnchor).isActive = true
+        addBookLabel1.topAnchor.constraint(equalTo: addBookButton.topAnchor, constant: 4).isActive = true
+        addBookLabel1.heightAnchor.constraint(equalToConstant: 28).isActive = true
+    }
+    
+    private func createAddBookLabel2Constraint() {
+        addBookLabel2.leftAnchor.constraint(equalTo: addBookButton.rightAnchor, constant: 10).isActive = true
+        addBookLabel2.rightAnchor.constraint(equalTo: tableView.rightAnchor).isActive = true
+        addBookLabel2.topAnchor.constraint(equalTo: addBookLabel1.bottomAnchor).isActive = true
+//        addBookLabel2.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
 }

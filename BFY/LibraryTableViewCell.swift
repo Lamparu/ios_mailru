@@ -105,20 +105,16 @@ class LibraryTableViewCell: UITableViewCell {
     }
     
     func createBookTitleConstraint() {
-//        bookTitle.centerXAnchor.constraint(equalTo: bookImageView.leftAnchor, constant: 20).isActive = true
         bookTitle.leftAnchor.constraint(equalTo: bookImageView.rightAnchor, constant: 15).isActive = true
         bookTitle.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -15).isActive = true
         bookTitle.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10).isActive = true
-        bookTitle.widthAnchor.constraint(equalToConstant: 255).isActive = true
         bookTitle.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
     
     func createBookAuthorConstraint() {
-//        bookAuthor.centerXAnchor.constraint(equalTo: containerView.leftAnchor, constant: 200).isActive = true
         bookAuthor.leftAnchor.constraint(equalTo: bookImageView.rightAnchor, constant: 15).isActive = true
         bookAuthor.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -15).isActive = true
         bookAuthor.topAnchor.constraint(equalTo: bookTitle.bottomAnchor).isActive = true
-        bookAuthor.widthAnchor.constraint(equalTo: bookTitle.widthAnchor).isActive = true
         bookAuthor.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
     

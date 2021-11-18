@@ -26,7 +26,7 @@ class BookManager: BookManagerProtocol {
     
     func loadBooks() -> [Book] {
         return [
-            Book(title: "Руслан и Людмила", author: "А.С. Пушкин", image: nil),
+            Book(title: "Гордость и предубеждение", author: "Джейн Остен", image: nil),
             Book(title: "Капитанская дочка", author: "А.С. Пушкин", image: nil),
             Book(title: "Руслан и Людмила", author: "А.С. Пушкин", image: nil),
             Book(title: "Капитанская дочка", author: "А.С. Пушкин", image: nil),
