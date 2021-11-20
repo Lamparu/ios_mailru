@@ -61,6 +61,8 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     var loginTextField: UITextField = {
         let textField = UITextField()
+        textField.textContentType = .nickname
+        textField.keyboardType = .emailAddress
         textField.placeholder = "username"
         textField.textAlignment = .center
         textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
@@ -75,6 +77,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     var passwordTextField: UITextField = {
         let textField = UITextField()
+        textField.textContentType = .newPassword
         textField.placeholder = "*****"
         textField.textAlignment = .center
         textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
@@ -90,6 +93,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     var passwordAgainTextField: UITextField = {
         let textField = UITextField()
+        textField.textContentType = .newPassword
         textField.placeholder = "*****"
         textField.textAlignment = .center
         textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
@@ -105,6 +109,8 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     var emailTextField: UITextField = {
         let textField = UITextField()
+        textField.textContentType = .emailAddress
+        textField.keyboardType = .emailAddress
         textField.placeholder = "example@domen.ru"
         textField.textAlignment = .center
         textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
@@ -132,8 +138,9 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupTextFields()
+        setupKeyboard()
         
         [regLabel, loginLabel, loginTextField, emailLabel,
          emailTextField, passwordLabel, passwordTextField,
@@ -143,6 +150,12 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         setupBackground()
         setupConstraints()
         setupShadows()
+    }
+    
+    private func setupKeyboard()
+    {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     private func setupShadows() {
@@ -260,5 +273,16 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
         return false
     }
-
+    
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        if self.view.frame.origin.y == 0 {
+            self.view.frame.origin.y -= 100
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
 }

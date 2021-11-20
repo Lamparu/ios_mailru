@@ -55,6 +55,8 @@ class AuthViewController: UIViewController {
         setupShadows()
         setupConstraint()
         setupNavBarButton()
+        
+        
     }
     
     private func setupBackground() {

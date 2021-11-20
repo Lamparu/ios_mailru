@@ -11,6 +11,9 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     
     var loginTextField: UITextField = {
         let textField = UITextField()
+        textField.keyboardType = .emailAddress
+        textField.textContentType = .nickname
+//        textField.textContentType = .emailAddress
         textField.placeholder = "Электронная почта/Логин"
         textField.textAlignment = .center
         textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
@@ -21,6 +24,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     
     var passwordTextField: UITextField = {
         let textField = UITextField()
+        textField.textContentType = .password
         textField.placeholder = "Пароль"
         textField.textAlignment = .center
         textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
@@ -121,6 +125,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         setupBackground()
         setupConstraints()
         setupShadows()
+        
+        rememberButton.isSelected = false
     }
     
     private func setupShadows() {
