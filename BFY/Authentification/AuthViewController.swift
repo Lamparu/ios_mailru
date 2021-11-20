@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  AuthViewController.swift
 //  BFY
 //
 //  Created by Влада Приходченко on 20.10.2021.
@@ -17,40 +17,62 @@ class AuthViewController: UIViewController {
         return imageView
     }()
     
+    let RegButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(didTapRegButton), for: .touchUpInside)
+        button.setTitle("Регистрация", for: .normal)
+        button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 36)
+        button.setTitleColor(.black, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
+    let SignInButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(didTapSignInButton), for: .touchUpInside)
+        button.setTitle("Вход", for: .normal)
+        button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 36)
+        button.setTitleColor(.black, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let backButton: UIBarButtonItem = {
+        let button = UIBarButtonItem()
+        button.title = ""
+//        backButton.image = UIImage(named: "box_filled")
+        button.tintColor = UIColor(rgb: 0x6A7F60)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        [viewImage, RegButton, SignInButton].forEach {view.addSubview($0)}
+        
+        setupBackground()
+        setupShadows()
+        setupConstraint()
+        setupNavBarButton()
+    }
+    
+    private func setupBackground() {
         view.backgroundColor = UIColor(rgb: 0xfffcf4)
-        
-        view.addSubview(viewImage)
-        
-        createViewImageConstraint()
-        
-        let RegButton = UIButton()
-        RegButton.addTarget(self, action: #selector(didTapRegButton), for: .touchUpInside)
-        RegButton.setTitle("Регистрация", for: .normal)
-        RegButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 36)
-        RegButton.setTitleColor(.black, for: .normal)
-        RegButton.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupShadows() {
         applyShadowOnButtons(button: RegButton)
-        
-        let SignInButton = UIButton()
-        SignInButton.addTarget(self, action: #selector(didTapSignInButton), for: .touchUpInside)
-        SignInButton.setTitle("Вход", for: .normal)
-        SignInButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 36)
-        SignInButton.setTitleColor(.black, for: .normal)
-        SignInButton.translatesAutoresizingMaskIntoConstraints = false
         applyShadowOnButtons(button: SignInButton)
-        
-        view.addSubview(RegButton)
-        view.addSubview(SignInButton)
-        
+    }
+    
+    private func setupConstraint() {
+        createViewImageConstraint()
         createButtonRegConstraint(button: RegButton)
         createButtonSignInConstraint(button: SignInButton, to: RegButton)
-        
-        let backButton = UIBarButtonItem()
-        backButton.title = ""
-//        backButton.image = UIImage(named: "box_filled")
-        backButton.tintColor = UIColor(rgb: 0x6A7F60)
+    }
+    
+    private func setupNavBarButton() {
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     

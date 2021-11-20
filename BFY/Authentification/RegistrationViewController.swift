@@ -1,5 +1,5 @@
 //
-//  MainBookViewController.swift
+//  RegistrationViewController.swift
 //  BFY
 //
 //  Created by Влада Приходченко on 28.10.2021.
@@ -16,7 +16,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         label.textColor = UIColor(rgb: 0x6A7F60)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
-        
         return label
     }()
     
@@ -27,7 +26,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         label.textColor = UIColor(rgb: 0x6A7F60)
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
-        
         return label
     }()
     
@@ -38,7 +36,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         label.textColor = UIColor(rgb: 0x6A7F60)
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
-        
         return label
     }()
     
@@ -49,7 +46,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         label.textColor = UIColor(rgb: 0x6A7F60)
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
-        
         return label
     }()
     
@@ -60,7 +56,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         label.textColor = UIColor(rgb: 0x6A7F60)
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
-        
         return label
     }()
     
@@ -75,7 +70,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         textField.layer.backgroundColor = UIColor(rgb: 0xFFFEFC).cgColor
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.borderWidth = 1
-        
         return textField
     }()
     
@@ -91,7 +85,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         textField.layer.backgroundColor = UIColor(rgb: 0xFFFEFC).cgColor
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.borderWidth = 1
-        
         return textField
     }()
     
@@ -107,7 +100,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         textField.layer.backgroundColor = UIColor(rgb: 0xFFFEFC).cgColor
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.borderWidth = 1
-        
         return textField
     }()
     
@@ -122,32 +114,42 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         textField.layer.backgroundColor = UIColor(rgb: 0xFFFEFC).cgColor
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.borderWidth = 1
-        
         return textField
     }()
     
-    
+    let continueRegButton: UIButton = {
+        let button = UIButton()
+    //button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        button.setTitle("Продолжить", for: .normal)
+        button.titleLabel?.textAlignment = .center
+        button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 32)
+        button.setTitleColor(UIColor(rgb: 0xfffcf4), for: .normal)
+        button.backgroundColor = UIColor(rgb: 0x6A7F60)
+        button.layer.cornerRadius = 20
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        loginTextField.delegate = self
-        passwordTextField.delegate = self
-        passwordAgainTextField.delegate = self
-        emailTextField.delegate = self
+        setupTextFields()
         
-        view.addSubview(regLabel)
-        view.addSubview(loginLabel)
-        view.addSubview(loginTextField)
-        view.addSubview(emailLabel)
-        view.addSubview(emailTextField)
-        view.addSubview(passwordLabel)
-        view.addSubview(passwordTextField)
-        view.addSubview(passwordAgainLabel)
-        view.addSubview(passwordAgainTextField)
+        [regLabel, loginLabel, loginTextField, emailLabel,
+         emailTextField, passwordLabel, passwordTextField,
+         passwordAgainLabel, passwordAgainTextField,
+         continueRegButton].forEach {view.addSubview($0)}
         
-        view.backgroundColor = UIColor(rgb: 0xfffcf4)
-        
+        setupBackground()
+        setupConstraints()
+        setupShadows()
+    }
+    
+    private func setupShadows() {
+        applyShadowOnButtons(button: continueRegButton)
+    }
+    
+    private func setupConstraints() {
         createRegLabelConstraint()
         createLoginLabelConstraint()
         createLoginTextFieldConstraint()
@@ -157,22 +159,18 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         createPasswordTextFieldConstraint()
         createPasswordAgainLabelConstraint()
         createPasswordAgainTextFieldConstraint()
-        
-        let continueRegButton = UIButton()
-        //continueSignInButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
-        continueRegButton.setTitle("Продолжить", for: .normal)
-        continueRegButton.titleLabel?.textAlignment = .center
-        continueRegButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 32)
-        continueRegButton.setTitleColor(UIColor(rgb: 0xfffcf4), for: .normal)
-        continueRegButton.backgroundColor = UIColor(rgb: 0x6A7F60)
-        continueRegButton.layer.cornerRadius = 20
-        continueRegButton.translatesAutoresizingMaskIntoConstraints = false
-        applyShadowOnButtons(button: continueRegButton)
-        
-        view.addSubview(continueRegButton)
-        
-        createContinueRegButtonConstraint(button: continueRegButton)
-        
+        createContinueRegButtonConstraint()
+    }
+    
+    private func setupBackground() {
+        view.backgroundColor = UIColor(rgb: 0xfffcf4)
+    }
+    
+    private func setupTextFields() {
+        loginTextField.delegate = self
+        passwordTextField.delegate = self
+        passwordAgainTextField.delegate = self
+        emailTextField.delegate = self
     }
     
     func createRegLabelConstraint() {
@@ -243,11 +241,11 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         passwordAgainTextField.heightAnchor.constraint(equalToConstant: 35).isActive = true
     }
     
-    func createContinueRegButtonConstraint(button: UIButton) {
-        button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        button.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 130).isActive = true
-        button.widthAnchor.constraint(equalToConstant: 240).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 65).isActive = true
+    func createContinueRegButtonConstraint() {
+        continueRegButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        continueRegButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 130).isActive = true
+        continueRegButton.widthAnchor.constraint(equalToConstant: 240).isActive = true
+        continueRegButton.heightAnchor.constraint(equalToConstant: 65).isActive = true
     }
     
     func applyShadowOnButtons(button: UIButton) {
@@ -262,17 +260,5 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
         return false
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
 
 }

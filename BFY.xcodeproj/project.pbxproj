@@ -43,6 +43,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F57AA60027492C9D009387A0 /* Authentification */ = {
+			isa = PBXGroup;
+			children = (
+				F5BE1ABD2744328900A17D23 /* AuthViewController.swift */,
+				F58BB451272A7F1A00462654 /* RegistrationViewController.swift */,
+				F5BE1AB9274188D000A17D23 /* SignInViewController.swift */,
+			);
+			path = Authentification;
+			sourceTree = "<group>";
+		};
 		F5CE4D3D272AF4C40095040D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -70,14 +80,12 @@
 		F5F80CE5272013C500E61826 /* BFY */ = {
 			isa = PBXGroup;
 			children = (
+				F57AA60027492C9D009387A0 /* Authentification */,
 				F5CE4D3D272AF4C40095040D /* Extensions */,
 				F5F80CE6272013C500E61826 /* AppDelegate.swift */,
 				F5F80CE8272013C500E61826 /* SceneDelegate.swift */,
 				F5F80CEF272013CD00E61826 /* Assets.xcassets */,
 				F5F80CF4272013CD00E61826 /* Info.plist */,
-				F5BE1ABD2744328900A17D23 /* AuthViewController.swift */,
-				F58BB451272A7F1A00462654 /* RegistrationViewController.swift */,
-				F5BE1AB9274188D000A17D23 /* SignInViewController.swift */,
 				F5F80CEA272013C500E61826 /* MainBookViewController.swift */,
 				1D05AD812742CD8100A84FDE /* TimerViewController.swift */,
 			);
