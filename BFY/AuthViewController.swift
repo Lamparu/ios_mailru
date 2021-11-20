@@ -10,7 +10,7 @@ import UIKit
 class AuthViewController: UIViewController {
 
     let viewImage: UIImageView = {
-        let image = UIImage(named: "BFY.png")
+        let image = UIImage(named: "BFY")
         let imageView = UIImageView(image: image!)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         

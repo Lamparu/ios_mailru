@@ -23,7 +23,7 @@ class TimerViewContoller: UIViewController {
     let stopwatchButton: UIButton = {
         let Button = UIButton()
         Button.addTarget(self, action: #selector(didTapTimerButton), for: .valueChanged)
-        Button.setImage(UIImage(named: "stopwatch.png"), for: .normal)
+        Button.setImage(UIImage(named: "stopwatch"), for: .normal)
         Button.translatesAutoresizingMaskIntoConstraints = false
         return Button
     } ()
@@ -31,7 +31,7 @@ class TimerViewContoller: UIViewController {
     let timerButton: UIButton = {
         let Button = UIButton()
         Button.addTarget(self, action: #selector(didTapTimerButton), for: .valueChanged)
-        Button.setImage(UIImage(named: "timer.png"), for: .normal)
+        Button.setImage(UIImage(named: "timer"), for: .normal)
         Button.translatesAutoresizingMaskIntoConstraints = false
         return Button
     } ()

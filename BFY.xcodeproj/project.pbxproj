@@ -7,16 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D05AD7B2742CD5300A84FDE /* timer_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D05AD752742CD5100A84FDE /* timer_off.png */; };
-		1D05AD7C2742CD5300A84FDE /* stopwatch_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D05AD762742CD5100A84FDE /* stopwatch_off.png */; };
-		1D05AD7D2742CD5300A84FDE /* bookImage.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 1D05AD772742CD5200A84FDE /* bookImage.jpeg */; };
-		1D05AD7E2742CD5300A84FDE /* playButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D05AD782742CD5200A84FDE /* playButton.png */; };
-		1D05AD7F2742CD5300A84FDE /* stopwatch_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D05AD792742CD5200A84FDE /* stopwatch_on.png */; };
-		1D05AD802742CD5300A84FDE /* timer_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D05AD7A2742CD5300A84FDE /* timer_on.png */; };
 		1D05AD822742CD8100A84FDE /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D05AD812742CD8100A84FDE /* TimerViewController.swift */; };
-		F57AA5FD2746A9D2009387A0 /* bookImage.png in Resources */ = {isa = PBXBuildFile; fileRef = F57AA5FA2746A9D2009387A0 /* bookImage.png */; };
-		F57AA5FE2746A9D2009387A0 /* stopwatch.png in Resources */ = {isa = PBXBuildFile; fileRef = F57AA5FB2746A9D2009387A0 /* stopwatch.png */; };
-		F57AA5FF2746A9D2009387A0 /* timer.png in Resources */ = {isa = PBXBuildFile; fileRef = F57AA5FC2746A9D2009387A0 /* timer.png */; };
 		F58BB452272A7F1A00462654 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58BB451272A7F1A00462654 /* RegistrationViewController.swift */; };
 		F5BE1ABA274188D000A17D23 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BE1AB9274188D000A17D23 /* SignInViewController.swift */; };
 		F5BE1ABE2744328900A17D23 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BE1ABD2744328900A17D23 /* AuthViewController.swift */; };
@@ -169,16 +160,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D05AD7C2742CD5300A84FDE /* stopwatch_off.png in Resources */,
 				F5F80CF0272013CD00E61826 /* Assets.xcassets in Resources */,
-				1D05AD802742CD5300A84FDE /* timer_on.png in Resources */,
-				F57AA5FF2746A9D2009387A0 /* timer.png in Resources */,
-				1D05AD7F2742CD5300A84FDE /* stopwatch_on.png in Resources */,
-				1D05AD7D2742CD5300A84FDE /* bookImage.jpeg in Resources */,
-				F57AA5FE2746A9D2009387A0 /* stopwatch.png in Resources */,
-				1D05AD7E2742CD5300A84FDE /* playButton.png in Resources */,
-				F57AA5FD2746A9D2009387A0 /* bookImage.png in Resources */,
-				1D05AD7B2742CD5300A84FDE /* timer_off.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

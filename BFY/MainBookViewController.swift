@@ -17,7 +17,7 @@ class MainBookViewController: UIViewController {
     }()
     
     let bookImage: UIImageView = {
-        let imageName = "bookImage.png" //подгуржать с бэкэнда
+        let imageName = "bookImage" //подгуржать с бэкэнда
         let image = UIImage(named: imageName)
         let imageView = UIImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +30,7 @@ class MainBookViewController: UIViewController {
     let playButton: UIButton = {
         let playButton = UIButton()
         playButton.addTarget(self, action: #selector(didTapRegButton), for: .touchUpInside)
-        let imageName = "playButton.png"
+        let imageName = "playButton"
         let image = UIImage(named: imageName)
         playButton.setImage(UIImage(named: imageName), for: .normal)
         playButton.layer.cornerRadius=50
