@@ -1,5 +1,6 @@
 import UIKit
 
+
 class MainBookViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
@@ -16,7 +17,7 @@ class MainBookViewController: UIViewController {
     }()
     
     let bookImage: UIImageView = {
-        let imageName = "bookImage.jpeg" //подгуржать с бэкэнда
+        let imageName = "bookImage.png" //подгуржать с бэкэнда
         let image = UIImage(named: imageName)
         let imageView = UIImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,22 +40,22 @@ class MainBookViewController: UIViewController {
     } ()
     
     let stringBookName: UILabel = {
-        let text = "Капитанская дочка"
+        let text = "Гордость и предубеждение"
         let str = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         str.text = text
         str.textColor = UIColor.black
-        str.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
+        str.font = UIFont(name: "AppleSDGothicNeo-Light", size: 26)
         str.textAlignment = .center
         str.translatesAutoresizingMaskIntoConstraints = false
         return str
     }()
     
     let stringBookAuthor: UILabel = {
-        let text = "А. С. Пушкин"
-        let str = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        let text = "Джейн Остен"
+        let str = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 24))
         str.text = text
         str.textColor = UIColor.darkGray
-        str.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
+        str.font = UIFont(name: "AppleSDGothicNeo-Light", size: 26)
         str.textAlignment = .center
         str.translatesAutoresizingMaskIntoConstraints = false
         return str
@@ -66,6 +67,7 @@ class MainBookViewController: UIViewController {
     textField.placeholder = "\(list) стр.";// str (число из бэка данные по этой книге)
     textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 25)
     textField.borderStyle = UITextField.BorderStyle.roundedRect
+    textField.textAlignment = .center
     textField.layer.cornerRadius = 20
     textField.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
     textField.layer.borderColor = UIColor(rgb: 0x6A7F60).cgColor
@@ -79,11 +81,11 @@ class MainBookViewController: UIViewController {
     
     
     let stringToListsField: UILabel = {
-        let text = "Останавились на"
+        let text = "Остановились на"
         let str = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         str.text = text
-        str.textColor = UIColor(rgb: 0x6A7F60)
-        str.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
+        str.textColor = UIColor.black
+        str.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
         str.textAlignment = .center
         str.translatesAutoresizingMaskIntoConstraints = false
         return str
@@ -111,6 +113,11 @@ class MainBookViewController: UIViewController {
         applyShadowOnButtons(button: playButton)
 
         // Do any additional setup after loading the view.
+        
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = UIColor(rgb: 0x6A7F60)
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     
     func createMainBookConstraint(){
@@ -121,45 +128,45 @@ class MainBookViewController: UIViewController {
     }
     
     func createbookImageConstraint(){
-        bookImage.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        bookImage.heightAnchor.constraint(equalToConstant: 263).isActive = true
-        bookImage.centerYAnchor.constraint(equalTo: mainFrame.centerYAnchor, constant: -70).isActive = true
+        bookImage.widthAnchor.constraint(equalToConstant: bookImage.frame.width / 2).isActive = true
+        bookImage.heightAnchor.constraint(equalToConstant: bookImage.frame.height / 2).isActive = true
+        bookImage.topAnchor.constraint(equalTo: mainFrame.topAnchor, constant: 30).isActive = true
         bookImage.centerXAnchor.constraint(equalTo: mainFrame.centerXAnchor).isActive = true
         
     }
     func createstringBookNameConstraint() {
         stringBookName.centerXAnchor.constraint(equalTo: bookImage.centerXAnchor).isActive = true
-        stringBookName.centerYAnchor.constraint(equalTo: bookImage.bottomAnchor, constant: 20).isActive = true
+        stringBookName.centerYAnchor.constraint(equalTo: bookImage.bottomAnchor, constant: 30).isActive = true
         
     }
     
     func createstringBookAuthorConstraint() {
         stringBookAuthor.centerXAnchor.constraint(equalTo: stringBookName.centerXAnchor).isActive = true
-        stringBookAuthor.centerYAnchor.constraint(equalTo: stringBookName.bottomAnchor, constant: 10).isActive = true
+        stringBookAuthor.centerYAnchor.constraint(equalTo: stringBookName.bottomAnchor, constant: 20).isActive = true
         
     }
     
     func createNumberOfListsFieldConstraint() {
         numberOfListsField.centerXAnchor.constraint(equalTo: stringBookAuthor.centerXAnchor).isActive = true
-        numberOfListsField.centerYAnchor.constraint(equalTo: stringBookAuthor.bottomAnchor, constant: 50).isActive = true
+        numberOfListsField.bottomAnchor.constraint(equalTo: mainFrame.bottomAnchor, constant: -30).isActive = true
         
     }
     
     func createstringToListsFieldConstraint() {
         stringToListsField.centerXAnchor.constraint(equalTo: numberOfListsField.centerXAnchor).isActive = true
-        stringToListsField.centerYAnchor.constraint(equalTo: numberOfListsField.topAnchor, constant: -10).isActive = true
+        stringToListsField.centerYAnchor.constraint(equalTo: numberOfListsField.topAnchor, constant: -20).isActive = true
         
     }
 
     
     @objc private func didTapRegButton(_ sender: UIButton) {
-            let Timer = TimerViewContoller()
-//           let navController = UINavigationController(rootViewController: Timer)
-//            self.present(navController, animated: true, completion: nil)
-            self.navigationController?.pushViewController(Timer, animated: true)
-            
-            
-        }
+               let Timer = TimerViewContoller()
+   //           let navController = UINavigationController(rootViewController: Timer)
+   //            self.present(navController, animated: true, completion: nil)
+               self.navigationController?.pushViewController(Timer, animated: true)
+               
+               
+           }
     
     func applyShadowOnButtons(button: UIButton) {
             button.layer.shadowColor = UIColor.black.cgColor
@@ -176,4 +183,3 @@ class MainBookViewController: UIViewController {
 
 
 }
-
