@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 
 class RegistrationViewController: UIViewController, UITextFieldDelegate {
 
@@ -73,6 +74,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         textField.layer.backgroundColor = UIColor(rgb: 0xFFFEFC).cgColor
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.borderWidth = 1
+        textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         return textField
     }()
     
@@ -89,6 +91,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         textField.layer.backgroundColor = UIColor(rgb: 0xFFFEFC).cgColor
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.borderWidth = 1
+        textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         return textField
     }()
     
@@ -105,6 +108,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         textField.layer.backgroundColor = UIColor(rgb: 0xFFFEFC).cgColor
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.borderWidth = 1
+        textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         return textField
     }()
     
@@ -121,6 +125,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         textField.layer.backgroundColor = UIColor(rgb: 0xFFFEFC).cgColor
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.borderWidth = 1
+        textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         return textField
     }()
     
@@ -131,7 +136,8 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 32)
         button.setTitleColor(UIColor(rgb: 0xfffcf4), for: .normal)
-        button.backgroundColor = UIColor(rgb: 0x6A7F60)
+//        button.backgroundColor = UIColor(rgb: 0x6A7F60)
+        button.backgroundColor = UIColor(rgb: 0x919F8B)
         button.layer.cornerRadius = 20
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -287,27 +293,81 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    private func showAlert() {
+    private func showFieldsAlert() {
         let alert = UIAlertController(title: "Error", message: "Заполните все поля", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
     
-    private func showPswdAlert() {
-        let alert = UIAlertController(title: "Error", message: "Пароли должны совпадать", preferredStyle: .alert)
+    private func showPswdSameAlert() {
+        let alert = UIAlertController(title: "Ошибка", message: "Пароли должны совпадать", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
     
+    private func showPswdLenAlert() {
+        let alert = UIAlertController(title: "Ошибка", message: "Пароль должен быть не менее 6 символов", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func showEmailAlert() {
+        let alert = UIAlertController(title: "Ошибка", message: "Введите корректную электронную почту", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func showEmailInUseAlert() {
+        let alert = UIAlertController(title: "Ошибка", message: "Почта уже используется", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func showErrorAlert() {
+        let alert = UIAlertController(title: "Ошибка", message: "Неизвестная ошибка", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func showNetworkAlert() {
+        let alert = UIAlertController(title: "Ошибка", message: "Ошибка интернет-соединения", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    @objc private func handleTextInputChange() {
+        let isFormValid = emailTextField.text?.count ?? 0 > 0 &&
+        loginTextField.text?.count ?? 0 > 0 &&
+        passwordTextField.text?.count ?? 0 > 0 &&
+        passwordAgainTextField.text?.count ?? 0 > 0
+        
+        if isFormValid {
+//            continueRegButton.backgroundColor = UIColor(rgb: 0x919F8B)
+            continueRegButton.backgroundColor = UIColor(rgb: 0x6A7F60)
+        } else {
+//            continueRegButton.backgroundColor = UIColor(rgb: 0x6A7F60)
+            continueRegButton.backgroundColor = UIColor(rgb: 0x919F8B)
+        }
+    }
+    
     @objc private func didTapRegButton(_ sender: UIButton) {
-        let email = emailTextField.text!
-        let pswd = passwordTextField.text!
-        let login = loginTextField.text!
-        let pswd_again = passwordAgainTextField.text!
+        guard let email = emailTextField.text,
+              let pswd = passwordTextField.text,
+              let login = loginTextField.text,
+              let pswd_again = passwordAgainTextField.text
+        else { return }
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         
         if (!email.isEmpty && !pswd.isEmpty && !login.isEmpty && !pswd_again.isEmpty) {
-            if (pswd != pswd_again) {
-                showPswdAlert()
+            if (!emailPred.evaluate(with: email)) {
+                showEmailAlert()
+            } else if (pswd != pswd_again) {
+                showPswdSameAlert()
+            } else if (pswd.count < 6) {
+                showPswdLenAlert()
+//            } else if {
+//                FIRAuth.auth().getUserByEmail(email)
             } else {
                 Auth.auth().createUser(withEmail: email, password: pswd) { (result, error) in
                     if error == nil {
@@ -316,11 +376,30 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
                             let bookVC = MainBookViewController()
                             self.navigationController?.pushViewController(bookVC, animated: true)
                         }
+                    } else {
+                        print(error!)
+                        print(error!.localizedDescription)
+                        guard let err = error else { return }
+                        guard let errCode = AuthErrorCode(rawValue: err._code) else { return }
+                            switch errCode {
+                            case .emailAlreadyInUse:
+                                self.showEmailInUseAlert()
+//                            case .authInternalErrorCodeInvalidEmail:
+//                                showEmailAlert()
+                            case .invalidEmail:
+                                self.showEmailAlert()
+//                            case .authInternalErrorCodeEmailAlreadyInUse:
+//                                showEmailInUseAlert()
+                            case .networkError:
+                                self.showNetworkAlert()
+                            default:
+                                self.showErrorAlert()
+                            }
+                        }
                     }
                 }
-            }
         } else {
-            showAlert()
+            showFieldsAlert()
         }
     }
 }

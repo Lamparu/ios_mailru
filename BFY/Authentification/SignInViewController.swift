@@ -109,7 +109,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         button.setTitle("Запомнить меня", for: .normal)
         button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
         button.setTitleColor(.black, for: .normal)
-        button.addTarget(self, action: #selector(didTapTextRememberButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapRememberButton), for: .touchUpInside)
         return button
     }()
     
@@ -244,24 +244,14 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         button.layer.masksToBounds = false
     }
     
-    private func changeRememberButtonState() {
+    @objc private func didTapRememberButton(_ sender: UIButton) {
         if rememberButton.isSelected {
-            rememberButton.setBackgroundImage(UIImage(named: "box_filled"), for: .normal)
+            rememberButton.setBackgroundImage(UIImage(named: "box_empty"), for: .normal)
             rememberButton.isSelected = false
         } else {
-            rememberButton.setBackgroundImage(UIImage(named: "box_empty"), for:.normal)
+            rememberButton.setBackgroundImage(UIImage(named: "box_filled"), for:.normal)
             rememberButton.isSelected = true
         }
-    }
-    
-    @objc private func didTapRememberButton(_ sender: UIButton) {
-        
-        changeRememberButtonState()
-        //sender.isSelected = !sender.isSelected
-    }
-    
-    @objc private func didTapTextRememberButton(_ sender: UIButton) {
-        changeRememberButtonState()
         //sender.isSelected = !sender.isSelected
     }
     
