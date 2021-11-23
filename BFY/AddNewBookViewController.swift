@@ -12,7 +12,7 @@ class AddNewBookViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.gray
+        view.backgroundColor = UIColor(rgb: 0xfffcf4)
         // Do any additional setup after loading the view.
     }
     

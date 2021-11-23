@@ -86,8 +86,8 @@ class LibraryTableViewCell: UITableViewCell {
     }
     
     func createContainerViewConstraint() {
-        containerView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 3).isActive = true
-        containerView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -3).isActive = true
+        containerView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30).isActive = true
+        containerView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -30).isActive = true
         containerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 6).isActive = true
         containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -6).isActive = true
         containerView.layer.shadowColor = UIColor.black.cgColor
