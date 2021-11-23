@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class RegistrationViewController: UIViewController, UITextFieldDelegate {
 
@@ -125,7 +126,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     let continueRegButton: UIButton = {
         let button = UIButton()
-    //button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapRegButton), for: .touchUpInside)
         button.setTitle("Продолжить", for: .normal)
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 32)
@@ -280,9 +281,46 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    @objc func keyboardWillHide(notification: NSNotification) {
+    @objc private func keyboardWillHide(notification: NSNotification) {
         if self.view.frame.origin.y != 0 {
             self.view.frame.origin.y = 0
+        }
+    }
+    
+    private func showAlert() {
+        let alert = UIAlertController(title: "Error", message: "Заполните все поля", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func showPswdAlert() {
+        let alert = UIAlertController(title: "Error", message: "Пароли должны совпадать", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    @objc private func didTapRegButton(_ sender: UIButton) {
+        let email = emailTextField.text!
+        let pswd = passwordTextField.text!
+        let login = loginTextField.text!
+        let pswd_again = passwordAgainTextField.text!
+        
+        if (!email.isEmpty && !pswd.isEmpty && !login.isEmpty && !pswd_again.isEmpty) {
+            if (pswd != pswd_again) {
+                showPswdAlert()
+            } else {
+                Auth.auth().createUser(withEmail: email, password: pswd) { (result, error) in
+                    if error == nil {
+                        if let result = result {
+                            print(result.user.uid)
+                            let bookVC = MainBookViewController()
+                            self.navigationController?.pushViewController(bookVC, animated: true)
+                        }
+                    }
+                }
+            }
+        } else {
+            showAlert()
         }
     }
 }
