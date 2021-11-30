@@ -87,6 +87,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     
     let forgetButton: UIButton = {
         let button = UIButton()
+        button.addTarget(self, action: #selector(didTapForgotPswdButton), for: .touchUpInside)
         button.setTitle("Забыли пароль?", for: .normal)
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
@@ -224,7 +225,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     
     func createForgetButtonConstraint() {
         forgetButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        forgetButton.topAnchor.constraint(equalTo: line2.bottomAnchor, constant: 27).isActive = true
+        forgetButton.topAnchor.constraint(equalTo: line2.bottomAnchor, constant: 50).isActive = true
         forgetButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         forgetButton.widthAnchor.constraint(equalToConstant: 180).isActive = true
     }
@@ -270,6 +271,36 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         let alert = UIAlertController(title: "Ошибка", message: err, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
+    }
+    
+    @objc private func didTapForgotPswdButton(_ sender: UIButton) {
+        guard let email = loginTextField.text
+        else { return }
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        
+        if (email.isEmpty) {
+            showMessageAlert(err: "Введите электронную почту")
+        } else if !emailPred.evaluate(with: email) {
+            showMessageAlert(err: "Введите корректную электронную почту")
+        } else {
+            Auth.auth().sendPasswordReset(withEmail: email) { error in
+                if error != nil {
+                    guard let err = error else { return }
+                    guard let errCode = AuthErrorCode(rawValue: err._code) else { return }
+                    switch errCode {
+                    case .invalidEmail:
+                        self.showMessageAlert(err: "Введите корректную электронную почту")
+                    case .networkError:
+                        self.showMessageAlert(err: "Ошибка Интернет-соединения")
+                    case .userNotFound:
+                        self.showMessageAlert(err: "Пользователь не найден")
+                    default:
+                        self.showMessageAlert(err: "Неизвестная ошибка")
+                    }
+                }
+            }
+        }
     }
 
     @objc private func didTapContinueButton(_ sender: UIButton) {
