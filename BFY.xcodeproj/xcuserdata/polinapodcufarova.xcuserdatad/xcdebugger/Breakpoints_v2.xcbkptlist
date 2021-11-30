@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "B1D51F12-DC57-4BC2-A7CE-0A8425215D5C"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6030AD87-0552-46E7-9E3C-377B35071944"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BFY/MainBookViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "bookImage"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "6030AD87-0552-46E7-9E3C-377B35071944 - 5660ca3ad190bb03"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BFY.MainBookViewController.__allocating_init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; BFY.MainBookViewController"
+                  moduleName = "BFY"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/polinapodcufarova/Desktop/ios_mailru/BFY/MainBookViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "31">
+               </Location>
+               <Location
+                  uuid = "6030AD87-0552-46E7-9E3C-377B35071944 - 4dc6845ddb0b061a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BFY.MainBookViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; BFY.MainBookViewController"
+                  moduleName = "BFY"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/polinapodcufarova/Desktop/ios_mailru/BFY/MainBookViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "178">
+               </Location>
+               <Location
+                  uuid = "6030AD87-0552-46E7-9E3C-377B35071944 - c41334eb9c2659f0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BFY.MainBookViewController.__allocating_init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;BFY.MainBookViewController&gt;"
+                  moduleName = "BFY"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/polinapodcufarova/Desktop/ios_mailru/BFY/MainBookViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "23">
+               </Location>
+               <Location
+                  uuid = "6030AD87-0552-46E7-9E3C-377B35071944 - 4949194289ffb8bf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BFY.MainBookViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;BFY.MainBookViewController&gt;"
+                  moduleName = "BFY"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/polinapodcufarova/Desktop/ios_mailru/BFY/MainBookViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "126">
+               </Location>
+               <Location
+                  uuid = "6030AD87-0552-46E7-9E3C-377B35071944 - 6e71a471a9253e94"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BFY.MainBookViewController.__deallocating_deinit"
+                  moduleName = "BFY"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/polinapodcufarova/Desktop/ios_mailru/BFY/MainBookViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
