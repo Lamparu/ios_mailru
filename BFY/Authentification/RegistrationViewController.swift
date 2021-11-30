@@ -304,7 +304,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     }
 
     private func showMessageAlert(err: String) {
-        let alert = UIAlertController(title: "Error", message: err, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Ошибка", message: err, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
