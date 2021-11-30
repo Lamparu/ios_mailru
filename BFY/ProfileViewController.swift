@@ -45,6 +45,14 @@ class ProfileViewController: UIViewController {
         
         setupConstraints()
         setupShadows()
+        setupBackButton()
+    }
+    
+    private func setupBackButton() {
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = UIColor(rgb: 0x6A7F60)
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     
     private func setupShadows() {

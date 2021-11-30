@@ -13,8 +13,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     var loginTextField: UITextField = {
         let textField = UITextField()
         textField.keyboardType = .emailAddress
-//        textField.textContentType = .username
-        textField.textContentType = .emailAddress
+        textField.textContentType = .username
+//        textField.textContentType = .emailAddress
         textField.placeholder = "Электронная почта"
         textField.textAlignment = .center
         textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
@@ -129,9 +129,12 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         setupConstraints()
         setupShadows()
         setupKeyboard()
+        setupBackButton()
         
         rememberButton.isSelected = false
-        
+    }
+    
+    private func setupBackButton() {
         let backButton = UIBarButtonItem()
         backButton.title = ""
         backButton.tintColor = UIColor(rgb: 0x6A7F60)

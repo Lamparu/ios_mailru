@@ -48,6 +48,7 @@ class AuthViewController: UIViewController {
         
         [viewImage, RegButton, SignInButton].forEach {view.addSubview($0)}
         
+        setupAnimation()
         setupBackground()
         setupShadows()
         setupConstraint()
@@ -55,6 +56,15 @@ class AuthViewController: UIViewController {
         
         navigationItem.hidesBackButton = true
         
+    }
+    
+    private func setupAnimation() {
+        RegButton.alpha = 0
+        SignInButton.alpha = 0
+        UIView.animate(withDuration: 0.5, animations: {
+            self.RegButton.alpha = 1
+            self.SignInButton.alpha = 1
+        })
     }
     
     private func setupBackground() {

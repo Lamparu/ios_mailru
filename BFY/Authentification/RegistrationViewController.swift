@@ -114,7 +114,8 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     var emailTextField: UITextField = {
         let textField = UITextField()
-        textField.textContentType = .emailAddress
+        textField.textContentType = .username
+//        textField.textContentType = .emailAddress
         textField.keyboardType = .emailAddress
         textField.placeholder = "example@domen.ru"
         textField.textAlignment = .center
@@ -157,7 +158,10 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         setupBackground()
         setupConstraints()
         setupShadows()
-        
+        setupBackButton()
+    }
+    
+    private func setupBackButton() {
         let backButton = UIBarButtonItem()
         backButton.title = ""
         backButton.tintColor = UIColor(rgb: 0x6A7F60)
