@@ -20,6 +20,7 @@
 		51D09B6927470AD20083F029 /* addNewBook.png in Resources */ = {isa = PBXBuildFile; fileRef = 51D09B6827470AD20083F029 /* addNewBook.png */; };
 		18866898C7A1A32ADDB2C4C4 /* Pods_BFY.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 870424EC5A4164EB830D3B6F /* Pods_BFY.framework */; };
 		1D05AD822742CD8100A84FDE /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D05AD812742CD8100A84FDE /* TimerViewController.swift */; };
+		1D80560427493DC0006C5C78 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80560327493DC0006C5C78 /* ContentView.swift */; };
 		F56D6F282755693E00ADB08F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56D6F272755693E00ADB08F /* ProfileViewController.swift */; };
 		F56D6F2A27562E5200ADB08F /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56D6F2927562E5200ADB08F /* StartViewController.swift */; };
 		F58BB452272A7F1A00462654 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58BB451272A7F1A00462654 /* RegistrationViewController.swift */; };
@@ -47,6 +48,7 @@
 		51D09B6827470AD20083F029 /* addNewBook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = addNewBook.png; path = Assets.xcassets/addNewBook.png; sourceTree = "<group>"; };
 		F5F80CE3272013C500E61826 /* BFY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BFY.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D05AD812742CD8100A84FDE /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
+		1D80560327493DC0006C5C78 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		870424EC5A4164EB830D3B6F /* Pods_BFY.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BFY.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		889FA2DAD0B74421FFD3AE7C /* Pods-BFY.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BFY.release.xcconfig"; path = "Target Support Files/Pods-BFY/Pods-BFY.release.xcconfig"; sourceTree = "<group>"; };
 		CF3C7D8C114F304AC407301C /* Pods-BFY.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BFY.debug.xcconfig"; path = "Target Support Files/Pods-BFY/Pods-BFY.debug.xcconfig"; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				F5A9C877274D5A1700344327 /* GoogleService-Info.plist */,
 				F5F80CEA272013C500E61826 /* MainBookViewController.swift */,
 				1D05AD812742CD8100A84FDE /* TimerViewController.swift */,
+				1D80560327493DC0006C5C78 /* ContentView.swift */,
 				F56D6F272755693E00ADB08F /* ProfileViewController.swift */,
 				F56D6F2927562E5200ADB08F /* StartViewController.swift */,
 			);
@@ -287,6 +290,7 @@
 				F5F80CE7272013C500E61826 /* AppDelegate.swift in Sources */,
 				F5BE1ABA274188D000A17D23 /* SignInViewController.swift in Sources */,
 				F58BB452272A7F1A00462654 /* RegistrationViewController.swift in Sources */,
+				1D80560427493DC0006C5C78 /* ContentView.swift in Sources */,
 				F56D6F2A27562E5200ADB08F /* StartViewController.swift in Sources */,
 				F5F80CE9272013C500E61826 /* SceneDelegate.swift in Sources */,
 				F56D6F282755693E00ADB08F /* ProfileViewController.swift in Sources */,

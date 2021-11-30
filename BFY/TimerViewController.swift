@@ -5,82 +5,88 @@
 //  Created by Полина Подчуфарова on 15.11.2021.
 //
 import UIKit
+import SwiftUI
 
-func maskRoundedImage(image: UIImage, radius: CGFloat) -> UIImage {
-       let imageView: UIImageView = UIImageView(image: image)
-       let layer = imageView.layer
-       layer.masksToBounds = true
-       layer.cornerRadius = radius
-       UIGraphicsBeginImageContext(imageView.bounds.size)
-       layer.render(in: UIGraphicsGetCurrentContext()!)
-       let roundedImage = UIGraphicsGetImageFromCurrentImageContext()
-       UIGraphicsEndImageContext()
-       return roundedImage!
-   }
 
 class TimerViewContoller: UIViewController {
     
-    let stopwatchButton: UIButton = {
-        let Button = UIButton()
-        Button.addTarget(self, action: #selector(didTapTimerButton), for: .valueChanged)
-        Button.setImage(UIImage(named: "stopwatch"), for: .normal)
-        Button.translatesAutoresizingMaskIntoConstraints = false
-        return Button
+ //  @IBOutlet weak var theContainer: UIView!
+    
+    var imageArray = [UIImage(named: "stopwatch"),UIImage(named: "timer")]
+    var Arrya = ["timer", "stopwatch"]
+    let childView=UIHostingController(rootView: ContentView())
+    
+    let ClockSegmentControl: UISegmentedControl = {
+    
+        let mySegmentControl = UISegmentedControl(items: ["timer", "sec"])
+        mySegmentControl.setImage(UIImage(named: "timer")?.withRenderingMode(.alwaysOriginal), forSegmentAt: 0)
+        mySegmentControl.setImage(UIImage(named: "stopwatch")?.withRenderingMode(.alwaysOriginal), forSegmentAt:  1)
+        mySegmentControl.addTarget(self, action: #selector(selectedValue), for: .valueChanged)
+        mySegmentControl.layer.shadowColor = UIColor.white.cgColor
+//        Button.setDividerImage(UIImage(named: "stopwatch"), for: .normal)
+        mySegmentControl.frame = CGRect(x: 100, y: 70, width: 200 , height: 100)
+        mySegmentControl.translatesAutoresizingMaskIntoConstraints = false
+        //mySegmentControl.setWidth( , forSegmentAt: 0)
+        //mySegmentControl.backgroundColor = UIColor(rgb: 0x6A7F60)
+        return mySegmentControl
     } ()
     
-    let timerButton: UIButton = {
-        let Button = UIButton()
-        Button.addTarget(self, action: #selector(didTapTimerButton), for: .valueChanged)
-        Button.setImage(UIImage(named: "timer"), for: .normal)
-        Button.translatesAutoresizingMaskIntoConstraints = false
-        return Button
+    let StopWatch: UIView = {
+        let simpleView = UIView()
+        simpleView.backgroundColor = UIColor.white
+        simpleView.translatesAutoresizingMaskIntoConstraints = false
+        simpleView.frame = CGRect(x: 0, y: 250, width: 400 , height: 400)
+        return simpleView
     } ()
+
+    let backButton: UIBarButtonItem = {
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = UIColor(rgb: 0xfffcf4)
+        return backButton
+    } ()
+        
+      
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(rgb: 0x6A7F60)
-        self.view.addSubview(stopwatchButton)
-        applystopwhatchButtons(button: stopwatchButton)
-        applyShadowOnButtons(button: stopwatchButton)
         
-        self.view.addSubview(timerButton)
-        applytimerButtons(button: timerButton)
-        applyShadowOnButtons(button: timerButton)
+        self.view.addSubview(ClockSegmentControl)
         
+        //stopWatch view
+        self.view.addSubview(StopWatch)
         
-        let backButton = UIBarButtonItem()
-        backButton.title = ""
-        backButton.tintColor = UIColor(rgb: 0xfffcf4)
+        //timer view
+        childView.view.frame = CGRect(x: 0, y: 250, width: 400 , height: 400)
+        childView.view.backgroundColor = UIColor(rgb: 0x6A7F60)
+        addChild(childView)
+        self.view.addSubview(childView.view)
+        
+        //back button 
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
 
+        
         // Do any additional setup after loading the view.
     }
-    func applystopwhatchButtons(button: UIButton) {
-            button.layer.shadowColor = UIColor.black.cgColor
-            button.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 260 ).isActive = true
-            button.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -250 ).isActive = true
-            button.heightAnchor.constraint(equalToConstant: 96).isActive = true
-            button.widthAnchor.constraint(equalToConstant: 96).isActive = true
-   
-        }
     
-    func applytimerButtons(button: UIButton) {
-            button.layer.shadowColor = UIColor.black.cgColor
-            button.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 34 ).isActive = true
-            button.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -250 ).isActive = true
-            button.heightAnchor.constraint(equalToConstant: 96).isActive = true
-            button.widthAnchor.constraint(equalToConstant: 96).isActive = true
-        }
-    
-    @objc private func didTapStopwatchButton(_ sender: UIButton) {
-             //  let Timer = TimerViewContoller()
-              // self.navigationController?.pushViewController(Timer, animated: true)
-           }
-    
-    @objc private func didTapTimerButton(_ sender: UIButton) {
+ 
+    @objc private func selectedValue(target: UISegmentedControl) {
+//            applyShadowOnButtons(button: stopwatchButton)
                //let Timer = TimerViewContoller()
               // self.navigationController?.pushViewController(Timer, animated: true)
+        
+        if target == self.ClockSegmentControl{
+            if target.selectedSegmentIndex == 0 {
+                view.bringSubviewToFront(childView.view)
+                    
+            } else {
+                view.bringSubviewToFront(StopWatch)
+                
+                
+            }
+        }
                
                
            }
@@ -92,15 +98,4 @@ class TimerViewContoller: UIViewController {
          button.layer.masksToBounds = false
      }
     
-    
-
-    /*
-    // MARK: - Navigation
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
