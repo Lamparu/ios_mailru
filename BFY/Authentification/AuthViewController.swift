@@ -13,7 +13,6 @@ class AuthViewController: UIViewController {
         let image = UIImage(named: "BFY")
         let imageView = UIImageView(image: image!)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        
         return imageView
     }()
     
@@ -24,7 +23,6 @@ class AuthViewController: UIViewController {
         button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 36)
         button.setTitleColor(.black, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        
         return button
     }()
     
@@ -41,7 +39,6 @@ class AuthViewController: UIViewController {
     let backButton: UIBarButtonItem = {
         let button = UIBarButtonItem()
         button.title = ""
-//        backButton.image = UIImage(named: "box_filled")
         button.tintColor = UIColor(rgb: 0x6A7F60)
         return button
     }()
@@ -56,6 +53,7 @@ class AuthViewController: UIViewController {
         setupConstraint()
         setupNavBarButton()
         
+        navigationItem.hidesBackButton = true
         
     }
     

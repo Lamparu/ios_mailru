@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		18866898C7A1A32ADDB2C4C4 /* Pods_BFY.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 870424EC5A4164EB830D3B6F /* Pods_BFY.framework */; };
 		1D05AD822742CD8100A84FDE /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D05AD812742CD8100A84FDE /* TimerViewController.swift */; };
+		F56D6F282755693E00ADB08F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56D6F272755693E00ADB08F /* ProfileViewController.swift */; };
+		F56D6F2A27562E5200ADB08F /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56D6F2927562E5200ADB08F /* StartViewController.swift */; };
 		F58BB452272A7F1A00462654 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58BB451272A7F1A00462654 /* RegistrationViewController.swift */; };
 		F5A9C878274D5A1700344327 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5A9C877274D5A1700344327 /* GoogleService-Info.plist */; };
 		F5BE1ABA274188D000A17D23 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BE1AB9274188D000A17D23 /* SignInViewController.swift */; };
@@ -25,6 +27,8 @@
 		870424EC5A4164EB830D3B6F /* Pods_BFY.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BFY.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		889FA2DAD0B74421FFD3AE7C /* Pods-BFY.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BFY.release.xcconfig"; path = "Target Support Files/Pods-BFY/Pods-BFY.release.xcconfig"; sourceTree = "<group>"; };
 		CF3C7D8C114F304AC407301C /* Pods-BFY.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BFY.debug.xcconfig"; path = "Target Support Files/Pods-BFY/Pods-BFY.debug.xcconfig"; sourceTree = "<group>"; };
+		F56D6F272755693E00ADB08F /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		F56D6F2927562E5200ADB08F /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		F57AA601274949E7009387A0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F58BB451272A7F1A00462654 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		F5A9C877274D5A1700344327 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -117,6 +121,8 @@
 				F5A9C877274D5A1700344327 /* GoogleService-Info.plist */,
 				F5F80CEA272013C500E61826 /* MainBookViewController.swift */,
 				1D05AD812742CD8100A84FDE /* TimerViewController.swift */,
+				F56D6F272755693E00ADB08F /* ProfileViewController.swift */,
+				F56D6F2927562E5200ADB08F /* StartViewController.swift */,
 			);
 			path = BFY;
 			sourceTree = "<group>";
@@ -240,7 +246,9 @@
 				F5F80CE7272013C500E61826 /* AppDelegate.swift in Sources */,
 				F5BE1ABA274188D000A17D23 /* SignInViewController.swift in Sources */,
 				F58BB452272A7F1A00462654 /* RegistrationViewController.swift in Sources */,
+				F56D6F2A27562E5200ADB08F /* StartViewController.swift in Sources */,
 				F5F80CE9272013C500E61826 /* SceneDelegate.swift in Sources */,
+				F56D6F282755693E00ADB08F /* ProfileViewController.swift in Sources */,
 				F5BE1ABE2744328900A17D23 /* AuthViewController.swift in Sources */,
 				F5CE4D3F272AF4E90095040D /* UIColor+extensions.swift in Sources */,
 			);

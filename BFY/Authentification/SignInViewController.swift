@@ -6,19 +6,21 @@
 //
 
 import UIKit
+import Firebase
 
 class SignInViewController: UIViewController, UITextFieldDelegate {
     
     var loginTextField: UITextField = {
         let textField = UITextField()
         textField.keyboardType = .emailAddress
-        textField.textContentType = .nickname
-//        textField.textContentType = .emailAddress
-        textField.placeholder = "Электронная почта/Логин"
+//        textField.textContentType = .username
+        textField.textContentType = .emailAddress
+        textField.placeholder = "Электронная почта"
         textField.textAlignment = .center
         textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.resignFirstResponder()
+        textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         return textField
     }()
     
@@ -30,7 +32,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.resignFirstResponder()
-        textField.isSecureTextEntry.toggle()
+        textField.isSecureTextEntry = true
+        textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         return textField
     }()
     
@@ -76,7 +79,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
 //        button.titleEdgeInsets
         button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 32)
         button.setTitleColor(UIColor(rgb: 0xfffcf4), for: .normal)
-        button.backgroundColor = UIColor(rgb: 0x6A7F60)
+        button.backgroundColor = UIColor(rgb: 0x919F8B)
         button.layer.cornerRadius = 20
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -125,8 +128,14 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         setupBackground()
         setupConstraints()
         setupShadows()
+        setupKeyboard()
         
         rememberButton.isSelected = false
+        
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = UIColor(rgb: 0x6A7F60)
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     
     private func setupShadows() {
@@ -252,15 +261,80 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
             rememberButton.setBackgroundImage(UIImage(named: "box_filled"), for:.normal)
             rememberButton.isSelected = true
         }
-        //sender.isSelected = !sender.isSelected
     }
     
-    @objc private func didTapContinueButton(_ sender: UIButton) {
-        let bookVC = MainBookViewController()
-//         let navController = UINavigationController(rootViewController: regVC)
-//        self.present(navController, animated: true, completion: nil)
-        
-        self.navigationController?.pushViewController(bookVC, animated: true)
+    private func showMessageAlert(err: String) {
+        let alert = UIAlertController(title: "Ошибка", message: err, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 
+    @objc private func didTapContinueButton(_ sender: UIButton) {
+        guard let pswd = passwordTextField.text,
+              let login = loginTextField.text
+        else { return }
+        
+        if (!pswd.isEmpty && !login.isEmpty) {
+            if (pswd.count < 6) {
+                showMessageAlert(err: "Пароль должен содержать не менее 6 символов")
+            } else {
+                Auth.auth().signIn(withEmail: login, password: pswd) { (result, error) in
+                    if error == nil {
+                        if let result = result {
+                            print(result.user.uid)
+                            let bookVC = MainBookViewController()
+                            self.navigationController?.pushViewController(bookVC, animated: true)
+                        }
+                    } else {
+                        guard let err = error else { return }
+                        guard let errCode = AuthErrorCode(rawValue: err._code) else { return }
+                        switch errCode {
+                        case .invalidEmail:
+                            self.showMessageAlert(err: "Введите корректную электронную почту")
+                        case .networkError:
+                            self.showMessageAlert(err: "Ошибка Интернет-соединения")
+                        case .wrongPassword:
+                            self.showMessageAlert(err: "Неверный пароль")
+                        case .userNotFound:
+                            self.showMessageAlert(err: "Пользователь не найден")
+                        default:
+                            self.showMessageAlert(err: "Неизвестная ошибка")
+                        }
+                    }
+                }
+            }
+        } else {
+            showMessageAlert(err: "Заполните все поля")
+        }
+        
+    }
+    
+    @objc private func handleTextInputChange() {
+        let isFormValid = loginTextField.text?.count ?? 0 > 0 &&
+        passwordTextField.text?.count ?? 0 > 0
+        
+        if isFormValid {
+            continueSignInButton.backgroundColor = UIColor(rgb: 0x6A7F60)
+        } else {
+            continueSignInButton.backgroundColor = UIColor(rgb: 0x919F8B)
+        }
+    }
+
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        if self.view.frame.origin.y == 0 {
+            self.view.frame.origin.y -= 180
+        }
+    }
+    
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
+    private func setupKeyboard()
+    {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
 }

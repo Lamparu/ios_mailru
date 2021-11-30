@@ -20,16 +20,16 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    let loginLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Логин"
-        label.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
-        label.textColor = UIColor(rgb: 0x6A7F60)
-        label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+//
+//    let loginLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "Логин"
+//        label.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
+//        label.textColor = UIColor(rgb: 0x6A7F60)
+//        label.textAlignment = .left
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        return label
+//    }()
     
     let emailLabel: UILabel = {
         let label = UILabel()
@@ -61,22 +61,22 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         return label
     }()
     
-    var loginTextField: UITextField = {
-        let textField = UITextField()
-        textField.textContentType = .nickname
-        textField.keyboardType = .emailAddress
-        textField.placeholder = "username"
-        textField.textAlignment = .center
-        textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.resignFirstResponder()
-        textField.layer.cornerRadius = 5
-        textField.layer.backgroundColor = UIColor(rgb: 0xFFFEFC).cgColor
-        textField.layer.borderColor = UIColor.black.cgColor
-        textField.layer.borderWidth = 1
-        textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
-        return textField
-    }()
+//    var loginTextField: UITextField = {
+//        let textField = UITextField()
+////        textField.textContentType = .username
+//        textField.keyboardType = .emailAddress
+//        textField.placeholder = "username"
+//        textField.textAlignment = .center
+//        textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
+//        textField.translatesAutoresizingMaskIntoConstraints = false
+//        textField.resignFirstResponder()
+//        textField.layer.cornerRadius = 5
+//        textField.layer.backgroundColor = UIColor(rgb: 0xFFFEFC).cgColor
+//        textField.layer.borderColor = UIColor.black.cgColor
+//        textField.layer.borderWidth = 1
+//        textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
+//        return textField
+//    }()
     
     var passwordTextField: UITextField = {
         let textField = UITextField()
@@ -86,7 +86,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.resignFirstResponder()
-        textField.isSecureTextEntry.toggle()
+        textField.isSecureTextEntry = true
         textField.layer.cornerRadius = 5
         textField.layer.backgroundColor = UIColor(rgb: 0xFFFEFC).cgColor
         textField.layer.borderColor = UIColor.black.cgColor
@@ -103,7 +103,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.resignFirstResponder()
-        textField.isSecureTextEntry.toggle()
+        textField.isSecureTextEntry = true
         textField.layer.cornerRadius = 5
         textField.layer.backgroundColor = UIColor(rgb: 0xFFFEFC).cgColor
         textField.layer.borderColor = UIColor.black.cgColor
@@ -149,7 +149,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         setupTextFields()
         setupKeyboard()
         
-        [regLabel, loginLabel, loginTextField, emailLabel,
+        [regLabel, emailLabel,
          emailTextField, passwordLabel, passwordTextField,
          passwordAgainLabel, passwordAgainTextField,
          continueRegButton].forEach {view.addSubview($0)}
@@ -157,6 +157,11 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         setupBackground()
         setupConstraints()
         setupShadows()
+        
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = UIColor(rgb: 0x6A7F60)
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     
     private func setupKeyboard()
@@ -171,8 +176,8 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     private func setupConstraints() {
         createRegLabelConstraint()
-        createLoginLabelConstraint()
-        createLoginTextFieldConstraint()
+//        createLoginLabelConstraint()
+//        createLoginTextFieldConstraint()
         createEmailLabelConstraint()
         createEmailTextFieldConstraint()
         createPasswordLabelConstraint()
@@ -187,7 +192,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func setupTextFields() {
-        loginTextField.delegate = self
+//        loginTextField.delegate = self
         passwordTextField.delegate = self
         passwordAgainTextField.delegate = self
         emailTextField.delegate = self
@@ -205,59 +210,60 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         regLabel.layer.masksToBounds = false
     }
     
-    func createLoginLabelConstraint() {
-        loginLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        loginLabel.centerYAnchor.constraint(equalTo: regLabel.bottomAnchor, constant: 70).isActive = true
-        loginLabel.widthAnchor.constraint(equalToConstant: 245).isActive = true
-        loginLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
-    }
-    
-    func createLoginTextFieldConstraint() {
-        loginTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        loginTextField.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 2).isActive = true
-        loginTextField.widthAnchor.constraint(equalTo: loginLabel.widthAnchor).isActive = true
-        loginTextField.heightAnchor.constraint(equalToConstant: 35).isActive = true
-    }
+//    func createLoginLabelConstraint() {
+//        loginLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        loginLabel.centerYAnchor.constraint(equalTo: regLabel.bottomAnchor, constant: 70).isActive = true
+//        loginLabel.widthAnchor.constraint(equalToConstant: 245).isActive = true
+//        loginLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
+//    }
+//
+//    func createLoginTextFieldConstraint() {
+//        loginTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        loginTextField.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 2).isActive = true
+//        loginTextField.widthAnchor.constraint(equalTo: loginLabel.widthAnchor).isActive = true
+//        loginTextField.heightAnchor.constraint(equalToConstant: 35).isActive = true
+//    }
     
     func createEmailLabelConstraint() {
         emailLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        emailLabel.centerYAnchor.constraint(equalTo: loginTextField.bottomAnchor, constant: 30).isActive = true
-        emailLabel.widthAnchor.constraint(equalTo: loginLabel.widthAnchor).isActive = true
+//        emailLabel.centerYAnchor.constraint(equalTo: loginTextField.bottomAnchor, constant: 30).isActive = true
+        emailLabel.centerYAnchor.constraint(equalTo: regLabel.bottomAnchor, constant: 100).isActive = true
+        emailLabel.widthAnchor.constraint(equalToConstant: 245).isActive = true
         emailLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
     }
     
     func createEmailTextFieldConstraint() {
         emailTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         emailTextField.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 2).isActive = true
-        emailTextField.widthAnchor.constraint(equalTo: loginLabel.widthAnchor).isActive = true
+        emailTextField.widthAnchor.constraint(equalToConstant: 245).isActive = true
         emailTextField.heightAnchor.constraint(equalToConstant: 35).isActive = true
     }
     
     func createPasswordLabelConstraint() {
         passwordLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         passwordLabel.centerYAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 30).isActive = true
-        passwordLabel.widthAnchor.constraint(equalTo: loginLabel.widthAnchor).isActive = true
+        passwordLabel.widthAnchor.constraint(equalToConstant: 245).isActive = true
         passwordLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
     }
     
     func createPasswordTextFieldConstraint() {
         passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         passwordTextField.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 2).isActive = true
-        passwordTextField.widthAnchor.constraint(equalTo: loginLabel.widthAnchor).isActive = true
+        passwordTextField.widthAnchor.constraint(equalToConstant: 245).isActive = true
         passwordTextField.heightAnchor.constraint(equalToConstant: 35).isActive = true
     }
     
     func createPasswordAgainLabelConstraint() {
         passwordAgainLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         passwordAgainLabel.centerYAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 30).isActive = true
-        passwordAgainLabel.widthAnchor.constraint(equalTo: loginLabel.widthAnchor).isActive = true
+        passwordAgainLabel.widthAnchor.constraint(equalToConstant: 245).isActive = true
         passwordAgainLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
     }
     
     func createPasswordAgainTextFieldConstraint() {
         passwordAgainTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         passwordAgainTextField.topAnchor.constraint(equalTo: passwordAgainLabel.bottomAnchor, constant: 2).isActive = true
-        passwordAgainTextField.widthAnchor.constraint(equalTo: loginLabel.widthAnchor).isActive = true
+        passwordAgainTextField.widthAnchor.constraint(equalToConstant: 245).isActive = true
         passwordAgainTextField.heightAnchor.constraint(equalToConstant: 35).isActive = true
     }
     
@@ -283,7 +289,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     @objc private func keyboardWillShow(notification: NSNotification) {
         if self.view.frame.origin.y == 0 {
-            self.view.frame.origin.y -= 100
+            self.view.frame.origin.y -= 180
         }
     }
     
@@ -292,60 +298,22 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
             self.view.frame.origin.y = 0
         }
     }
-    
-    private func showFieldsAlert() {
-        let alert = UIAlertController(title: "Error", message: "Заполните все поля", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
-    
-    private func showPswdSameAlert() {
-        let alert = UIAlertController(title: "Ошибка", message: "Пароли должны совпадать", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
-    
-    private func showPswdLenAlert() {
-        let alert = UIAlertController(title: "Ошибка", message: "Пароль должен быть не менее 6 символов", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
-    
-    private func showEmailAlert() {
-        let alert = UIAlertController(title: "Ошибка", message: "Введите корректную электронную почту", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
-    
-    private func showEmailInUseAlert() {
-        let alert = UIAlertController(title: "Ошибка", message: "Почта уже используется", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
-    
-    private func showErrorAlert() {
-        let alert = UIAlertController(title: "Ошибка", message: "Неизвестная ошибка", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
-    
-    private func showNetworkAlert() {
-        let alert = UIAlertController(title: "Ошибка", message: "Ошибка интернет-соединения", preferredStyle: .alert)
+
+    private func showMessageAlert(err: String) {
+        let alert = UIAlertController(title: "Error", message: err, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
     
     @objc private func handleTextInputChange() {
         let isFormValid = emailTextField.text?.count ?? 0 > 0 &&
-        loginTextField.text?.count ?? 0 > 0 &&
+//        loginTextField.text?.count ?? 0 > 0 &&
         passwordTextField.text?.count ?? 0 > 0 &&
         passwordAgainTextField.text?.count ?? 0 > 0
         
         if isFormValid {
-//            continueRegButton.backgroundColor = UIColor(rgb: 0x919F8B)
             continueRegButton.backgroundColor = UIColor(rgb: 0x6A7F60)
         } else {
-//            continueRegButton.backgroundColor = UIColor(rgb: 0x6A7F60)
             continueRegButton.backgroundColor = UIColor(rgb: 0x919F8B)
         }
     }
@@ -353,21 +321,20 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     @objc private func didTapRegButton(_ sender: UIButton) {
         guard let email = emailTextField.text,
               let pswd = passwordTextField.text,
-              let login = loginTextField.text,
+//              let login = loginTextField.text,
               let pswd_again = passwordAgainTextField.text
         else { return }
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         
-        if (!email.isEmpty && !pswd.isEmpty && !login.isEmpty && !pswd_again.isEmpty) {
+//        if (!email.isEmpty && !pswd.isEmpty && !login.isEmpty && !pswd_again.isEmpty) {
+        if (!email.isEmpty && !pswd.isEmpty && !pswd_again.isEmpty) {
             if (!emailPred.evaluate(with: email)) {
-                showEmailAlert()
+                showMessageAlert(err: "Введите корректную электронную почту")
             } else if (pswd != pswd_again) {
-                showPswdSameAlert()
+                showMessageAlert(err: "Пароли не совпадают")
             } else if (pswd.count < 6) {
-                showPswdLenAlert()
-//            } else if {
-//                FIRAuth.auth().getUserByEmail(email)
+                showMessageAlert(err: "Пароль должен содержать не менее 6 символов")
             } else {
                 Auth.auth().createUser(withEmail: email, password: pswd) { (result, error) in
                     if error == nil {
@@ -383,23 +350,19 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
                         guard let errCode = AuthErrorCode(rawValue: err._code) else { return }
                             switch errCode {
                             case .emailAlreadyInUse:
-                                self.showEmailInUseAlert()
-//                            case .authInternalErrorCodeInvalidEmail:
-//                                showEmailAlert()
+                                self.showMessageAlert(err: "Электронная почта уже используется")
                             case .invalidEmail:
-                                self.showEmailAlert()
-//                            case .authInternalErrorCodeEmailAlreadyInUse:
-//                                showEmailInUseAlert()
+                                self.showMessageAlert(err: "Введите корректную электронную почту")
                             case .networkError:
-                                self.showNetworkAlert()
+                                self.showMessageAlert(err: "Ошибка интернет-соединения")
                             default:
-                                self.showErrorAlert()
+                                self.showMessageAlert(err: "Неизвестная ошибка")
                             }
                         }
                     }
                 }
         } else {
-            showFieldsAlert()
+            showMessageAlert(err: "Заполните все поля")
         }
     }
 }
