@@ -7,9 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18866898C7A1A32ADDB2C4C4 /* Pods_BFY.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 870424EC5A4164EB830D3B6F /* Pods_BFY.framework */; };
 		1D05AD822742CD8100A84FDE /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D05AD812742CD8100A84FDE /* TimerViewController.swift */; };
 		1D80560427493DC0006C5C78 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80560327493DC0006C5C78 /* ContentView.swift */; };
+		F56D6F282755693E00ADB08F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56D6F272755693E00ADB08F /* ProfileViewController.swift */; };
+		F56D6F2A27562E5200ADB08F /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56D6F2927562E5200ADB08F /* StartViewController.swift */; };
 		F58BB452272A7F1A00462654 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58BB451272A7F1A00462654 /* RegistrationViewController.swift */; };
+		F5A9C878274D5A1700344327 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5A9C877274D5A1700344327 /* GoogleService-Info.plist */; };
 		F5BE1ABA274188D000A17D23 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BE1AB9274188D000A17D23 /* SignInViewController.swift */; };
 		F5BE1ABE2744328900A17D23 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BE1ABD2744328900A17D23 /* AuthViewController.swift */; };
 		F5BE1AC02744364300A17D23 /* MainBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F80CEA272013C500E61826 /* MainBookViewController.swift */; };
@@ -22,7 +26,14 @@
 /* Begin PBXFileReference section */
 		1D05AD812742CD8100A84FDE /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		1D80560327493DC0006C5C78 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		870424EC5A4164EB830D3B6F /* Pods_BFY.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BFY.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		889FA2DAD0B74421FFD3AE7C /* Pods-BFY.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BFY.release.xcconfig"; path = "Target Support Files/Pods-BFY/Pods-BFY.release.xcconfig"; sourceTree = "<group>"; };
+		CF3C7D8C114F304AC407301C /* Pods-BFY.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BFY.debug.xcconfig"; path = "Target Support Files/Pods-BFY/Pods-BFY.debug.xcconfig"; sourceTree = "<group>"; };
+		F56D6F272755693E00ADB08F /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		F56D6F2927562E5200ADB08F /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		F57AA601274949E7009387A0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F58BB451272A7F1A00462654 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		F5A9C877274D5A1700344327 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F5BE1AB9274188D000A17D23 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		F5BE1ABD2744328900A17D23 /* AuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		F5CE4D3E272AF4E90095040D /* UIColor+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extensions.swift"; sourceTree = "<group>"; };
@@ -39,15 +50,44 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18866898C7A1A32ADDB2C4C4 /* Pods_BFY.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		14814D4F732DAB626FF743A5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CF3C7D8C114F304AC407301C /* Pods-BFY.debug.xcconfig */,
+				889FA2DAD0B74421FFD3AE7C /* Pods-BFY.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		EAB01CCF5E1DF211350255FE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				870424EC5A4164EB830D3B6F /* Pods_BFY.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F57AA60027492C9D009387A0 /* Authentification */ = {
+			isa = PBXGroup;
+			children = (
+				F5BE1ABD2744328900A17D23 /* AuthViewController.swift */,
+				F58BB451272A7F1A00462654 /* RegistrationViewController.swift */,
+				F5BE1AB9274188D000A17D23 /* SignInViewController.swift */,
+			);
+			path = Authentification;
+			sourceTree = "<group>";
+		};
 		F5CE4D3D272AF4C40095040D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				F57AA601274949E7009387A0 /* GoogleService-Info.plist */,
 				F5CE4D3E272AF4E90095040D /* UIColor+extensions.swift */,
 			);
 			path = Extensions;
@@ -58,6 +98,8 @@
 			children = (
 				F5F80CE5272013C500E61826 /* BFY */,
 				F5F80CE4272013C500E61826 /* Products */,
+				14814D4F732DAB626FF743A5 /* Pods */,
+				EAB01CCF5E1DF211350255FE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,17 +114,18 @@
 		F5F80CE5272013C500E61826 /* BFY */ = {
 			isa = PBXGroup;
 			children = (
+				F57AA60027492C9D009387A0 /* Authentification */,
 				F5CE4D3D272AF4C40095040D /* Extensions */,
 				F5F80CE6272013C500E61826 /* AppDelegate.swift */,
 				F5F80CE8272013C500E61826 /* SceneDelegate.swift */,
 				F5F80CEF272013CD00E61826 /* Assets.xcassets */,
 				F5F80CF4272013CD00E61826 /* Info.plist */,
-				F5BE1ABD2744328900A17D23 /* AuthViewController.swift */,
-				F58BB451272A7F1A00462654 /* RegistrationViewController.swift */,
-				F5BE1AB9274188D000A17D23 /* SignInViewController.swift */,
+				F5A9C877274D5A1700344327 /* GoogleService-Info.plist */,
 				F5F80CEA272013C500E61826 /* MainBookViewController.swift */,
 				1D05AD812742CD8100A84FDE /* TimerViewController.swift */,
 				1D80560327493DC0006C5C78 /* ContentView.swift */,
+				F56D6F272755693E00ADB08F /* ProfileViewController.swift */,
+				F56D6F2927562E5200ADB08F /* StartViewController.swift */,
 			);
 			path = BFY;
 			sourceTree = "<group>";
@@ -94,9 +137,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F5F80CF7272013CD00E61826 /* Build configuration list for PBXNativeTarget "BFY" */;
 			buildPhases = (
+				95AF222B1632ED2777ED7FFA /* [CP] Check Pods Manifest.lock */,
 				F5F80CDF272013C500E61826 /* Sources */,
 				F5F80CE0272013C500E61826 /* Frameworks */,
 				F5F80CE1272013C500E61826 /* Resources */,
+				A3D239779FF18C3D2A48DF50 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -146,10 +191,53 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5F80CF0272013CD00E61826 /* Assets.xcassets in Resources */,
+				F5A9C878274D5A1700344327 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		95AF222B1632ED2777ED7FFA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BFY-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A3D239779FF18C3D2A48DF50 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BFY/Pods-BFY-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BFY/Pods-BFY-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BFY/Pods-BFY-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F5F80CDF272013C500E61826 /* Sources */ = {
@@ -162,7 +250,9 @@
 				F5BE1ABA274188D000A17D23 /* SignInViewController.swift in Sources */,
 				F58BB452272A7F1A00462654 /* RegistrationViewController.swift in Sources */,
 				1D80560427493DC0006C5C78 /* ContentView.swift in Sources */,
+				F56D6F2A27562E5200ADB08F /* StartViewController.swift in Sources */,
 				F5F80CE9272013C500E61826 /* SceneDelegate.swift in Sources */,
+				F56D6F282755693E00ADB08F /* ProfileViewController.swift in Sources */,
 				F5BE1ABE2744328900A17D23 /* AuthViewController.swift in Sources */,
 				F5CE4D3F272AF4E90095040D /* UIColor+extensions.swift in Sources */,
 			);
@@ -289,6 +379,7 @@
 		};
 		F5F80CF8272013CD00E61826 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CF3C7D8C114F304AC407301C /* Pods-BFY.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -297,8 +388,10 @@
 				DEVELOPMENT_TEAM = 82X3H9YPMG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BFY/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BFY;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
@@ -317,16 +410,20 @@
 		};
 		F5F80CF9272013CD00E61826 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 889FA2DAD0B74421FFD3AE7C /* Pods-BFY.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BFY/BFYRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 82X3H9YPMG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BFY/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BFY;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;

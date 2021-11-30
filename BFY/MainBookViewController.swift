@@ -91,6 +91,14 @@ class MainBookViewController: UIViewController {
         return str
     }()
     
+    let profileButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "lines"), for: .normal)
+        button.addTarget(self, action: #selector(didTapProfileButton), for: .touchUpInside)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(rgb: 0xfffcf4)
@@ -100,6 +108,7 @@ class MainBookViewController: UIViewController {
         view.addSubview(stringBookAuthor)
         view.addSubview(numberOfListsField)
         view.addSubview(stringToListsField)
+        view.addSubview(profileButton)
         
         
         createMainBookConstraint()
@@ -108,16 +117,18 @@ class MainBookViewController: UIViewController {
         createstringBookAuthorConstraint()
         createNumberOfListsFieldConstraint()
         createstringToListsFieldConstraint()
+        createProfileButtonConstraints()
         
         self.view.addSubview(playButton)
         applyShadowOnButtons(button: playButton)
 
         // Do any additional setup after loading the view.
         
-        let backButton = UIBarButtonItem()
-        backButton.title = ""
-        backButton.tintColor = UIColor(rgb: 0x6A7F60)
-        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+//        let backButton = UIBarButtonItem()
+//        backButton.title = ""
+//        backButton.tintColor = UIColor(rgb: 0x6A7F60)
+//        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+        navigationItem.hidesBackButton = true
     }
     
     func createMainBookConstraint(){
@@ -137,49 +148,55 @@ class MainBookViewController: UIViewController {
     func createstringBookNameConstraint() {
         stringBookName.centerXAnchor.constraint(equalTo: bookImage.centerXAnchor).isActive = true
         stringBookName.centerYAnchor.constraint(equalTo: bookImage.bottomAnchor, constant: 30).isActive = true
-        
     }
     
     func createstringBookAuthorConstraint() {
         stringBookAuthor.centerXAnchor.constraint(equalTo: stringBookName.centerXAnchor).isActive = true
         stringBookAuthor.centerYAnchor.constraint(equalTo: stringBookName.bottomAnchor, constant: 20).isActive = true
-        
     }
     
     func createNumberOfListsFieldConstraint() {
         numberOfListsField.centerXAnchor.constraint(equalTo: stringBookAuthor.centerXAnchor).isActive = true
         numberOfListsField.bottomAnchor.constraint(equalTo: mainFrame.bottomAnchor, constant: -30).isActive = true
-        
     }
     
     func createstringToListsFieldConstraint() {
         stringToListsField.centerXAnchor.constraint(equalTo: numberOfListsField.centerXAnchor).isActive = true
         stringToListsField.centerYAnchor.constraint(equalTo: numberOfListsField.topAnchor, constant: -20).isActive = true
-        
     }
 
     
     @objc private func didTapRegButton(_ sender: UIButton) {
-               let Timer = TimerViewContoller()
+        let Timer = TimerViewContoller()
    //           let navController = UINavigationController(rootViewController: Timer)
    //            self.present(navController, animated: true, completion: nil)
-               self.navigationController?.pushViewController(Timer, animated: true)
-               
-               
-           }
+        self.navigationController?.pushViewController(Timer, animated: true)
+    }
     
     func applyShadowOnButtons(button: UIButton) {
-            button.layer.shadowColor = UIColor.black.cgColor
-            button.centerXAnchor.constraint(equalTo: mainFrame.centerXAnchor).isActive = true
-            button.centerYAnchor.constraint(equalTo: mainFrame.bottomAnchor, constant: 70).isActive = true
-            button.heightAnchor.constraint(equalToConstant: 105).isActive = true
-            button.widthAnchor.constraint(equalToConstant: 105).isActive = true
-        }
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.centerXAnchor.constraint(equalTo: mainFrame.centerXAnchor).isActive = true
+        button.centerYAnchor.constraint(equalTo: mainFrame.bottomAnchor, constant: 70).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 105).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 105).isActive = true
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-            self.view.endEditing(true)
-            return false
-        }
+        self.view.endEditing(true)
+        return false
+    }
+    
+    @objc private func didTapProfileButton(_ sender: UIButton) {
+        let profileVC = ProfileViewController()
+        self.navigationController?.pushViewController(profileVC, animated: true)
+    }
+    
+    private func createProfileButtonConstraints() {
+        profileButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        profileButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        profileButton.leftAnchor.constraint(equalTo: mainFrame.leftAnchor).isActive = true
+        profileButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+    }
 
 
 }
