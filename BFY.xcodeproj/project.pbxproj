@@ -19,6 +19,7 @@
 		F56D6F282755693E00ADB08F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56D6F272755693E00ADB08F /* ProfileViewController.swift */; };
 		F56D6F2A27562E5200ADB08F /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56D6F2927562E5200ADB08F /* StartViewController.swift */; };
 		F58BB452272A7F1A00462654 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58BB451272A7F1A00462654 /* RegistrationViewController.swift */; };
+		F59C8F3427625CFC00468667 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59C8F3327625CFC00468667 /* TabBarController.swift */; };
 		F5A9C878274D5A1700344327 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5A9C877274D5A1700344327 /* GoogleService-Info.plist */; };
 		F5BE1ABA274188D000A17D23 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BE1AB9274188D000A17D23 /* SignInViewController.swift */; };
 		F5BE1ABE2744328900A17D23 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BE1ABD2744328900A17D23 /* AuthViewController.swift */; };
@@ -44,6 +45,7 @@
 		F56D6F272755693E00ADB08F /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F56D6F2927562E5200ADB08F /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		F58BB451272A7F1A00462654 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		F59C8F3327625CFC00468667 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		F5A9C877274D5A1700344327 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F5BE1AB9274188D000A17D23 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		F5BE1ABD2744328900A17D23 /* AuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				1D80560327493DC0006C5C78 /* ContentView.swift */,
 				F56D6F272755693E00ADB08F /* ProfileViewController.swift */,
 				F56D6F2927562E5200ADB08F /* StartViewController.swift */,
+				F59C8F3327625CFC00468667 /* TabBarController.swift */,
 			);
 			path = BFY;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				51B09C79274444A300A3EFF8 /* BookManager.swift in Sources */,
 				51B09C7727442CE700A3EFF8 /* BooksTableViewController.swift in Sources */,
 				518FECD52742CF2500C16A1A /* Book.swift in Sources */,
+				F59C8F3427625CFC00468667 /* TabBarController.swift in Sources */,
 				518FECD92742CF5000C16A1A /* LibraryViewController.swift in Sources */,
 				518FECD72742CF3B00C16A1A /* LibraryTableViewCell.swift in Sources */,
 				51D09B67274709060083F029 /* AddNewBookViewController.swift in Sources */,

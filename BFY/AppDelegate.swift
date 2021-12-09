@@ -15,6 +15,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     internal func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        
+//        let profileVC = ProfileViewController()
+//        let bookVC = MainBookViewController()
+//        
+//        let tabBarVC = UITabBarController()
+//        tabBarVC.setViewControllers([profileVC, bookVC], animated: true)
+        
         return true
     }
 

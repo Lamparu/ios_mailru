@@ -28,6 +28,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        let continueToMainController = UINavigationController(rootViewController: signInVC)
         let startController = UINavigationController(rootViewController: startVC)
         
+//        let profileVC = ProfileViewController()
+//        let bookVC = MainBookViewController()
+//        
+//        let tabBarVC = UITabBarController()
+//        tabBarVC.setViewControllers([profileVC, bookVC], animated: true)
+        
         window?.rootViewController = startController
 
         window?.makeKeyAndVisible()

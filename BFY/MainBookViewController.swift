@@ -91,14 +91,6 @@ class MainBookViewController: UIViewController {
         return str
     }()
     
-    let profileButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "lines"), for: .normal)
-        button.addTarget(self, action: #selector(didTapProfileButton), for: .touchUpInside)
-        return button
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(rgb: 0xfffcf4)
@@ -108,7 +100,6 @@ class MainBookViewController: UIViewController {
         view.addSubview(stringBookAuthor)
         view.addSubview(numberOfListsField)
         view.addSubview(stringToListsField)
-        view.addSubview(profileButton)
         
         
         createMainBookConstraint()
@@ -117,7 +108,6 @@ class MainBookViewController: UIViewController {
         createstringBookAuthorConstraint()
         createNumberOfListsFieldConstraint()
         createstringToListsFieldConstraint()
-        createProfileButtonConstraints()
         
         self.view.addSubview(playButton)
         applyShadowOnButtons(button: playButton)
@@ -189,13 +179,6 @@ class MainBookViewController: UIViewController {
     @objc private func didTapProfileButton(_ sender: UIButton) {
         let profileVC = ProfileViewController()
         self.navigationController?.pushViewController(profileVC, animated: true)
-    }
-    
-    private func createProfileButtonConstraints() {
-        profileButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        profileButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
-        profileButton.leftAnchor.constraint(equalTo: mainFrame.leftAnchor).isActive = true
-        profileButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
     }
 
 

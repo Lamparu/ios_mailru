@@ -83,6 +83,17 @@ class ProfileViewController: UIViewController {
         setupConstraints()
         setupShadows()
         setupBackButton()
+        
+//        let profileVC = ProfileViewController()
+//        let bookVC = MainBookViewController()
+        
+//        let tabBarVC = UITabBarController()
+//        tabBarVC.setViewControllers([profileVC, bookVC], animated: true)
+//        
+//        addChild(tabBarVC)
+//        view.addSubview(tabBarVC.view)
+//        tabBarVC.didMove(toParent: self)
+        
     }
     
     private func setupBackButton() {

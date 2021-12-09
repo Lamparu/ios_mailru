@@ -59,9 +59,10 @@ class StartViewController: UIViewController {
     @objc private func didTapOverallButton(_ sender: UIButton) {
         let authVC = AuthViewController()
 //        let libraryVC = ???
-        let bookVC = MainBookViewController()
+//        let bookVC = MainBookViewController()
+        let tabBarVC = TabBarController()
         if Auth.auth().currentUser != nil {
-            self.navigationController?.pushViewController(bookVC, animated: true)
+            self.navigationController?.pushViewController(tabBarVC, animated: true)
         } else {
             self.navigationController?.pushViewController(authVC, animated: false)
         }

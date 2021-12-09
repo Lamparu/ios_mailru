@@ -351,8 +351,8 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
                             print(result.user.uid)
                             let ref = Database.database().reference()
                             ref.child(result.user.uid).setValue(["username": login, "email": email])
-                            let bookVC = MainBookViewController()
-                            self.navigationController?.pushViewController(bookVC, animated: true)
+                            let tabBarVC = TabBarController()
+                            self.navigationController?.pushViewController(tabBarVC, animated: true)
                         }
                     } else {
                         print(error!)
