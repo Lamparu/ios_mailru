@@ -15,7 +15,7 @@ class ProfileViewController: UIViewController {
     
     let changePswdButton: UIButton = {
         let button = UIButton()
-        //button.addTarget(self, action: #selector(didTapChangePswdButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapChangePswdButton), for: .touchUpInside)
         button.setTitle("Сменить пароль", for: .normal)
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
@@ -41,7 +41,7 @@ class ProfileViewController: UIViewController {
     
     let usernameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
+        label.font = UIFont(name: "AppleSDGothicNeo-Light", size: 30)
         label.textColor = UIColor(rgb: 0x6A7F60)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -50,7 +50,7 @@ class ProfileViewController: UIViewController {
     
     let emailLable: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
+        label.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
         label.textColor = UIColor(rgb: 0x6A7F60)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -119,7 +119,7 @@ class ProfileViewController: UIViewController {
     
     func createUsernameLabelConstraint() {
         usernameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        usernameLabel.bottomAnchor.constraint(equalTo: changePswdButton.topAnchor, constant: -60).isActive = true
+        usernameLabel.bottomAnchor.constraint(equalTo: changePswdButton.topAnchor, constant: -100).isActive = true
         usernameLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         usernameLabel.widthAnchor.constraint(equalToConstant: 225).isActive = true
     }
@@ -153,6 +153,48 @@ class ProfileViewController: UIViewController {
             self.navigationController?.pushViewController(authVC, animated: true)
         } catch let error as NSError {
             print(error.localizedDescription)
+        }
+    }
+    
+    private func showMessageAlert(err: String) {
+        let alert = UIAlertController(title: "Ошибка", message: err, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func showAlert(str: String) {
+        let alert = UIAlertController(title: "Внимание", message: str, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    @objc private func didTapChangePswdButton(_ sender: UIButton) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        let docRef = db.collection("Users").document(userID)
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                guard let email = document.get("email") else { return }
+                Auth.auth().sendPasswordReset(withEmail: email as? String ?? "") { error in
+                    if error != nil {
+                        guard let err = error else { return }
+                        guard let errCode = AuthErrorCode(rawValue: err._code) else { return }
+                        switch errCode {
+                        case .invalidEmail:
+                            self.showMessageAlert(err: "Введите корректную электронную почту")
+                        case .networkError:
+                            self.showMessageAlert(err: "Ошибка Интернет-соединения")
+                        case .userNotFound:
+                            self.showMessageAlert(err: "Пользователь не найден")
+                        default:
+                            self.showMessageAlert(err: "Неизвестная ошибка")
+                        }
+                    } else {
+                        self.showAlert(str: "На электронную почту отправлено письмо для смены пароля")
+                    }
+                }
+            } else {
+                print("Document does not exist")
+            }
         }
     }
 }

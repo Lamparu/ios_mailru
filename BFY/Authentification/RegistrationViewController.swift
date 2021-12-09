@@ -331,12 +331,13 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func addNewUser(username: String, email: String, uid: String) {
-        do {
-            _ = try db.collection("Users").document(uid).setData([
-                "username": username,
-                "email": email])
-        } catch {
-            print(error.localizedDescription)
+        db.collection("Users").document(uid).setData([
+            "username": username,
+            "email": email
+        ]) { err in
+            if let err = err {
+                print(err.localizedDescription)
+            }
         }
     }
     

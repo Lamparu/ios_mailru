@@ -13,8 +13,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     var loginTextField: UITextField = {
         let textField = UITextField()
         textField.keyboardType = .emailAddress
-        textField.textContentType = .username
-//        textField.textContentType = .emailAddress
+//        textField.textContentType = .username
+        textField.textContentType = .emailAddress
         textField.placeholder = "Электронная почта"
         textField.textAlignment = .center
         textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
@@ -316,8 +316,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                     if error == nil {
                         if let result = result {
                             print(result.user.uid)
-                            let bookVC = MainBookViewController()
-                            self.navigationController?.pushViewController(bookVC, animated: true)
+                            let tabBarVC = TabBarController()
+                            self.navigationController?.pushViewController(tabBarVC, animated: true)
                         }
                     } else {
                         guard let err = error else { return }
