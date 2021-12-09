@@ -7,11 +7,11 @@
 
 import UIKit
 import Firebase
-import FirebaseDatabase
+import FirebaseFirestore
 
 class ProfileViewController: UIViewController {
-    
-//    guard let userID: String = Auth.auth().currentUser?.uid else { return label }
+
+    let db = Firestore.firestore()
     
     let changePswdButton: UIButton = {
         let button = UIButton()
@@ -40,15 +40,7 @@ class ProfileViewController: UIViewController {
     }()
     
     let usernameLabel: UILabel = {
-        let ref = Database.database().reference()
         let label = UILabel()
-        guard let userID = Auth.auth().currentUser?.uid else { return label }
-        ref.child(userID).observeSingleEvent(of: .value, with: {(snapshot) in
-            let value = snapshot.value as? NSDictionary
-            let username = value?["username"] as? String ?? ""
-            label.text = username
-        })
-//        label.text = "Логин"
         label.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
         label.textColor = UIColor(rgb: 0x6A7F60)
         label.textAlignment = .center
@@ -57,14 +49,7 @@ class ProfileViewController: UIViewController {
     }()
     
     let emailLable: UILabel = {
-        let ref = Database.database().reference()
         let label = UILabel()
-        guard let userID = Auth.auth().currentUser?.uid else { return label }
-        ref.child(userID).observeSingleEvent(of: .value, with: {(snapshot) in
-            let value = snapshot.value as? NSDictionary
-            let email = value?["email"] as? String ?? ""
-            label.text = email
-        })
         label.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
         label.textColor = UIColor(rgb: 0x6A7F60)
         label.textAlignment = .center
@@ -76,6 +61,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         setupBackground()
+        setupUserLables()
         
         [changePswdButton, signOutButton,
          usernameLabel, emailLable].forEach {view.addSubview($0)}
@@ -83,17 +69,22 @@ class ProfileViewController: UIViewController {
         setupConstraints()
         setupShadows()
         setupBackButton()
+    }
+    
+    private func setupUserLables() {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        let docRef = db.collection("Users").document(userID)
         
-//        let profileVC = ProfileViewController()
-//        let bookVC = MainBookViewController()
-        
-//        let tabBarVC = UITabBarController()
-//        tabBarVC.setViewControllers([profileVC, bookVC], animated: true)
-//        
-//        addChild(tabBarVC)
-//        view.addSubview(tabBarVC.view)
-//        tabBarVC.didMove(toParent: self)
-        
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let username = document.get("username")
+                let email = document.get("email")
+                self.usernameLabel.text = username as? String
+                self.emailLable.text = email as? String
+            } else {
+                print("Document does not exist")
+            }
+        }
     }
     
     private func setupBackButton() {

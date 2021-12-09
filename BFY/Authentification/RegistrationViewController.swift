@@ -8,10 +8,13 @@
 import UIKit
 import Firebase
 import FirebaseAuth
-import FirebaseDatabase
+//import FirebaseDatabase
+import FirebaseFirestore
 
 class RegistrationViewController: UIViewController, UITextFieldDelegate {
 
+    let db = Firestore.firestore()
+    
     let regLabel: UILabel = {
         let label = UILabel()
         label.text = "Регистрация"
@@ -327,6 +330,16 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    private func addNewUser(username: String, email: String, uid: String) {
+        do {
+            _ = try db.collection("Users").document(uid).setData([
+                "username": username,
+                "email": email])
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
     @objc private func didTapRegButton(_ sender: UIButton) {
         guard let email = emailTextField.text,
               let pswd = passwordTextField.text,
@@ -349,8 +362,9 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
                     if error == nil {
                         if let result = result {
                             print(result.user.uid)
-                            let ref = Database.database().reference()
-                            ref.child(result.user.uid).setValue(["username": login, "email": email])
+                            self.addNewUser(username: login, email: email, uid: result.user.uid)
+//                            let ref = Database.database().reference()
+//                            ref.child(result.user.uid).setValue(["username": login, "email": email])
                             let tabBarVC = TabBarController()
                             self.navigationController?.pushViewController(tabBarVC, animated: true)
                         }
