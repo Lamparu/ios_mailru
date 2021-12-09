@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import FirebaseDatabase
 
 class RegistrationViewController: UIViewController, UITextFieldDelegate {
 
@@ -20,16 +21,16 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-//
-//    let loginLabel: UILabel = {
-//        let label = UILabel()
-//        label.text = "Логин"
-//        label.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
-//        label.textColor = UIColor(rgb: 0x6A7F60)
-//        label.textAlignment = .left
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        return label
-//    }()
+
+    let loginLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Логин"
+        label.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
+        label.textColor = UIColor(rgb: 0x6A7F60)
+        label.textAlignment = .left
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     let emailLabel: UILabel = {
         let label = UILabel()
@@ -61,22 +62,22 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         return label
     }()
     
-//    var loginTextField: UITextField = {
-//        let textField = UITextField()
-////        textField.textContentType = .username
-//        textField.keyboardType = .emailAddress
-//        textField.placeholder = "username"
-//        textField.textAlignment = .center
-//        textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
-//        textField.translatesAutoresizingMaskIntoConstraints = false
-//        textField.resignFirstResponder()
-//        textField.layer.cornerRadius = 5
-//        textField.layer.backgroundColor = UIColor(rgb: 0xFFFEFC).cgColor
-//        textField.layer.borderColor = UIColor.black.cgColor
-//        textField.layer.borderWidth = 1
-//        textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
-//        return textField
-//    }()
+    var loginTextField: UITextField = {
+        let textField = UITextField()
+//        textField.textContentType = .username
+        textField.keyboardType = .emailAddress
+        textField.placeholder = "username"
+        textField.textAlignment = .center
+        textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.resignFirstResponder()
+        textField.layer.cornerRadius = 5
+        textField.layer.backgroundColor = UIColor(rgb: 0xFFFEFC).cgColor
+        textField.layer.borderColor = UIColor.black.cgColor
+        textField.layer.borderWidth = 1
+        textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
+        return textField
+    }()
     
     var passwordTextField: UITextField = {
         let textField = UITextField()
@@ -150,7 +151,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         setupTextFields()
         setupKeyboard()
         
-        [regLabel, emailLabel,
+        [regLabel, emailLabel, loginLabel, loginTextField,
          emailTextField, passwordLabel, passwordTextField,
          passwordAgainLabel, passwordAgainTextField,
          continueRegButton].forEach {view.addSubview($0)}
@@ -159,6 +160,10 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         setupConstraints()
         setupShadows()
         setupBackButton()
+        
+//        let ref = Database.database().reference()
+//        //ref.child("userid/username").setValue("Colorit")
+//        ref.childByAutoId().setValue(["email" : ""])
     }
     
     private func setupBackButton() {
@@ -180,8 +185,8 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     private func setupConstraints() {
         createRegLabelConstraint()
-//        createLoginLabelConstraint()
-//        createLoginTextFieldConstraint()
+        createLoginLabelConstraint()
+        createLoginTextFieldConstraint()
         createEmailLabelConstraint()
         createEmailTextFieldConstraint()
         createPasswordLabelConstraint()
@@ -196,7 +201,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func setupTextFields() {
-//        loginTextField.delegate = self
+        loginTextField.delegate = self
         passwordTextField.delegate = self
         passwordAgainTextField.delegate = self
         emailTextField.delegate = self
@@ -214,24 +219,24 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         regLabel.layer.masksToBounds = false
     }
     
-//    func createLoginLabelConstraint() {
-//        loginLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        loginLabel.centerYAnchor.constraint(equalTo: regLabel.bottomAnchor, constant: 70).isActive = true
-//        loginLabel.widthAnchor.constraint(equalToConstant: 245).isActive = true
-//        loginLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
-//    }
-//
-//    func createLoginTextFieldConstraint() {
-//        loginTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        loginTextField.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 2).isActive = true
-//        loginTextField.widthAnchor.constraint(equalTo: loginLabel.widthAnchor).isActive = true
-//        loginTextField.heightAnchor.constraint(equalToConstant: 35).isActive = true
-//    }
+    func createLoginLabelConstraint() {
+        loginLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        loginLabel.centerYAnchor.constraint(equalTo: regLabel.bottomAnchor, constant: 70).isActive = true
+        loginLabel.widthAnchor.constraint(equalToConstant: 245).isActive = true
+        loginLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
+    }
+
+    func createLoginTextFieldConstraint() {
+        loginTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        loginTextField.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 2).isActive = true
+        loginTextField.widthAnchor.constraint(equalTo: loginLabel.widthAnchor).isActive = true
+        loginTextField.heightAnchor.constraint(equalToConstant: 35).isActive = true
+    }
     
     func createEmailLabelConstraint() {
         emailLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        emailLabel.centerYAnchor.constraint(equalTo: loginTextField.bottomAnchor, constant: 30).isActive = true
-        emailLabel.centerYAnchor.constraint(equalTo: regLabel.bottomAnchor, constant: 100).isActive = true
+        emailLabel.centerYAnchor.constraint(equalTo: loginTextField.bottomAnchor, constant: 30).isActive = true
+//        emailLabel.centerYAnchor.constraint(equalTo: regLabel.bottomAnchor, constant: 100).isActive = true
         emailLabel.widthAnchor.constraint(equalToConstant: 245).isActive = true
         emailLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
     }
@@ -311,7 +316,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     @objc private func handleTextInputChange() {
         let isFormValid = emailTextField.text?.count ?? 0 > 0 &&
-//        loginTextField.text?.count ?? 0 > 0 &&
+        loginTextField.text?.count ?? 0 > 0 &&
         passwordTextField.text?.count ?? 0 > 0 &&
         passwordAgainTextField.text?.count ?? 0 > 0
         
@@ -325,14 +330,14 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     @objc private func didTapRegButton(_ sender: UIButton) {
         guard let email = emailTextField.text,
               let pswd = passwordTextField.text,
-//              let login = loginTextField.text,
+              let login = loginTextField.text,
               let pswd_again = passwordAgainTextField.text
         else { return }
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         
-//        if (!email.isEmpty && !pswd.isEmpty && !login.isEmpty && !pswd_again.isEmpty) {
-        if (!email.isEmpty && !pswd.isEmpty && !pswd_again.isEmpty) {
+        if (!email.isEmpty && !pswd.isEmpty && !login.isEmpty && !pswd_again.isEmpty) {
+//        if (!email.isEmpty && !pswd.isEmpty && !pswd_again.isEmpty) {
             if (!emailPred.evaluate(with: email)) {
                 showMessageAlert(err: "Введите корректную электронную почту")
             } else if (pswd != pswd_again) {
@@ -344,6 +349,8 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
                     if error == nil {
                         if let result = result {
                             print(result.user.uid)
+                            let ref = Database.database().reference()
+                            ref.child(result.user.uid).setValue(["username": login, "email": email])
                             let bookVC = MainBookViewController()
                             self.navigationController?.pushViewController(bookVC, animated: true)
                         }
