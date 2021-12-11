@@ -12,7 +12,7 @@ let lineWith: CGFloat = 10
 let radius: CGFloat = 150
 
 
-@available(iOS 13.0.0, *) struct ContentView: View {
+@available(iOS 13.0.0, *) struct TimerView: View {
     @State private var selectedPickerIndexHour = 1
     @State private var selectedPickerIndexMins = 0
     @State private var selectedPickerIndexSecs = 0
