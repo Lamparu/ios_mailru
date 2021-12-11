@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		18866898C7A1A32ADDB2C4C4 /* Pods_BFY.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 870424EC5A4164EB830D3B6F /* Pods_BFY.framework */; };
+		1DB04FDC2765321A00185D24 /* EndingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB04FDB2765321A00185D24 /* EndingScreenViewController.swift */; };
 		1DD5273F276504E0002A72C0 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD5273C276504E0002A72C0 /* TimerView.swift */; };
 		1DD52740276504E0002A72C0 /* StopwatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD5273D276504E0002A72C0 /* StopwatchView.swift */; };
 		1DD52741276504E0002A72C0 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD5273E276504E0002A72C0 /* TimerViewController.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1DB04FDB2765321A00185D24 /* EndingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndingScreenViewController.swift; sourceTree = "<group>"; };
 		1DD5273C276504E0002A72C0 /* TimerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		1DD5273D276504E0002A72C0 /* StopwatchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopwatchView.swift; sourceTree = "<group>"; };
 		1DD5273E276504E0002A72C0 /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				1DD5273D276504E0002A72C0 /* StopwatchView.swift */,
 				1DD5273C276504E0002A72C0 /* TimerView.swift */,
 				1DD5273E276504E0002A72C0 /* TimerViewController.swift */,
+				1DB04FDB2765321A00185D24 /* EndingScreenViewController.swift */,
 			);
 			path = TimerStopwatchViewContoller;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				F5F80CE7272013C500E61826 /* AppDelegate.swift in Sources */,
 				F5BE1ABA274188D000A17D23 /* SignInViewController.swift in Sources */,
 				F58BB452272A7F1A00462654 /* RegistrationViewController.swift in Sources */,
+				1DB04FDC2765321A00185D24 /* EndingScreenViewController.swift in Sources */,
 				F56D6F2A27562E5200ADB08F /* StartViewController.swift in Sources */,
 				F5F80CE9272013C500E61826 /* SceneDelegate.swift in Sources */,
 				F56D6F282755693E00ADB08F /* ProfileViewController.swift in Sources */,

@@ -34,7 +34,7 @@ class MainBookViewController: UIViewController {
         let imageName = "playButton"
         let image = UIImage(named: imageName)
         playButton.setImage(UIImage(named: imageName), for: .normal)
-        playButton.layer.cornerRadius=50
+        playButton.layer.cornerRadius=30
         playButton.layer.masksToBounds = true
         playButton.translatesAutoresizingMaskIntoConstraints = false
         return playButton
@@ -168,8 +168,8 @@ class MainBookViewController: UIViewController {
         button.layer.shadowColor = UIColor.black.cgColor
         button.centerXAnchor.constraint(equalTo: mainFrame.centerXAnchor).isActive = true
         button.centerYAnchor.constraint(equalTo: mainFrame.bottomAnchor, constant: 70).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 105).isActive = true
-        button.widthAnchor.constraint(equalToConstant: 105).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 75).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 75).isActive = true
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

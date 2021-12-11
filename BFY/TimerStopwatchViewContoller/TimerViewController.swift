@@ -27,6 +27,18 @@ class TimerViewContoller: UIViewController {
         return mySegmentControl
     } ()
     
+    let endingButton: UIButton = {
+        let playButton = UIButton()
+        playButton.addTarget(self, action: #selector(didTapRegButton), for: .touchUpInside)
+        let imageName = "endReading"
+        let image = UIImage(named: imageName)
+        playButton.setImage(UIImage(named: imageName), for: .normal)
+        playButton.layer.cornerRadius=50
+        playButton.layer.masksToBounds = true
+        playButton.translatesAutoresizingMaskIntoConstraints = false
+        return playButton
+    } ()
+    
     let backButton: UIBarButtonItem = {
         let backButton = UIBarButtonItem()
         backButton.title = ""
@@ -43,6 +55,9 @@ class TimerViewContoller: UIViewController {
         //
         self.view.addSubview(ClockSegmentControl)
         self.selectedValue(target: ClockSegmentControl)
+        
+        self.view.addSubview(endingButton)
+        createEndingButtons(button: endingButton)
 
        
         //back button
@@ -94,4 +109,20 @@ class TimerViewContoller: UIViewController {
                
                
            }
+    
+    func createEndingButtons(button: UIButton) {
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        button.centerYAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 76).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 244).isActive = true
+    }
+    
+    @objc private func didTapRegButton(_ sender: UIButton) {
+        let EndingScreenViewController = EndingScreenViewController()
+        let navController = UINavigationController(rootViewController: EndingScreenViewController)
+        self.present(navController, animated: true, completion: nil)
+        
+    }
+    
 }
