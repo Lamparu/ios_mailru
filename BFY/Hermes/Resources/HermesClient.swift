@@ -1,9 +1,6 @@
-//
-//  HermesClient.swift
-//  FlicksBox
-//
-//  Created by sn.alekseev on 06.03.2021.
-//
+
+
+
 
 import Foundation
 
@@ -15,7 +12,7 @@ public final class HermesClient {
     private var standartHeaders: [String: String] {
         return [
             "Content-Type": "application/json",
-            "User-Agent": "FlicksBox/1.0 iOS"
+            "User-Agent": "BFY/1.0 iOS"
         ]
     }
     

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Hermes
 
 struct SearchResponse: Decodable {
     let result: APIResult

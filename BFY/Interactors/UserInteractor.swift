@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Hermes
 
 struct UserSignin: Encodable {
    let email: String

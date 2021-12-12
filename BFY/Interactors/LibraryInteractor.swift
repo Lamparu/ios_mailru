@@ -6,21 +6,20 @@
 //
 
 import Foundation
-import Hermes
 
-struct FavouritesResponse: Decodable {
-    let favourites: APIFavourites
+struct LibraryResponse: Decodable {
+    let reading_now: APIReadingNow
 }
 
 final class LibraryInteractor: BaseInteractor {
     
     func content(
-        success: @escaping (APIResponse<FavouritesResponse>) -> Void,
+        success: @escaping (APIResponse<LibraryResponse>) -> Void,
         failure: @escaping (Error) -> Void
     ) {
         let request = HermesRequest(method: .get, path: "/favourites")
         request.successHandler = { response in
-            guard let data = response.data.decode(type: APIResponse<FavouritesResponse>.self) else {
+            guard let data = response.data.decode(type: APIResponse<LibraryResponse>.self) else {
                 failure(InteractorError.emptyData)
                 return
             }

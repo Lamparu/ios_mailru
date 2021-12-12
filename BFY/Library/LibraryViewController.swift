@@ -47,7 +47,7 @@ final class LibraryViewController: BooksTableViewController {
         let AddNewBookViewController = AddNewBookViewController()
         let navController = UINavigationController(rootViewController: AddNewBookViewController)
         self.present(navController, animated: true, completion: nil)
-        self.navigationController?.pushViewController(AddNewBookViewController, animated: true)
+//        self.navigationController?.pushViewController(AddNewBookViewController, animated: true)
     }
     
     

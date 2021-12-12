@@ -4,8 +4,7 @@
 //
 //  Created by Анастасия Московчук on 12.12.2021.
 //
-
-import Hermes
+import Foundation
 
 class BaseInteractor {
     let client: HermesClient

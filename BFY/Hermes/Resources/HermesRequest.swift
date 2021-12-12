@@ -1,9 +1,6 @@
-//
-//  HermesRequest.swift
-//  FlicksBox
-//
-//  Created by sn.alekseev on 06.03.2021.
-//
+
+
+
 
 import Foundation
 

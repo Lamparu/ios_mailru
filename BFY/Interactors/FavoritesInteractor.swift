@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Hermes
 
 final class FavoritesInteractor: BaseInteractor {
     
