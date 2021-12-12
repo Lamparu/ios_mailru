@@ -1,0 +1,6 @@
+framework module Pods_Hermes {
+  umbrella header "Pods-Hermes-umbrella.h"
+
+  export *
+  module * { export * }
+}
