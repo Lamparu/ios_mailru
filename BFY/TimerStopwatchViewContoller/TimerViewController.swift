@@ -8,11 +8,13 @@ import UIKit
 import SwiftUI
 
 
-class TimerViewContoller: UIViewController {
+protocol ButtonDelegate: class {
+    func onButtonTap(sender: UIButton)
+}
+
+class TimerViewContoller: UIViewController, ButtonDelegate {
     
  //  @IBOutlet weak var theContainer: UIView!
-    
-   
     
     
     let ClockSegmentControl: UISegmentedControl = {
@@ -120,9 +122,14 @@ class TimerViewContoller: UIViewController {
     
     @objc private func didTapRegButton(_ sender: UIButton) {
         let EndingScreenViewController = EndingScreenViewController()
+        EndingScreenViewController.delegate = self
         let navController = UINavigationController(rootViewController: EndingScreenViewController)
         self.present(navController, animated: true, completion: nil)
-        
+
     }
+    
+    func onButtonTap(sender: UIButton) {
+            self.navigationController?.popViewController(animated: true)
+        }
     
 }

@@ -20,6 +20,7 @@ class EndingScreenViewController: UIViewController {
 //        str.translatesAutoresizingMaskIntoConstraints = false
 //        return str
 //    }()
+    weak var delegate: ButtonDelegate?
     
     let stringLists: UILabel = {
         let text = "Введите номер страницы"
@@ -67,6 +68,8 @@ class EndingScreenViewController: UIViewController {
         view.addSubview(numberOfListsField)
         view.addSubview(yesButton)
         
+       
+        
         //createstringQuestionConstraint()
         createstringListsConstraint()
         createnumberOfListsFieldConstraint()
@@ -104,7 +107,11 @@ class EndingScreenViewController: UIViewController {
     
     
     @objc private func didTapRegButton(_ sender: UIButton) {
-            self.dismiss(animated: true)
+        self.dismiss(animated: false) {
+            self.delegate?.onButtonTap(sender: sender)
+        }
+        
+        //self.navigationController?.popViewController(animated: true)
     }
 
 }
