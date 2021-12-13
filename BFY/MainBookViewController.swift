@@ -2,8 +2,8 @@ import UIKit
 
 
 
-class MainBookViewController: UIViewController {
-
+class MainBookViewController: UIViewController, UITextFieldDelegate {
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
@@ -24,7 +24,7 @@ class MainBookViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.borderWidth = 1
         imageView.layer.borderColor = UIColor.black.cgColor
-//        imageView.layer.cornerRadius=28
+        //        imageView.layer.cornerRadius=28
         imageView.layer.masksToBounds = true
         return imageView
     }()
@@ -63,21 +63,22 @@ class MainBookViewController: UIViewController {
     }()
     
     var numberOfListsField: UITextField = {
-    let textField = UITextField()
-    let list = 10
-    textField.placeholder = "\(list) стр.";// str (число из бэка данные по этой книге)
-    textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 25)
-    textField.borderStyle = UITextField.BorderStyle.roundedRect
-    textField.textAlignment = .center
-    textField.layer.cornerRadius = 20
-    textField.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
-    textField.layer.borderColor = UIColor(rgb: 0x6A7F60).cgColor
-    textField.layer.borderWidth = 1
-    textField.layer.masksToBounds = true
-    textField.translatesAutoresizingMaskIntoConstraints = false
-    textField.resignFirstResponder()
-
-    return textField
+        let textField = UITextField()
+        let list = 10
+        textField.keyboardType = .decimalPad
+        textField.placeholder = "\(list) стр.";// str (число из бэка данные по этой книге)
+        textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 25)
+        textField.borderStyle = UITextField.BorderStyle.roundedRect
+        textField.textAlignment = .center
+        textField.layer.cornerRadius = 20
+        textField.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
+        textField.layer.borderColor = UIColor(rgb: 0x6A7F60).cgColor
+        textField.layer.borderWidth = 1
+        textField.layer.masksToBounds = true
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.resignFirstResponder()
+        
+        return textField
     }()
     
     
@@ -94,6 +95,10 @@ class MainBookViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        numberOfListsField.delegate = self
+        setupKeyboard()
+        
         view.backgroundColor = UIColor(rgb: 0xfffcf4)
         view.addSubview(mainFrame)
         view.addSubview(bookImage)
@@ -101,8 +106,6 @@ class MainBookViewController: UIViewController {
         view.addSubview(stringBookAuthor)
         view.addSubview(numberOfListsField)
         view.addSubview(stringToListsField)
-        
-        setupKeyboard()
         
         
         createMainBookConstraint()
@@ -114,13 +117,13 @@ class MainBookViewController: UIViewController {
         
         self.view.addSubview(playButton)
         applyShadowOnButtons(button: playButton)
-
+        
         // Do any additional setup after loading the view.
         
-//        let backButton = UIBarButtonItem()
-//        backButton.title = ""
-//        backButton.tintColor = UIColor(rgb: 0x6A7F60)
-//        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+        //        let backButton = UIBarButtonItem()
+        //        backButton.title = ""
+        //        backButton.tintColor = UIColor(rgb: 0x6A7F60)
+        //        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
         navigationItem.hidesBackButton = true
     }
     
@@ -157,12 +160,12 @@ class MainBookViewController: UIViewController {
         stringToListsField.centerXAnchor.constraint(equalTo: numberOfListsField.centerXAnchor).isActive = true
         stringToListsField.centerYAnchor.constraint(equalTo: numberOfListsField.topAnchor, constant: -20).isActive = true
     }
-
+    
     
     @objc private func didTapRegButton(_ sender: UIButton) {
         let Timer = TimerViewContoller()
-   //           let navController = UINavigationController(rootViewController: Timer)
-   //            self.present(navController, animated: true, completion: nil)
+        //           let navController = UINavigationController(rootViewController: Timer)
+        //            self.present(navController, animated: true, completion: nil)
         self.navigationController?.pushViewController(Timer, animated: true)
     }
     
@@ -184,15 +187,9 @@ class MainBookViewController: UIViewController {
         self.navigationController?.pushViewController(profileVC, animated: true)
     }
     
-    private func setupKeyboard()
-    {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
     @objc private func keyboardWillShow(notification: NSNotification) {
         if self.view.frame.origin.y == 0 {
-            self.view.frame.origin.y -= 180
+            self.view.frame.origin.y -= 100
         }
     }
     
@@ -201,6 +198,13 @@ class MainBookViewController: UIViewController {
             self.view.frame.origin.y = 0
         }
     }
-
-
+    
+    private func setupKeyboard()
+    {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    
+    
 }

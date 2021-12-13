@@ -13,7 +13,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     var loginTextField: UITextField = {
         let textField = UITextField()
         textField.keyboardType = .emailAddress
-//        textField.textContentType = .username
+        //        textField.textContentType = .username
         textField.textContentType = .emailAddress
         textField.placeholder = "Электронная почта"
         textField.textAlignment = .center
@@ -76,7 +76,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         button.addTarget(self, action: #selector(didTapContinueButton), for: .touchUpInside)
         button.setTitle("Войти", for: .normal)
         button.titleLabel?.textAlignment = .center
-//        button.titleEdgeInsets
+        //        button.titleEdgeInsets
         button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 32)
         button.setTitleColor(UIColor(rgb: 0xfffcf4), for: .normal)
         button.backgroundColor = UIColor(rgb: 0x919F8B)
@@ -99,23 +99,23 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         return button
     }()
     
-//    let rememberButton: UIButton = {
-//        let button = UIButton()
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        button.setImage(UIImage(named: "box_empty"), for: .normal)
-//        button.addTarget(self, action: #selector(didTapRememberButton), for: .touchUpInside)
-//        return button
-//    }()
-//
-//    let rememberTextButton: UIButton = {
-//        let button = UIButton()
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        button.setTitle("Запомнить меня", for: .normal)
-//        button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
-//        button.setTitleColor(.black, for: .normal)
-//        button.addTarget(self, action: #selector(didTapRememberButton), for: .touchUpInside)
-//        return button
-//    }()
+    //    let rememberButton: UIButton = {
+    //        let button = UIButton()
+    //        button.translatesAutoresizingMaskIntoConstraints = false
+    //        button.setImage(UIImage(named: "box_empty"), for: .normal)
+    //        button.addTarget(self, action: #selector(didTapRememberButton), for: .touchUpInside)
+    //        return button
+    //    }()
+    //
+    //    let rememberTextButton: UIButton = {
+    //        let button = UIButton()
+    //        button.translatesAutoresizingMaskIntoConstraints = false
+    //        button.setTitle("Запомнить меня", for: .normal)
+    //        button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
+    //        button.setTitleColor(.black, for: .normal)
+    //        button.addTarget(self, action: #selector(didTapRememberButton), for: .touchUpInside)
+    //        return button
+    //    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,14 +125,14 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         [viewEmptyRectangle, loginTextField, passwordTextField,
          line1, line2, signInLabel, continueSignInButton,
          forgetButton].forEach {view.addSubview($0)}
-    
+        
         setupBackground()
         setupConstraints()
         setupShadows()
         setupKeyboard()
         setupBackButton()
         
-//        rememberButton.isSelected = false
+        //        rememberButton.isSelected = false
     }
     
     private func setupBackButton() {
@@ -155,8 +155,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         createSignInLabelConstraint()
         createContinueSignInButtonConstraint()
         createForgetButtonConstraint()
-//        createRememberButtonConstraint()
-//        createRememberTextButtonConstraint()
+        //        createRememberButtonConstraint()
+        //        createRememberTextButtonConstraint()
     }
     
     private func setupBackground() {
@@ -230,19 +230,19 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         forgetButton.widthAnchor.constraint(equalToConstant: 180).isActive = true
     }
     
-//    func createRememberButtonConstraint() {
-//        rememberButton.centerXAnchor.constraint(equalTo: viewEmptyRectangle.leftAnchor, constant: 70).isActive = true
-//        rememberButton.centerYAnchor.constraint(equalTo: forgetButton.bottomAnchor, constant: 38).isActive = true
-//        rememberButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-//        rememberButton.widthAnchor.constraint(equalTo: rememberButton.heightAnchor).isActive = true
-//    }
-//
-//    func createRememberTextButtonConstraint() {
-//        rememberTextButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-//        rememberTextButton.widthAnchor.constraint(equalToConstant: 180).isActive = true
-//        rememberTextButton.leftAnchor.constraint(equalTo: rememberButton.centerXAnchor).isActive = true
-//        rememberTextButton.centerYAnchor.constraint(equalTo: rememberButton.centerYAnchor).isActive = true
-//    }
+    //    func createRememberButtonConstraint() {
+    //        rememberButton.centerXAnchor.constraint(equalTo: viewEmptyRectangle.leftAnchor, constant: 70).isActive = true
+    //        rememberButton.centerYAnchor.constraint(equalTo: forgetButton.bottomAnchor, constant: 38).isActive = true
+    //        rememberButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    //        rememberButton.widthAnchor.constraint(equalTo: rememberButton.heightAnchor).isActive = true
+    //    }
+    //
+    //    func createRememberTextButtonConstraint() {
+    //        rememberTextButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+    //        rememberTextButton.widthAnchor.constraint(equalToConstant: 180).isActive = true
+    //        rememberTextButton.leftAnchor.constraint(equalTo: rememberButton.centerXAnchor).isActive = true
+    //        rememberTextButton.centerYAnchor.constraint(equalTo: rememberButton.centerYAnchor).isActive = true
+    //    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
@@ -257,15 +257,15 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         button.layer.masksToBounds = false
     }
     
-//    @objc private func didTapRememberButton(_ sender: UIButton) {
-//        if rememberButton.isSelected {
-//            rememberButton.setBackgroundImage(UIImage(named: "box_empty"), for: .normal)
-//            rememberButton.isSelected = false
-//        } else {
-//            rememberButton.setBackgroundImage(UIImage(named: "box_filled"), for:.normal)
-//            rememberButton.isSelected = true
-//        }
-//    }
+    //    @objc private func didTapRememberButton(_ sender: UIButton) {
+    //        if rememberButton.isSelected {
+    //            rememberButton.setBackgroundImage(UIImage(named: "box_empty"), for: .normal)
+    //            rememberButton.isSelected = false
+    //        } else {
+    //            rememberButton.setBackgroundImage(UIImage(named: "box_filled"), for:.normal)
+    //            rememberButton.isSelected = true
+    //        }
+    //    }
     
     private func showMessageAlert(err: String) {
         let alert = UIAlertController(title: "Ошибка", message: err, preferredStyle: .alert)
@@ -302,7 +302,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-
+    
     @objc private func didTapContinueButton(_ sender: UIButton) {
         guard let pswd = passwordTextField.text,
               let login = loginTextField.text
@@ -353,7 +353,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
             continueSignInButton.backgroundColor = UIColor(rgb: 0x919F8B)
         }
     }
-
+    
     @objc private func keyboardWillShow(notification: NSNotification) {
         if self.view.frame.origin.y == 0 {
             self.view.frame.origin.y -= 180

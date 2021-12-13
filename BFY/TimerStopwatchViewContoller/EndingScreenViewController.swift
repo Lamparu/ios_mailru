@@ -7,19 +7,19 @@
 
 import UIKit
 
-class EndingScreenViewController: UIViewController {
+class EndingScreenViewController: UIViewController, UITextFieldDelegate {
     
-//    let stringQuestion: UILabel = {
-//        let text = "Уверены,\nчто хотите завершить чтение?"
-//        let str = UILabel()
-//        str.text = text
-//        str.numberOfLines = 2
-//        str.textColor = UIColor.white
-//        str.font = UIFont(name: "AppleSDGothicNeo-Light", size: 26)
-//        str.textAlignment = .center
-//        str.translatesAutoresizingMaskIntoConstraints = false
-//        return str
-//    }()
+    //    let stringQuestion: UILabel = {
+    //        let text = "Уверены,\nчто хотите завершить чтение?"
+    //        let str = UILabel()
+    //        str.text = text
+    //        str.numberOfLines = 2
+    //        str.textColor = UIColor.white
+    //        str.font = UIFont(name: "AppleSDGothicNeo-Light", size: 26)
+    //        str.textAlignment = .center
+    //        str.translatesAutoresizingMaskIntoConstraints = false
+    //        return str
+    //    }()
     weak var delegate: ButtonDelegate?
     
     let stringLists: UILabel = {
@@ -34,17 +34,18 @@ class EndingScreenViewController: UIViewController {
     }()
     
     var numberOfListsField: UITextField = {
-    let textField = UITextField()
-    textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
-    textField.borderStyle = UITextField.BorderStyle.roundedRect
-    textField.textAlignment = .center
-    textField.layer.cornerRadius = 10
-    //textField.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
-    textField.layer.masksToBounds = true
-    textField.translatesAutoresizingMaskIntoConstraints = false
-    textField.resignFirstResponder()
-
-    return textField
+        let textField = UITextField()
+        textField.keyboardType = .decimalPad
+        textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
+        textField.borderStyle = UITextField.BorderStyle.roundedRect
+        textField.textAlignment = .center
+        textField.layer.cornerRadius = 10
+        //textField.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
+        textField.layer.masksToBounds = true
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.resignFirstResponder()
+        
+        return textField
     }()
     
     let yesButton: UIButton = {
@@ -53,8 +54,8 @@ class EndingScreenViewController: UIViewController {
         let imageName = "save"
         let image = UIImage(named: imageName)
         playButton.setImage(UIImage(named: imageName), for: .normal)
-//        playButton.layer.cornerRadius=70
-//        playButton.layer.masksToBounds = true
+        //        playButton.layer.cornerRadius=70
+        //        playButton.layer.masksToBounds = true
         playButton.translatesAutoresizingMaskIntoConstraints = false
         return playButton
     } ()
@@ -62,13 +63,17 @@ class EndingScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        numberOfListsField.delegate = self
+        setupKeyboard()
+        
         view.backgroundColor = UIColor(rgb: 0x6A7F60)
         //view.addSubview(stringQuestion)
         view.addSubview(stringLists)
         view.addSubview(numberOfListsField)
         view.addSubview(yesButton)
         
-       
+        
         
         //createstringQuestionConstraint()
         createstringListsConstraint()
@@ -77,12 +82,12 @@ class EndingScreenViewController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
-//    func createstringQuestionConstraint() {
-//        stringQuestion.widthAnchor.constraint(equalToConstant: 400).isActive = true
-//        stringQuestion.heightAnchor.constraint(equalToConstant: 100).isActive = true
-//        stringQuestion.centerXAnchor.constraint(equalTo: numberOfListsField.centerXAnchor).isActive = true
-//        stringQuestion.centerYAnchor.constraint(equalTo: numberOfListsField.bottomAnchor, constant: 100).isActive = true
-//    }
+    //    func createstringQuestionConstraint() {
+    //        stringQuestion.widthAnchor.constraint(equalToConstant: 400).isActive = true
+    //        stringQuestion.heightAnchor.constraint(equalToConstant: 100).isActive = true
+    //        stringQuestion.centerXAnchor.constraint(equalTo: numberOfListsField.centerXAnchor).isActive = true
+    //        stringQuestion.centerYAnchor.constraint(equalTo: numberOfListsField.bottomAnchor, constant: 100).isActive = true
+    //    }
     
     func createstringListsConstraint() {
         stringLists.widthAnchor.constraint(equalToConstant: 400).isActive = true
@@ -113,5 +118,22 @@ class EndingScreenViewController: UIViewController {
         
         //self.navigationController?.popViewController(animated: true)
     }
-
+    
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        if self.view.frame.origin.y == 0 {
+            self.view.frame.origin.y -= 100
+        }
+    }
+    
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    private func setupKeyboard()
+    {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
 }
