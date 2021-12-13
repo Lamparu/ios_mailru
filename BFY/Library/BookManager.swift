@@ -4,7 +4,6 @@
 //
 //  Created by Анастасия Московчук on 16.11.2021.
 //
-
 import Foundation
 
 protocol BookManagerProtocol {  //закрыли протоколом, чтобы сделать инверсию зависимостей, чтобы в любой момент можно было подменить любым другим менеджером, который реализует этот протокол
@@ -16,7 +15,6 @@ protocol BookManagerProtocol {  //закрыли протоколом, чтоб�
 //protocol BookManagerOutput: AnyObject {
 //    func didReceive(_ books: [Book])
 //}
-
 class BookManager: BookManagerProtocol {
     static let shared: BookManagerProtocol = BookManager()  //это синглтон (для объектов, которые в проекте нужны в единственном экземпляре)
     
@@ -48,4 +46,3 @@ class BookManager: BookManagerProtocol {
 //            self.output?.didReceive(books)
     }
 }
-

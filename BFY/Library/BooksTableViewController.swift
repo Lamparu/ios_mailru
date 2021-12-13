@@ -4,17 +4,19 @@
 //
 //  Created by Анастасия Московчук on 16.11.2021.
 //
-
 import UIKit
 
 class BooksTableViewController: UIViewController {
 
+    var books: [Book] = [.init(title: "Гордость и предубеждение", author: "Джейн Остен", image: URL(string: ""))]
+    
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
 
         tableView.register(LibraryTableViewCell.self, forCellReuseIdentifier: "LibraryTableViewCell")
+        
         return tableView
     }()
 
@@ -50,7 +52,7 @@ extension BooksTableViewController: UITableViewDataSource {
 //    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 //        return 0
 //    }
-//    
+//
 //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 //        let headerView = UIView()
 //        headerView.backgroundColor = UIColor.clear
@@ -58,5 +60,3 @@ extension BooksTableViewController: UITableViewDataSource {
 //        return headerView
 //    }
 }
-
-
