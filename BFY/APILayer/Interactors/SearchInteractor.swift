@@ -21,7 +21,7 @@ final class SearchInteractor: BaseInteractor {
         failure: @escaping (Error) -> Void
     ) {
         getSearchResult(
-            path: "/search",
+            path: "/volumes?q=",
             responseType: APIResponse<SearchResponse>.self,
             from: from,
             count: count,

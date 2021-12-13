@@ -12,12 +12,13 @@ class LibraryTableViewCell: UITableViewCell {
     var containerView: UIView = UIView()
     var bookTitle: UILabel = UILabel()
     var bookAuthor: UILabel = UILabel()
-    let bookImageView: UIImageView = {
-        let imageName = "bookImage.png"
-        let image = UIImage(named: imageName)
-        let imageView = UIImageView(image: image)
-        return imageView
-    }()
+    let bookImageView: UIImageView = UIImageView()
+//    {
+//        let imageName = "bookImage.png"
+//        let image = UIImage(named: imageName)
+//        let imageView = UIImageView(image: image)
+//        return imageView
+//    }()
         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

@@ -33,8 +33,6 @@ final class LibraryViewController: BooksTableViewController {
         let book = books[indexPath.row]
                 
         cell.configure(with: book)
-//        let key = books[indexPath.row].key
-//        cell.setupViews(he: CGFloat(key))
 
         return cell
     }
@@ -79,8 +77,6 @@ final class LibraryViewController: BooksTableViewController {
     }
     
     @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
-//        view.endEditing(true)
-        // print("!!!!!!")
         searchBookBar.searchBar.resignFirstResponder()
         searchBookBar.searchBar.setShowsCancelButton(false, animated: true)
     }

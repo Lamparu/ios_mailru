@@ -146,6 +146,16 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		510A985927678EE300FC3501 /* APILayer */ = {
+			isa = PBXGroup;
+			children = (
+				51782F8E27661C840015ED13 /* Entities */,
+				51B611122762AB9A00A1C1D8 /* Interactors */,
+				51782FDA2766567B0015ED13 /* CSRFStorage.swift */,
+			);
+			path = APILayer;
+			sourceTree = "<group>";
+		};
 		5130DC3B276298B500D9C1E6 /* Library */ = {
 			isa = PBXGroup;
 			children = (
@@ -210,11 +220,11 @@
 			children = (
 				51782F692765FF470015ED13 /* BaseInteractor.swift */,
 				51B611132762ABDB00A1C1D8 /* SearchInteractor.swift */,
-				51782F8227661B7A0015ED13 /* RecommendationsInteractor.swift */,
-				51782F8427661B7A0015ED13 /* LibraryInteractor.swift */,
 				51782F8727661B7B0015ED13 /* UserInteractor.swift */,
 				51782F8627661B7B0015ED13 /* BooksInteractor.swift */,
+				51782F8427661B7A0015ED13 /* LibraryInteractor.swift */,
 				51782F7C27661B6D0015ED13 /* FavoritesInteractor.swift */,
+				51782F8227661B7A0015ED13 /* RecommendationsInteractor.swift */,
 			);
 			path = Interactors;
 			sourceTree = "<group>";
@@ -268,8 +278,7 @@
 			isa = PBXGroup;
 			children = (
 				51782FCD27664D670015ED13 /* Hermes */,
-				51782F8E27661C840015ED13 /* Entities */,
-				51B611122762AB9A00A1C1D8 /* Interactors */,
+				510A985927678EE300FC3501 /* APILayer */,
 				5130DC4F27629C4900D9C1E6 /* Search */,
 				5130DC3B276298B500D9C1E6 /* Library */,
 				F57AA60027492C9D009387A0 /* Authentification */,
@@ -285,7 +294,6 @@
 				F56D6F272755693E00ADB08F /* ProfileViewController.swift */,
 				F56D6F2927562E5200ADB08F /* StartViewController.swift */,
 				F59C8F3327625CFC00468667 /* TabBarController.swift */,
-				51782FDA2766567B0015ED13 /* CSRFStorage.swift */,
 			);
 			path = BFY;
 			sourceTree = "<group>";
