@@ -39,14 +39,14 @@ class LibraryTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
         
-    private func setupContainerView() {
+    func setupContainerView() {
         containerView.layer.cornerRadius = 8
         containerView.layer.masksToBounds = true
         containerView.backgroundColor = UIColor(rgb: 0xbcc3b0)
         containerView.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private func setupBookTitle() {
+    func setupBookTitle() {
         bookTitle.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
 //        bookTitle.textColor = UIColor(rgb: 0x6A7F60)
         bookTitle.textColor = UIColor.black
@@ -54,7 +54,7 @@ class LibraryTableViewCell: UITableViewCell {
         bookTitle.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private func setupBookAuthor() {
+    func setupBookAuthor() {
         bookAuthor.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
 //        bookAuthor.textColor = UIColor(rgb: 0x6A7F60)
         bookAuthor.textColor = UIColor.black
@@ -62,7 +62,7 @@ class LibraryTableViewCell: UITableViewCell {
         bookAuthor.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private func setupBookImageView() {
+    func setupBookImageView() {
         bookImageView.contentMode = .scaleAspectFit
         bookImageView.translatesAutoresizingMaskIntoConstraints = false
         bookImageView.backgroundColor = UIColor.clear
@@ -72,7 +72,7 @@ class LibraryTableViewCell: UITableViewCell {
         bookImageView.layer.masksToBounds = true
     }
 
-    private func setupConstraints() {
+    func setupConstraints() {
         createContainerViewConstraint()
         createBookImageViewConstraint()
         createBookTitleConstraint()
@@ -83,7 +83,8 @@ class LibraryTableViewCell: UITableViewCell {
     
     func configure (with book: Book) {
         bookTitle.text = book.title
-        bookAuthor.text = book.author
+//        bookAuthor.text = book.authors[0]
+//        bookImageView.
     }
     
     func createContainerViewConstraint() {
@@ -102,7 +103,7 @@ class LibraryTableViewCell: UITableViewCell {
         bookImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 15).isActive = true
         bookImageView.rightAnchor.constraint(equalTo: containerView.leftAnchor, constant: 60).isActive = true
         bookImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 6).isActive = true
-        bookImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8).isActive = true
+        bookImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -6).isActive = true
     }
     
     func createBookTitleConstraint() {

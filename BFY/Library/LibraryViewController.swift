@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class LibraryViewController: BooksTableViewController {
+class LibraryViewController: BooksTableViewController {
 
     let searchBookBar = SearchBarView()
     let addBookButton = UIButton()
@@ -30,15 +30,16 @@ final class LibraryViewController: BooksTableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "LibraryTableViewCell", for: indexPath) as? LibraryTableViewCell else {
             return UITableViewCell()
         }
-        let book = books[indexPath.row]
+//        let book = books[indexPath.row]
                 
-        cell.configure(with: book)
+//        cell.configure(with: book)
 
         return cell
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return books.count
+        return 10
+//        return books.count
     }
     
     @objc private func didTapAddBookButton(_ sender: UIButton) {
@@ -104,7 +105,7 @@ final class LibraryViewController: BooksTableViewController {
     }
     
     private func setupTableView() {
-        books = BookManager.shared.loadBooks()
+//        books = BookManager.shared.loadBooks()
         
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor(rgb: 0xfffcf4)

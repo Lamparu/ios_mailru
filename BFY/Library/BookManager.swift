@@ -7,45 +7,30 @@
 
 import Foundation
 
-protocol BookManagerProtocol {  //закрыли протоколом, чтобы сделать инверсию зависимостей, чтобы в любой момент можно было подменить любым другим менеджером, который реализует этот протокол
-//    var output: BookManagerOutput? { get set }
+final class BookInfo: Equatable {
     
-    func loadBooks() -> [Book]  //по лекции про сетевое взаимодействие подправить
-}
-
-//protocol BookManagerOutput: AnyObject {
-//    func didReceive(_ books: [Book])
-//}
-
-class BookManager: BookManagerProtocol {
-    static let shared: BookManagerProtocol = BookManager()  //это синглтон (для объектов, которые в проекте нужны в единственном экземпляре)
+    let id: String
+    let title: String
+    let authors: [String]
+    let image: String
     
-//    weak var output: BookManagerOutput?
+    convenience init(from book: Book) {
+        self.init(
+            id: book.id,
+            title: book.title,
+            authors: book.authors,
+            image: book.image
+        )
+    }
     
-    private init() {}
+    init(id: String, title: String, authors: [String], image: String) {
+        self.id = id
+        self.title = title
+        self.authors = authors
+        self.image = ""
+    }
     
-    func loadBooks() -> [Book] {
-        return [
-            Book(title: "Гордость и предубеждение", author: "Джейн Остен", image: nil),
-            Book(title: "Капитанская дочка", author: "А.С. Пушкин", image: nil),
-            Book(title: "Руслан и Людмила", author: "А.С. Пушкин", image: nil),
-            Book(title: "Капитанская дочка", author: "А.С. Пушкин", image: nil),
-            Book(title: "Руслан и Людмила", author: "А.С. Пушкин", image: nil),
-            Book(title: "Руслан и Людмила", author: "А.С. Пушкин", image: nil),
-            Book(title: "Капитанская дочка", author: "А.С. Пушкин", image: nil),
-            Book(title: "Капитанская дочка", author: "А.С. Пушкин", image: nil),
-            Book(title: "Руслан и Людмила", author: "А.С. Пушкин", image: nil),
-            Book(title: "Руслан и Людмила", author: "А.С. Пушкин", image: nil),
-
-        ]
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//            let books = [
-//                Book(title: "iPad Mini 2030", price: "499 $", isVerified: Bool.random(), imageUrl: URL(string: "https://www.iphones.ru/wp-content/uploads/2018/11/01FBA0D1-393D-4E9F-866C-F26F60722480.jpeg")),
-//                Book(title: "iPhone 13 Pro", price: "1299 $", isVerified: Bool.random(), imageUrl: URL(string: "https://berryblog.ru/wp-content/uploads/2017/09/gettyimages-846148982.jpg")),
-//                Book(title: "Apple Watch 7", price: "499 $", isVerified: Bool.random(), imageUrl: URL(string: "https://pbs.twimg.com/media/DnFbBdYVsAAqnXN.jpg"))
-//            ]
-//
-//            self.output?.didReceive(books)
+    static func ==(lhs: BookInfo, rhs: BookInfo) -> Bool {
+        return lhs.id == rhs.id
     }
 }
-

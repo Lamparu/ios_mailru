@@ -8,7 +8,8 @@
 import Foundation
 
 struct Book {
+    let id: String
     let title: String
-    let author: String
-    let image: URL?
+    let authors: [String]
+    let image: String
 }

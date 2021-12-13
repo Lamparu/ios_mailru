@@ -9,7 +9,7 @@ import UIKit
 
 class BooksTableViewController: UIViewController {
 
-    var books: [Book] = [.init(title: "Гордость и предубеждение", author: "Джейн Остен", image: URL(string: ""))]
+//    var books: [Book] = [.init(title: "Гордость и предубеждение", author: "Джейн Остен", image: URL(string: ""))]
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()

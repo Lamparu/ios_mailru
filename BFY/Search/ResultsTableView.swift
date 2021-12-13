@@ -16,12 +16,12 @@ protocol ResultsGridViewDelegate: AnyObject {
 final class ResultsTableView: LibraryViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Results", for: indexPath) as? LibraryTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ResultsTableCell", for: indexPath) as? LibraryTableViewCell else {
             return UITableViewCell()
         }
-        let book = books[indexPath.row]
+//        let book = books[indexPath.row]
                 
-        cell.configure(with: book)
+//        cell.configure(with: book)
 
         return cell
     }

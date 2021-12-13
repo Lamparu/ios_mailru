@@ -10,8 +10,9 @@
 		18866898C7A1A32ADDB2C4C4 /* Pods_BFY.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 870424EC5A4164EB830D3B6F /* Pods_BFY.framework */; };
 		1D05AD822742CD8100A84FDE /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D05AD812742CD8100A84FDE /* TimerViewController.swift */; };
 		1D80560427493DC0006C5C78 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80560327493DC0006C5C78 /* ContentView.swift */; };
-		5130DC4B27629C4300D9C1E6 /* ResultsGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5130DC4727629C4300D9C1E6 /* ResultsGridCell.swift */; };
-		5130DC4C27629C4300D9C1E6 /* ResultsGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5130DC4827629C4300D9C1E6 /* ResultsGridView.swift */; };
+		510A985B2767CD2800FC3501 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510A985A2767CD2800FC3501 /* SearchModel.swift */; };
+		5130DC4B27629C4300D9C1E6 /* ResultsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5130DC4727629C4300D9C1E6 /* ResultsTableCell.swift */; };
+		5130DC4C27629C4300D9C1E6 /* ResultsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5130DC4827629C4300D9C1E6 /* ResultsTableView.swift */; };
 		5130DC4D27629C4300D9C1E6 /* SearchEmptyResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5130DC4927629C4300D9C1E6 /* SearchEmptyResultView.swift */; };
 		5130DC4E27629C4300D9C1E6 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5130DC4A27629C4300D9C1E6 /* SearchBarView.swift */; };
 		51782F6A2765FF470015ED13 /* BaseInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51782F692765FF470015ED13 /* BaseInteractor.swift */; };
@@ -25,7 +26,6 @@
 		51782FB727661D1C0015ED13 /* APIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51782FAB27661D1B0015ED13 /* APIResult.swift */; };
 		51782FBB27661D1C0015ED13 /* APILibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51782FAF27661D1C0015ED13 /* APILibrary.swift */; };
 		51782FBD27661D1C0015ED13 /* APIUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51782FB127661D1C0015ED13 /* APIUser.swift */; };
-		51782FC0276633800015ED13 /* APIAuthor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51782FBF276633800015ED13 /* APIAuthor.swift */; };
 		51782FD327664DB70015ED13 /* HermesMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51782FCE27664DB70015ED13 /* HermesMethod.swift */; };
 		51782FD427664DB70015ED13 /* HermesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51782FCF27664DB70015ED13 /* HermesRequest.swift */; };
 		51782FD527664DB70015ED13 /* HermesClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51782FD027664DB70015ED13 /* HermesClient.swift */; };
@@ -73,8 +73,9 @@
 		166611A57EFA00D46D09B1A0 /* Pods-Hermes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hermes.debug.xcconfig"; path = "Target Support Files/Pods-Hermes/Pods-Hermes.debug.xcconfig"; sourceTree = "<group>"; };
 		1D05AD812742CD8100A84FDE /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		1D80560327493DC0006C5C78 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		5130DC4727629C4300D9C1E6 /* ResultsGridCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsGridCell.swift; sourceTree = "<group>"; };
-		5130DC4827629C4300D9C1E6 /* ResultsGridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsGridView.swift; sourceTree = "<group>"; };
+		510A985A2767CD2800FC3501 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
+		5130DC4727629C4300D9C1E6 /* ResultsTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsTableCell.swift; sourceTree = "<group>"; };
+		5130DC4827629C4300D9C1E6 /* ResultsTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsTableView.swift; sourceTree = "<group>"; };
 		5130DC4927629C4300D9C1E6 /* SearchEmptyResultView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchEmptyResultView.swift; sourceTree = "<group>"; };
 		5130DC4A27629C4300D9C1E6 /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		51782F692765FF470015ED13 /* BaseInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseInteractor.swift; sourceTree = "<group>"; };
@@ -88,7 +89,6 @@
 		51782FAB27661D1B0015ED13 /* APIResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIResult.swift; sourceTree = "<group>"; };
 		51782FAF27661D1C0015ED13 /* APILibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APILibrary.swift; sourceTree = "<group>"; };
 		51782FB127661D1C0015ED13 /* APIUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIUser.swift; sourceTree = "<group>"; };
-		51782FBF276633800015ED13 /* APIAuthor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIAuthor.swift; sourceTree = "<group>"; };
 		51782FCB27664CC20015ED13 /* Hermes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hermes.h; path = BFY/Hermes/Hermes.h; sourceTree = SOURCE_ROOT; };
 		51782FCE27664DB70015ED13 /* HermesMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HermesMethod.swift; sourceTree = "<group>"; };
 		51782FCF27664DB70015ED13 /* HermesRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HermesRequest.swift; sourceTree = "<group>"; };
@@ -172,10 +172,11 @@
 		5130DC4F27629C4900D9C1E6 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				5130DC4727629C4300D9C1E6 /* ResultsGridCell.swift */,
-				5130DC4827629C4300D9C1E6 /* ResultsGridView.swift */,
+				5130DC4727629C4300D9C1E6 /* ResultsTableCell.swift */,
+				5130DC4827629C4300D9C1E6 /* ResultsTableView.swift */,
 				5130DC4A27629C4300D9C1E6 /* SearchBarView.swift */,
 				5130DC4927629C4300D9C1E6 /* SearchEmptyResultView.swift */,
+				510A985A2767CD2800FC3501 /* SearchModel.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -185,7 +186,6 @@
 			children = (
 				51782FAF27661D1C0015ED13 /* APILibrary.swift */,
 				51782FAA27661D1B0015ED13 /* APIBook.swift */,
-				51782FBF276633800015ED13 /* APIAuthor.swift */,
 				51782FB127661D1C0015ED13 /* APIUser.swift */,
 				51782FAB27661D1B0015ED13 /* APIResult.swift */,
 				51782FA727661D1B0015ED13 /* APIResponse.swift */,
@@ -220,9 +220,9 @@
 			children = (
 				51782F692765FF470015ED13 /* BaseInteractor.swift */,
 				51B611132762ABDB00A1C1D8 /* SearchInteractor.swift */,
-				51782F8727661B7B0015ED13 /* UserInteractor.swift */,
 				51782F8627661B7B0015ED13 /* BooksInteractor.swift */,
 				51782F8427661B7A0015ED13 /* LibraryInteractor.swift */,
+				51782F8727661B7B0015ED13 /* UserInteractor.swift */,
 				51782F7C27661B6D0015ED13 /* FavoritesInteractor.swift */,
 				51782F8227661B7A0015ED13 /* RecommendationsInteractor.swift */,
 			);
@@ -418,10 +418,9 @@
 				51782FD327664DB70015ED13 /* HermesMethod.swift in Sources */,
 				51782FD727664DB70015ED13 /* HermesData.swift in Sources */,
 				51782FD627664DB70015ED13 /* HermesError.swift in Sources */,
-				51782FC0276633800015ED13 /* APIAuthor.swift in Sources */,
 				51B09C7727442CE700A3EFF8 /* BooksTableViewController.swift in Sources */,
 				518FECD52742CF2500C16A1A /* Book.swift in Sources */,
-				5130DC4C27629C4300D9C1E6 /* ResultsGridView.swift in Sources */,
+				5130DC4C27629C4300D9C1E6 /* ResultsTableView.swift in Sources */,
 				51782FB327661D1C0015ED13 /* APIResponse.swift in Sources */,
 				51B611142762ABDB00A1C1D8 /* SearchInteractor.swift in Sources */,
 				51782F8C27661B7B0015ED13 /* BooksInteractor.swift in Sources */,
@@ -449,11 +448,12 @@
 				F58BB452272A7F1A00462654 /* RegistrationViewController.swift in Sources */,
 				1D80560427493DC0006C5C78 /* ContentView.swift in Sources */,
 				F56D6F2A27562E5200ADB08F /* StartViewController.swift in Sources */,
-				5130DC4B27629C4300D9C1E6 /* ResultsGridCell.swift in Sources */,
+				5130DC4B27629C4300D9C1E6 /* ResultsTableCell.swift in Sources */,
 				F5F80CE9272013C500E61826 /* SceneDelegate.swift in Sources */,
 				5130DC4E27629C4300D9C1E6 /* SearchBarView.swift in Sources */,
 				F56D6F282755693E00ADB08F /* ProfileViewController.swift in Sources */,
 				51782FD427664DB70015ED13 /* HermesRequest.swift in Sources */,
+				510A985B2767CD2800FC3501 /* SearchModel.swift in Sources */,
 				F5BE1ABE2744328900A17D23 /* AuthViewController.swift in Sources */,
 				F5CE4D3F272AF4E90095040D /* UIColor+extensions.swift in Sources */,
 			);

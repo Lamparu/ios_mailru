@@ -33,6 +33,7 @@ final class BooksInteractor: BaseInteractor {
 //    }
     
     func previewBooks(
+        query: String,
         from: Int,
         count: Int,
         success: @escaping (APIResponse<BooksResponse>) -> Void,
@@ -43,6 +44,7 @@ final class BooksInteractor: BaseInteractor {
         getBooksForTop(
             path: "/volumes",
             responseType: APIResponse<BooksResponse>.self,
+            query: query,
             from: from,
             count: count,
             success: success,
@@ -53,6 +55,7 @@ final class BooksInteractor: BaseInteractor {
     private func getBooksForTop<T>(
         path: String,
         responseType: T.Type,
+        query: String,
         from: Int,
         count: Int,
         success: @escaping (T) -> Void,
@@ -60,7 +63,8 @@ final class BooksInteractor: BaseInteractor {
     ) where T: Decodable{
         let request = HermesRequest(
             method: .get,
-            path: path, body: nil,
+            path: path,
+            body: nil,
             headers: nil,
             params: [
                 "count": "\(count)",
@@ -82,35 +86,35 @@ final class BooksInteractor: BaseInteractor {
         client.run(with: request)
     }
     
-    //    func topBooks(
-    //        from: Int,
-    //        count: Int,
-    //        success: @escaping (APIResponse<BooksResponse>) -> Void,
-    //        failure: @escaping (Error) -> Void
-    //    ) {
-    //        getBooksForTop(
-    //            path: "/books/top",
-    //            responseType: APIResponse<BooksResponse>.self,
-    //            from: from,
-    //            count: count,
-    //            success: success,
-    //            failure: failure
-    //        )
-    //    }
-        
-    //    func latestBooks(
-    //        from: Int,
-    //        count: Int,
-    //        success: @escaping (APIResponse<BooksResponse>) -> Void,
-    //        failure: @escaping (Error) -> Void
-    //    ) {
-    //        getBooksForTop(
-    //            path: "/movies/latest",
-    //            responseType: APIResponse<BooksResponse>.self,
-    //            from: from,
-    //            count: count,
-    //            success: success,
-    //            failure: failure
-    //        )
-    //    }
+//        func topBooks(
+//            from: Int,
+//            count: Int,
+//            success: @escaping (APIResponse<BooksResponse>) -> Void,
+//            failure: @escaping (Error) -> Void
+//        ) {
+//            getBooksForTop(
+//                path: "/books/top",
+//                responseType: APIResponse<BooksResponse>.self,
+//                from: from,
+//                count: count,
+//                success: success,
+//                failure: failure
+//            )
+//        }
+//        
+//        func latestBooks(
+//            from: Int,
+//            count: Int,
+//            success: @escaping (APIResponse<BooksResponse>) -> Void,
+//            failure: @escaping (Error) -> Void
+//        ) {
+//            getBooksForTop(
+//                path: "/movies/latest",
+//                responseType: APIResponse<BooksResponse>.self,
+//                from: from,
+//                count: count,
+//                success: success,
+//                failure: failure
+//            )
+//        }
 }
