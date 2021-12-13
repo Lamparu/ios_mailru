@@ -8,9 +8,9 @@
 import Foundation
 
 struct SearchResult {
-    let books: [Book]
+    let books: [BookInfo]
     
-    init(books: [Book]) {
+    init(books: [BookInfo]) {
         self.books = books
     }
 }

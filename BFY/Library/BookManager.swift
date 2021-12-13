@@ -14,12 +14,26 @@ final class BookInfo: Equatable {
     let authors: [String]
     let image: String
     
-    convenience init(from book: Book) {
+//    func changeStruct(book: APIBook) -> Book {
+//        let id: String
+//        let title: String
+//        let authors: [String]
+//        let image: String
+//
+//        id = book.items[0].id
+//        title = book.items[0].volumeInfo.title
+//        authors = book.items[0].volumeInfo.authors
+//        image = book.items[0].volumeInfo.imageLinks.smallThumbnail
+//        let bookNew = Book(id: id, title: title, authors: authors, image: image)
+//        return bookNew
+//    }
+    
+    convenience init(from book: APIBook) {
         self.init(
-            id: book.id,
-            title: book.title,
-            authors: book.authors,
-            image: book.image
+            id: book.items[0].id,
+            title: book.items[0].volumeInfo.title,
+            authors: book.items[0].volumeInfo.authors,
+            image: book.items[0].volumeInfo.imageLinks.smallThumbnail
         )
     }
     
