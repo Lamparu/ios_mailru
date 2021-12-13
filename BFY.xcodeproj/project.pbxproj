@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		18866898C7A1A32ADDB2C4C4 /* Pods_BFY.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 870424EC5A4164EB830D3B6F /* Pods_BFY.framework */; };
-		1D05AD822742CD8100A84FDE /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D05AD812742CD8100A84FDE /* TimerViewController.swift */; };
-		1D80560427493DC0006C5C78 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80560327493DC0006C5C78 /* ContentView.swift */; };
+		1DB04FDC2765321A00185D24 /* EndingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB04FDB2765321A00185D24 /* EndingScreenViewController.swift */; };
+		1DD5273F276504E0002A72C0 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD5273C276504E0002A72C0 /* TimerView.swift */; };
+		1DD52740276504E0002A72C0 /* StopwatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD5273D276504E0002A72C0 /* StopwatchView.swift */; };
+		1DD52741276504E0002A72C0 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD5273E276504E0002A72C0 /* TimerViewController.swift */; };
 		518FECD52742CF2500C16A1A /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518FECD42742CF2500C16A1A /* Book.swift */; };
 		518FECD72742CF3B00C16A1A /* LibraryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518FECD62742CF3B00C16A1A /* LibraryTableViewCell.swift */; };
 		518FECD92742CF5000C16A1A /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518FECD82742CF4F00C16A1A /* LibraryViewController.swift */; };
@@ -31,8 +33,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1D05AD812742CD8100A84FDE /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
-		1D80560327493DC0006C5C78 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1DB04FDB2765321A00185D24 /* EndingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndingScreenViewController.swift; sourceTree = "<group>"; };
+		1DD5273C276504E0002A72C0 /* TimerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		1DD5273D276504E0002A72C0 /* StopwatchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopwatchView.swift; sourceTree = "<group>"; };
+		1DD5273E276504E0002A72C0 /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		518FECD42742CF2500C16A1A /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		518FECD62742CF3B00C16A1A /* LibraryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryTableViewCell.swift; sourceTree = "<group>"; };
 		518FECD82742CF4F00C16A1A /* LibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +81,17 @@
 				889FA2DAD0B74421FFD3AE7C /* Pods-BFY.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		1DD52735276502F2002A72C0 /* TimerStopwatchViewContoller */ = {
+			isa = PBXGroup;
+			children = (
+				1DD5273D276504E0002A72C0 /* StopwatchView.swift */,
+				1DD5273C276504E0002A72C0 /* TimerView.swift */,
+				1DD5273E276504E0002A72C0 /* TimerViewController.swift */,
+				1DB04FDB2765321A00185D24 /* EndingScreenViewController.swift */,
+			);
+			path = TimerStopwatchViewContoller;
 			sourceTree = "<group>";
 		};
 		EAB01CCF5E1DF211350255FE /* Frameworks */ = {
@@ -136,15 +151,14 @@
 				F5CE4D3D272AF4C40095040D /* Extensions */,
 				F5F80CE6272013C500E61826 /* AppDelegate.swift */,
 				F5F80CE8272013C500E61826 /* SceneDelegate.swift */,
+				1DD52735276502F2002A72C0 /* TimerStopwatchViewContoller */,
 				F5F80CEF272013CD00E61826 /* Assets.xcassets */,
 				F5F80CF4272013CD00E61826 /* Info.plist */,
 				F5A9C877274D5A1700344327 /* GoogleService-Info.plist */,
 				F5F80CEA272013C500E61826 /* MainBookViewController.swift */,
-				1D05AD812742CD8100A84FDE /* TimerViewController.swift */,
-				1D80560327493DC0006C5C78 /* ContentView.swift */,
+				F59C8F3327625CFC00468667 /* TabBarController.swift */,
 				F56D6F272755693E00ADB08F /* ProfileViewController.swift */,
 				F56D6F2927562E5200ADB08F /* StartViewController.swift */,
-				F59C8F3327625CFC00468667 /* TabBarController.swift */,
 			);
 			path = BFY;
 			sourceTree = "<group>";
@@ -271,12 +285,14 @@
 				518FECD92742CF5000C16A1A /* LibraryViewController.swift in Sources */,
 				518FECD72742CF3B00C16A1A /* LibraryTableViewCell.swift in Sources */,
 				51D09B67274709060083F029 /* AddNewBookViewController.swift in Sources */,
+				1DD52741276504E0002A72C0 /* TimerViewController.swift in Sources */,
+				1DD5273F276504E0002A72C0 /* TimerView.swift in Sources */,
+				1DD52740276504E0002A72C0 /* StopwatchView.swift in Sources */,
 				F5BE1AC02744364300A17D23 /* MainBookViewController.swift in Sources */,
-				1D05AD822742CD8100A84FDE /* TimerViewController.swift in Sources */,
 				F5F80CE7272013C500E61826 /* AppDelegate.swift in Sources */,
 				F5BE1ABA274188D000A17D23 /* SignInViewController.swift in Sources */,
 				F58BB452272A7F1A00462654 /* RegistrationViewController.swift in Sources */,
-				1D80560427493DC0006C5C78 /* ContentView.swift in Sources */,
+				1DB04FDC2765321A00185D24 /* EndingScreenViewController.swift in Sources */,
 				F56D6F2A27562E5200ADB08F /* StartViewController.swift in Sources */,
 				F5F80CE9272013C500E61826 /* SceneDelegate.swift in Sources */,
 				F56D6F282755693E00ADB08F /* ProfileViewController.swift in Sources */,
