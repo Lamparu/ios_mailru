@@ -18,13 +18,13 @@ class MainBookViewController: UIViewController {
     }()
     
     let bookImage: UIImageView = {
-        let imageName = "bookImage" //подгуржать с бэкэнда
+        let imageName = "BookCover" //подгуржать с бэкэнда
         let image = UIImage(named: imageName)
         let imageView = UIImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.borderWidth = 1
         imageView.layer.borderColor = UIColor.black.cgColor
-        imageView.layer.cornerRadius=28
+//        imageView.layer.cornerRadius=28
         imageView.layer.masksToBounds = true
         return imageView
     }()
@@ -101,6 +101,8 @@ class MainBookViewController: UIViewController {
         view.addSubview(stringBookAuthor)
         view.addSubview(numberOfListsField)
         view.addSubview(stringToListsField)
+        
+        setupKeyboard()
         
         
         createMainBookConstraint()
@@ -180,6 +182,24 @@ class MainBookViewController: UIViewController {
     @objc private func didTapProfileButton(_ sender: UIButton) {
         let profileVC = ProfileViewController()
         self.navigationController?.pushViewController(profileVC, animated: true)
+    }
+    
+    private func setupKeyboard()
+    {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        if self.view.frame.origin.y == 0 {
+            self.view.frame.origin.y -= 180
+        }
+    }
+    
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
     }
 
 
