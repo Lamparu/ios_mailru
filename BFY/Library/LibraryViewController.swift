@@ -16,9 +16,6 @@ final class LibraryViewController: BooksTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        
         setupUI()
         
         [searchBookBar, tableView, addBookButton, addBookLabel1, addBookLabel2].forEach { view.addSubview($0) }
@@ -35,11 +32,29 @@ final class LibraryViewController: BooksTableViewController {
         let book = books[indexPath.row]
                 
         cell.configure(with: book)
+    
         
-        //cell?.delegate = self
-
+    
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+      let destination = TabBarController()
+      navigationController?.pushViewController(destination, animated: true)
+    }
+    
+//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//
+//       //let place = books[indexPath.row]
+//       let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") {  (contextualAction, view, boolValue) in
+//
+//           //StorageManager.deleteObject(place)
+//           tableView.deleteRows(at: [indexPath], with: .automatic)
+//       }
+//       let swipeActions = UISwipeActionsConfiguration(actions: [deleteAction])
+//
+//       return swipeActions
+//   }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return books.count
