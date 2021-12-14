@@ -16,6 +16,9 @@ final class LibraryViewController: BooksTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        
         setupUI()
         
         [searchBookBar, tableView, addBookButton, addBookLabel1, addBookLabel2].forEach { view.addSubview($0) }
@@ -32,6 +35,8 @@ final class LibraryViewController: BooksTableViewController {
         let book = books[indexPath.row]
                 
         cell.configure(with: book)
+        
+        //cell?.delegate = self
 
         return cell
     }
@@ -49,6 +54,8 @@ final class LibraryViewController: BooksTableViewController {
     
     
     
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
@@ -61,14 +68,15 @@ final class LibraryViewController: BooksTableViewController {
     }
     
     private func configureGestures() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
-        self.view.addGestureRecognizer(tapGesture)
-        tapGesture.cancelsTouchesInView = false
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+//        self.view.addGestureRecognizer(tapGesture)
+//        tapGesture.cancelsTouchesInView = false
 
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         self.view.addGestureRecognizer(panGesture)
         panGesture.cancelsTouchesInView = false
-
+        
+        
 //        let scrollGesture = UIPanGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
 //        scrollGesture.delegate = resultsGridView.collectionView
 //        self.resultsGridView.collectionView.addGestureRecognizer(scrollGesture)
@@ -80,6 +88,20 @@ final class LibraryViewController: BooksTableViewController {
         searchBookBar.searchBar.setShowsCancelButton(false, animated: true)
     }
     
+//    @objc  func didTapMainVC(sender: UITapGestureRecognizer) {
+//        if sender.state == UIGestureRecognizer.State.ended {
+//            let tapLocation = sender.location(in: self.tableView)
+//            if let tapIndexPath = self.tableView.indexPathForRow(at: tapLocation) {
+//                if let tappedCell = self.tableView.cellForRow(at: tapIndexPath) as? LibraryTableViewCell {
+//                        let AddNewBookViewController = TabBarController()
+//                        self.navigationController?.pushViewController(AddNewBookViewController, animated: true)
+//
+//                    }
+//                }
+//            }
+//        
+//    }
+//    
     
     
     

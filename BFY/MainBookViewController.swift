@@ -21,11 +21,8 @@ class MainBookViewController: UIViewController {
         let imageName = "BookCover" //подгуржать с бэкэнда
         let image = UIImage(named: imageName)
         let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = UIColor.black.cgColor
-//        imageView.layer.cornerRadius=28
-        imageView.layer.masksToBounds = true
         return imageView
     }()
     let playButton: UIButton = {
@@ -42,7 +39,7 @@ class MainBookViewController: UIViewController {
     
     let stringBookName: UILabel = {
         let text = "Гордость и предубеждение"
-        let str = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        let str = UILabel()
         str.text = text
         str.textColor = UIColor.black
         str.font = UIFont(name: "AppleSDGothicNeo-Light", size: 26)
@@ -53,7 +50,7 @@ class MainBookViewController: UIViewController {
     
     let stringBookAuthor: UILabel = {
         let text = "Джейн Остен"
-        let str = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 24))
+        let str = UILabel()
         str.text = text
         str.textColor = UIColor.darkGray
         str.font = UIFont(name: "AppleSDGothicNeo-Light", size: 26)
@@ -99,8 +96,8 @@ class MainBookViewController: UIViewController {
         view.addSubview(bookImage)
         view.addSubview(stringBookName)
         view.addSubview(stringBookAuthor)
-        view.addSubview(numberOfListsField)
         view.addSubview(stringToListsField)
+        view.addSubview(numberOfListsField)
         
         setupKeyboard()
         
@@ -109,8 +106,8 @@ class MainBookViewController: UIViewController {
         createbookImageConstraint()
         createstringBookNameConstraint()
         createstringBookAuthorConstraint()
-        createNumberOfListsFieldConstraint()
         createstringToListsFieldConstraint()
+        createNumberOfListsFieldConstraint()
         
         self.view.addSubview(playButton)
         applyShadowOnButtons(button: playButton)
@@ -132,31 +129,35 @@ class MainBookViewController: UIViewController {
     }
     
     func createbookImageConstraint(){
-        bookImage.widthAnchor.constraint(equalToConstant: bookImage.frame.width / 2).isActive = true
-        bookImage.heightAnchor.constraint(equalToConstant: bookImage.frame.height / 2).isActive = true
+        bookImage.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        bookImage.heightAnchor.constraint(equalToConstant: 250).isActive = true
         bookImage.topAnchor.constraint(equalTo: mainFrame.topAnchor, constant: 30).isActive = true
         bookImage.centerXAnchor.constraint(equalTo: mainFrame.centerXAnchor).isActive = true
         
     }
     func createstringBookNameConstraint() {
+        stringBookName.widthAnchor.constraint(equalToConstant: 320).isActive = true
         stringBookName.centerXAnchor.constraint(equalTo: bookImage.centerXAnchor).isActive = true
         stringBookName.centerYAnchor.constraint(equalTo: bookImage.bottomAnchor, constant: 30).isActive = true
     }
     
     func createstringBookAuthorConstraint() {
+        stringBookAuthor.widthAnchor.constraint(equalToConstant: 320).isActive = true
         stringBookAuthor.centerXAnchor.constraint(equalTo: stringBookName.centerXAnchor).isActive = true
         stringBookAuthor.centerYAnchor.constraint(equalTo: stringBookName.bottomAnchor, constant: 20).isActive = true
     }
     
-    func createNumberOfListsFieldConstraint() {
-        numberOfListsField.centerXAnchor.constraint(equalTo: stringBookAuthor.centerXAnchor).isActive = true
-        numberOfListsField.bottomAnchor.constraint(equalTo: mainFrame.bottomAnchor, constant: -30).isActive = true
+    func createstringToListsFieldConstraint() {
+        stringToListsField.centerXAnchor.constraint(equalTo: stringBookAuthor.centerXAnchor).isActive = true
+        stringToListsField.centerYAnchor.constraint(equalTo: stringBookAuthor.bottomAnchor, constant: 20).isActive = true
     }
     
-    func createstringToListsFieldConstraint() {
-        stringToListsField.centerXAnchor.constraint(equalTo: numberOfListsField.centerXAnchor).isActive = true
-        stringToListsField.centerYAnchor.constraint(equalTo: numberOfListsField.topAnchor, constant: -20).isActive = true
+    func createNumberOfListsFieldConstraint() {
+        numberOfListsField.centerXAnchor.constraint(equalTo: stringToListsField.centerXAnchor).isActive = true
+        numberOfListsField.topAnchor.constraint(equalTo: stringToListsField.bottomAnchor, constant: 10).isActive = true
     }
+    
+    
 
     
     @objc private func didTapRegButton(_ sender: UIButton) {
