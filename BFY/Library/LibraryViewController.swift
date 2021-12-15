@@ -10,6 +10,15 @@ import UIKit
 class LibraryViewController: BooksTableViewController {
 
     let searchBookBar = SearchBarView()
+    private let searchModel = SearchModel()
+    private lazy var resultsTableView = ResultsTableView()
+    private lazy var emptyResultView = SearchEmptyResultView()
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = searchBookBar.searchBar
+        searchBar.delegate = self
+        return searchBar
+    }()
+    
     let addBookButton = UIButton()
     let addBookLabel1 = UILabel()
     let addBookLabel2 = UILabel()
@@ -31,7 +40,6 @@ class LibraryViewController: BooksTableViewController {
             return UITableViewCell()
         }
 //        let book = books[indexPath.row]
-                
 //        cell.configure(with: book)
 
         return cell
@@ -48,8 +56,6 @@ class LibraryViewController: BooksTableViewController {
         self.present(navController, animated: true, completion: nil)
 //        self.navigationController?.pushViewController(AddNewBookViewController, animated: true)
     }
-    
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -72,8 +78,8 @@ class LibraryViewController: BooksTableViewController {
         panGesture.cancelsTouchesInView = false
 
 //        let scrollGesture = UIPanGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
-//        scrollGesture.delegate = resultsGridView.collectionView
-//        self.resultsGridView.collectionView.addGestureRecognizer(scrollGesture)
+//        scrollGesture.delegate = resultsTableView.tableView
+//        self.resultsTableView.tableView.addGestureRecognizer(scrollGesture)
 //        scrollGesture.cancelsTouchesInView = false
     }
     
@@ -82,7 +88,15 @@ class LibraryViewController: BooksTableViewController {
         searchBookBar.searchBar.setShowsCancelButton(false, animated: true)
     }
     
+    private func showEmptyResultView() {
+        emptyResultView.isHidden = false
+        resultsTableView.isHidden = true
+    }
     
+    private func showResultsGridView() {
+        emptyResultView.isHidden = true
+        resultsTableView.isHidden = false
+    }
     
     
     private func setupUI() {
@@ -222,23 +236,31 @@ extension LibraryViewController: UISearchBarDelegate {
             return
         }
         
-        // Send request
-//        searchModel.search(query: query) { [weak self] searchResult in
-//            DispatchQueue.main.async {
-//                self?.searchBarView.stopAnimationLoading()
-//                if searchResult.content.count == 0 && searchResult.actors.count == 0 {
-//                    self?.showEmptyResultView()
-//                } else {
-//                    self?.resultsGridView.updateData(content: searchResult.content, actors: searchResult.actors)
-//                    self?.showResultsGridView()
-//                }
-//            }
-//        } failure: { [weak self] error in
-//            DispatchQueue.main.async {
+//         Send request
+        searchModel.search(query: query) { [weak self] searchResult in
+            DispatchQueue.main.async {
+                self?.searchBookBar.stopAnimationLoading()
+                if searchResult.books.count == 0 && searchResult.books.count == 0 {
+                    self?.showEmptyResultView()
+                } else {
+                    self?.resultsTableView.updateData(books: searchResult.books)
+                    self?.showResultsGridView()
+                }
+            }
+        } failure: { [weak self] error in
+            DispatchQueue.main.async {
 //                self?.alert(message: error)
-//            }
-//        }
+            }
+        }
     }
 }
     
+
+//extension LibraryViewController: ResultsTableViewDelegate {
+//    func didSelectBook(book: BookInfo) {
+//        let viewController = FactoryViewControllers.createActorContent(actor: actor)
+//        navigationController?.pushViewController(viewController, animated: true)
+//    }
+//}
+
 

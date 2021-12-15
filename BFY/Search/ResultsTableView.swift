@@ -6,24 +6,25 @@
 //
 
 import UIKit
-//import Botticelli
 
-protocol ResultsGridViewDelegate: AnyObject {
-    func didSelectBook(book: BookInfo)
-//    func didSelectTitle(title: Title)
-}
+//protocol ResultsTableViewDelegate: AnyObject {
+//    func didSelectBook(book: BookInfo)
+//}
 
-final class ResultsTableView: LibraryViewController {
+final class ResultsTableView: UIView {
+//    weak var delegate: ResultsTableViewDelegate?
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ResultsTableCell", for: indexPath) as? ResultsTableCell else {
-            return UITableViewCell()
-        }
-//        let book = books[indexPath.row]
-                
-//        cell.configure(with: book)
-
-        return cell
+    private var books: [BookInfo] = []
+    
+    func updateData(books: [BookInfo]) {
+        self.books = books
+//            self.tableView.reloadData()
     }
-
+    
+    lazy var tableView: LibraryViewController = {
+        
+        
+        
+        return tableView
+    }()
 }

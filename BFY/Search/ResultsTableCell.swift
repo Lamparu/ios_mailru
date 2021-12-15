@@ -12,7 +12,7 @@ protocol ResultsTableViewDelegate: AnyObject {
 }
 
 class ResultsTableCell: LibraryTableViewCell {
-    weak var delegate: ResultsGridViewDelegate?
+    weak var delegate: ResultsTableViewDelegate?
 
 //    private var addToLibrary: UIButton = UIButton()
     

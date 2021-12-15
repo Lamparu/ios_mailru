@@ -11,6 +11,7 @@
 		1D05AD822742CD8100A84FDE /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D05AD812742CD8100A84FDE /* TimerViewController.swift */; };
 		1D80560427493DC0006C5C78 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80560327493DC0006C5C78 /* ContentView.swift */; };
 		510A985B2767CD2800FC3501 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510A985A2767CD2800FC3501 /* SearchModel.swift */; };
+		510A985D2767F68100FC3501 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510A985C2767F68100FC3501 /* SearchViewController.swift */; };
 		5130DC4B27629C4300D9C1E6 /* ResultsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5130DC4727629C4300D9C1E6 /* ResultsTableCell.swift */; };
 		5130DC4C27629C4300D9C1E6 /* ResultsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5130DC4827629C4300D9C1E6 /* ResultsTableView.swift */; };
 		5130DC4D27629C4300D9C1E6 /* SearchEmptyResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5130DC4927629C4300D9C1E6 /* SearchEmptyResultView.swift */; };
@@ -74,6 +75,7 @@
 		1D05AD812742CD8100A84FDE /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		1D80560327493DC0006C5C78 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		510A985A2767CD2800FC3501 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
+		510A985C2767F68100FC3501 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		5130DC4727629C4300D9C1E6 /* ResultsTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsTableCell.swift; sourceTree = "<group>"; };
 		5130DC4827629C4300D9C1E6 /* ResultsTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsTableView.swift; sourceTree = "<group>"; };
 		5130DC4927629C4300D9C1E6 /* SearchEmptyResultView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchEmptyResultView.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				5130DC4A27629C4300D9C1E6 /* SearchBarView.swift */,
 				5130DC4927629C4300D9C1E6 /* SearchEmptyResultView.swift */,
 				510A985A2767CD2800FC3501 /* SearchModel.swift */,
+				510A985C2767F68100FC3501 /* SearchViewController.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 				F59C8F3427625CFC00468667 /* TabBarController.swift in Sources */,
 				518FECD92742CF5000C16A1A /* LibraryViewController.swift in Sources */,
 				51782F8827661B7B0015ED13 /* RecommendationsInteractor.swift in Sources */,
+				510A985D2767F68100FC3501 /* SearchViewController.swift in Sources */,
 				518FECD72742CF3B00C16A1A /* LibraryTableViewCell.swift in Sources */,
 				51782F8D27661B7B0015ED13 /* UserInteractor.swift in Sources */,
 				51D09B67274709060083F029 /* AddNewBookViewController.swift in Sources */,
