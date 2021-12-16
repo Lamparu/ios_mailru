@@ -26,16 +26,16 @@ class BookManager: BookManagerProtocol {
     
     func loadBooks() -> [Book] {
         return [
-            Book(title: "Гордость и предубеждение", author: "Джейн Остен", image: nil),
-            Book(title: "Капитанская дочка", author: "А.С. Пушкин", image: nil),
-            Book(title: "Руслан и Людмила", author: "А.С. Пушкин", image: nil),
-            Book(title: "Капитанская дочка", author: "А.С. Пушкин", image: nil),
-            Book(title: "Руслан и Людмила", author: "А.С. Пушкин", image: nil),
-            Book(title: "Руслан и Людмила", author: "А.С. Пушкин", image: nil),
-            Book(title: "Капитанская дочка", author: "А.С. Пушкин", image: nil),
-            Book(title: "Капитанская дочка", author: "А.С. Пушкин", image: nil),
-            Book(title: "Руслан и Людмила", author: "А.С. Пушкин", image: nil),
-            Book(title: "Руслан и Людмила", author: "А.С. Пушкин", image: nil),
+            Book(id: "1", title: "Гордость и предубеждение", author: "Джейн Остен", image: nil),
+            Book(id: "2", title: "Капитанская дочка", author: "А.С. Пушкин", image: nil),
+            Book(id: "3", title: "Руслан и Людмила", author: "А.С. Пушкин", image: nil),
+            Book(id: "4", title: "Капитанская дочка", author: "А.С. Пушкин", image: nil),
+            Book(id: "5", title: "Руслан и Людмила", author: "А.С. Пушкин", image: nil),
+            Book(id: "6", title: "Руслан и Людмила", author: "А.С. Пушкин", image: nil),
+            Book(id: "7", title: "Капитанская дочка", author: "А.С. Пушкин", image: nil),
+            Book(id: "8", title: "Капитанская дочка", author: "А.С. Пушкин", image: nil),
+            Book(id: "9", title: "Руслан и Людмила", author: "А.С. Пушкин", image: nil),
+            Book(id: "10", title: "Руслан и Людмила", author: "А.С. Пушкин", image: nil),
 
         ]
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

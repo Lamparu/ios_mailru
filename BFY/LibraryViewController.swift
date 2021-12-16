@@ -9,7 +9,7 @@ import UIKit
 
 final class LibraryViewController: BooksTableViewController {
 
-    private var books: [Book] = [.init(title: "Гордость и предубеждение", author: "Джейн Остен", image: URL(string: ""))]
+    private var books: [Book] = [.init(id: "1", title: "Гордость и предубеждение", author: "Джейн Остен", image: URL(string: ""))]
 
     let searchBookBar = UISearchBar()
     let addBookButton = UIButton()

@@ -1,12 +1,16 @@
 import UIKit
-
+import Firebase
+import FirebaseFirestore
 
 
 class MainBookViewController: UIViewController, UITextFieldDelegate {
     
+    let db = Firestore.firestore()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
+    
     let mainFrame: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -41,9 +45,9 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
     } ()
     
     let stringBookName: UILabel = {
-        let text = "Гордость и предубеждение"
+        //        let text = "Гордость и предубеждение"
         let str = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-        str.text = text
+        //        str.text = text
         str.textColor = UIColor.black
         str.font = UIFont(name: "AppleSDGothicNeo-Light", size: 26)
         str.textAlignment = .center
@@ -52,9 +56,9 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
     }()
     
     let stringBookAuthor: UILabel = {
-        let text = "Джейн Остен"
+        //        let text = "Джейн Остен"
         let str = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 24))
-        str.text = text
+        //        str.text = text
         str.textColor = UIColor.darkGray
         str.font = UIFont(name: "AppleSDGothicNeo-Light", size: 26)
         str.textAlignment = .center
@@ -64,9 +68,9 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
     
     var numberOfListsField: UITextField = {
         let textField = UITextField()
-        let list = 10
+        //        let list = 10
         textField.keyboardType = .decimalPad
-        textField.placeholder = "\(list) стр.";// str (число из бэка данные по этой книге)
+        //        textField.placeholder = "\(list) стр.";// str (число из бэка данные по этой книге)
         textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 25)
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         textField.textAlignment = .center
@@ -117,6 +121,8 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
         
         self.view.addSubview(playButton)
         applyShadowOnButtons(button: playButton)
+        
+        loadBook()
         
         // Do any additional setup after loading the view.
         
@@ -205,6 +211,60 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    private func setDefaultBook() {
+        
+    }
     
+    private func fetchDataBook() {
+        db.collection("Users").addSnapshotListener{ (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else {
+                print("No documents")
+                return
+            }
+            
+            
+        }
+    }
+    
+    private func loadBook() {
+        
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        let userRef = db.collection("Users").document(userID)
+//        let bookRefColl = db.collection("Books")
+        
+        userRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let library = document.data() //as! [String: Int]
+                let last = library?["lastBook"] as? String ?? ""
+                let bookRef = self.db.collection("Books").document("XnLVkQEACAAJ")
+//                let bookRef = bookRefColl.document(last)
+                bookRef.getDocument{ (bookDoc, bookErr) in
+                    if let bookDoc = bookDoc, bookDoc.exists {
+                        let book = bookDoc.data()
+                        let title = book?["title"] as? String ?? "Название книги"
+                        self.stringBookName.text = title //book?["title"] as? String ?? "Название книги"
+                        let authors = book?["authors"] as? String ?? ""
+                        self.stringBookAuthor.text = authors //book?["authors"] as? String ?? "Автор книги"
+                        let image = book?["image"] as? String ?? "BookCover"
+                        if image == "BookCover" {
+                            self.bookImage.image = UIImage(named: image)
+                        } else {
+                            self.bookImage.load(url: URL(string: image)!)
+                        }
+                    } else {
+                        print("Books collection does not exist")
+                    }
+                }
+                let lib = library?["library"] as? [String : String]
+                for (bookid, pages) in lib ?? [:] {
+                    if bookid == last {
+                        self.numberOfListsField.placeholder = "\(pages) стр."
+                    }
+                }
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
     
 }
