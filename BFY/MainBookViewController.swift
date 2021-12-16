@@ -1,6 +1,7 @@
 import UIKit
 import Firebase
 import FirebaseFirestore
+import SwiftUI
 
 
 class MainBookViewController: UIViewController, UITextFieldDelegate {
@@ -9,6 +10,11 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        let loader = self.loader()
+//        loadBook()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            self.stopLoader(loader: loader)
+        }
     }
     
     let mainFrame: UIView = {
@@ -100,6 +106,8 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        let loader = self.loader()
+        
         numberOfListsField.delegate = self
         setupKeyboard()
         
@@ -124,13 +132,22 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
         
         loadBook()
         
-        // Do any additional setup after loading the view.
-        
-        //        let backButton = UIBarButtonItem()
-        //        backButton.title = ""
-        //        backButton.tintColor = UIColor(rgb: 0x6A7F60)
-        //        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
         navigationItem.hidesBackButton = true
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+//            self.stopLoader(loader: loader)
+//        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+//        let loader = self.loader()
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+//            self.stopLoader(loader: loader)
+//        }
+    }
+    
+    private func checkBookDB() {
+        
     }
     
     func createMainBookConstraint(){
@@ -215,15 +232,75 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    private func fetchDataBook() {
-        db.collection("Users").addSnapshotListener{ (querySnapshot, error) in
-            guard let documents = querySnapshot?.documents else {
-                print("No documents")
-                return
+//    private func fetchDataBook() {
+//        db.collection("Users").addSnapshotListener{ (querySnapshot, error) in
+//            guard let documents = querySnapshot?.documents else {
+//                print("No documents")
+//                return
+//            }
+//
+//
+//        }
+//    }
+    
+    private func getBookData() -> (title: String, author: String, image: String, pages: String) {
+        guard let userID = Auth.auth().currentUser?.uid else { return ("", "", "", "") }
+        var pages = "0"
+        var title = ""
+        var authors = ""
+        var image = ""
+        let userRef = db.collection("Users").document(userID)
+//        let bookRefColl = db.collection("Books")
+//        let bookRefColl = db.collection("Books")
+        
+//        print(type(of: userRef))
+        
+        userRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let library = document.data() //as! [String: Int]
+                let last = library?["lastBook"] as? String ?? ""
+                let bookRef = self.db.collection("Books").document(last.trimmingCharacters(in: .whitespaces))
+//                let bookRef = bookRefColl.document(last)
+                bookRef.getDocument{ (bookDoc, bookErr) in
+                    if let bookDoc = bookDoc, bookDoc.exists {
+                        let book = bookDoc.data()
+                        title = book?["title"] as? String ?? "Название книги"
+//                        self.stringBookName.text = title //book?["title"] as? String ?? "Название книги"
+                        authors = book?["authors"] as? String ?? ""
+//                        self.stringBookAuthor.text = authors //book?["authors"] as? String ?? "Автор книги"
+                        image = book?["image"] as? String ?? "BookCover"
+//                        if image == "BookCover" {
+//                            self.bookImage.image = UIImage(named: image)
+//                        } else {
+//                            self.bookImage.load(url: URL(string: image)!)
+//                        }
+                    } else {
+                        print("Books collection does not exist")
+                    }
+                }
+                let lib = library?["library"] as? [String : String]
+                for (bookid, lastPage) in lib ?? [:] {
+                    if bookid == last {
+                        pages = lastPage
+//                        self.numberOfListsField.placeholder = "\(pages) стр."
+                    }
+                }
+            } else {
+                print("Document does not exist")
             }
-            
-            
         }
+        return (title, authors, image, pages)
+    }
+    
+    private func setBookData(title: String, authors: String, image: String, pages: String) {
+        self.stringBookName.text = title
+        self.stringBookAuthor.text = authors
+        if image == "BookCover" || image == "" {
+            self.bookImage.image = UIImage(named: image)
+        } else {
+            self.bookImage.load(url: URL(string: image)!)
+        }
+        self.numberOfListsField.placeholder = "\(pages) стр."
     }
     
     private func loadBook() {
@@ -236,7 +313,7 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
             if let document = document, document.exists {
                 let library = document.data() //as! [String: Int]
                 let last = library?["lastBook"] as? String ?? ""
-                let bookRef = self.db.collection("Books").document("XnLVkQEACAAJ")
+                let bookRef = self.db.collection("Books").document(last.trimmingCharacters(in: .whitespaces))
 //                let bookRef = bookRefColl.document(last)
                 bookRef.getDocument{ (bookDoc, bookErr) in
                     if let bookDoc = bookDoc, bookDoc.exists {
