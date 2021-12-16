@@ -8,6 +8,5 @@
 import Foundation
 
 struct APIResult: Decodable {
-    let books: [APIBook]
-//    let authors: [APIAuthor]
+    let books: APIBook
 }

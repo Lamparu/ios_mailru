@@ -45,6 +45,7 @@ public final class HermesClient {
             httpHeaders.updateValue(value, forKey: key)
         }
         urlRequest.allHTTPHeaderFields = httpHeaders
+        print(urlRequest)
         return urlRequest
     }
     

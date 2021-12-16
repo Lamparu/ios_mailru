@@ -8,11 +8,11 @@
 import UIKit
 
 class LibraryViewController: BooksTableViewController {
-
+    var books: [BookInfo] = []
+    
     let searchBookBar = SearchBarView()
     private let searchModel = SearchModel()
-    private lazy var resultsTableView = ResultsTableView()
-    private lazy var emptyResultView = SearchEmptyResultView()
+//    private lazy var searchBar = UISearchBar()
     private lazy var searchBar: UISearchBar = {
         let searchBar = searchBookBar.searchBar
         searchBar.delegate = self
@@ -26,6 +26,9 @@ class LibraryViewController: BooksTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        searchBookBar.searchBar.delegate = self
+        searchBookBar.searchBar.showsCancelButton = true
+
         setupUI()
         
         [searchBookBar, tableView, addBookButton, addBookLabel1, addBookLabel2].forEach { view.addSubview($0) }
@@ -39,15 +42,15 @@ class LibraryViewController: BooksTableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "LibraryTableViewCell", for: indexPath) as? LibraryTableViewCell else {
             return UITableViewCell()
         }
-//        let book = books[indexPath.row]
-//        cell.configure(with: book)
+        let book = books[indexPath.row]
+        cell.configure(with: book)
 
         return cell
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 10
-//        return books.count
+//        return 10
+        return books.count
     }
     
     @objc private func didTapAddBookButton(_ sender: UIButton) {
@@ -88,16 +91,14 @@ class LibraryViewController: BooksTableViewController {
         searchBookBar.searchBar.setShowsCancelButton(false, animated: true)
     }
     
-    private func showEmptyResultView() {
-        emptyResultView.isHidden = false
-        resultsTableView.isHidden = true
+    func setSearchResult(resultBooks: [BookInfo]) {
+        books = resultBooks
+        tableView.reloadData()
     }
     
-    private func showResultsGridView() {
-        emptyResultView.isHidden = true
-        resultsTableView.isHidden = false
+    func setEmptySearchResult() {
+//        books = //from farebase
     }
-    
     
     private func setupUI() {
         view.backgroundColor = UIColor(rgb: 0xfffcf4)
@@ -110,17 +111,11 @@ class LibraryViewController: BooksTableViewController {
     }
     
     private func setupSearchBookBar() {
-//        searchBookBar.barTintColor = UIColor(rgb: 0xfffcf4)
-//        searchBookBar.tintColor = UIColor(rgb: 0x666568)
-//        searchBookBar.isTranslucent = true
-//        searchBookBar.showsCancelButton = true
-//        searchBookBar.backgroundColor = UIColor.red
         searchBookBar.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setupTableView() {
 //        books = BookManager.shared.loadBooks()
-        
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor(rgb: 0xfffcf4)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -199,6 +194,18 @@ class LibraryViewController: BooksTableViewController {
         addBookLabel2.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50).isActive = true
 //        addBookLabel2.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
+    
+    public func alert(message: String, complition: (() -> Void)? = nil) {
+        alert(message: message, title: "Ошибка", complition: complition)
+    }
+    
+    public func alert(message: String, title: String, complition: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Закрыть", style: .cancel, handler: { _ in
+            complition?()
+        }))
+        present(alert, animated: true, completion: nil)
+    }
 }
     
 extension LibraryViewController: UISearchBarDelegate {
@@ -228,39 +235,31 @@ extension LibraryViewController: UISearchBarDelegate {
         }
         perform(#selector(self.search(_:)), with: searchBar, afterDelay: delay)
     }
-
+    
     @objc private func search(_ searchBar: UISearchBar) {
         // Check for empty query
         guard let query = searchBar.text, query.trimmingCharacters(in: .whitespaces) != "" else {
-//            showRecommendationsGridView()
+            setEmptySearchResult()
             return
         }
         
-//         Send request
+        // Send request
         searchModel.search(query: query) { [weak self] searchResult in
             DispatchQueue.main.async {
+                print(searchResult.books)
+                print(query)
                 self?.searchBookBar.stopAnimationLoading()
-                if searchResult.books.count == 0 && searchResult.books.count == 0 {
-                    self?.showEmptyResultView()
+                if searchResult.books.count == 0 {
+                    self?.setEmptySearchResult()
                 } else {
-                    self?.resultsTableView.updateData(books: searchResult.books)
-                    self?.showResultsGridView()
+                    print(searchResult.books.count)
+                    self?.setSearchResult(resultBooks: searchResult.books)
                 }
             }
         } failure: { [weak self] error in
             DispatchQueue.main.async {
-//                self?.alert(message: error)
+                self?.alert(message: error)
             }
         }
     }
 }
-    
-
-//extension LibraryViewController: ResultsTableViewDelegate {
-//    func didSelectBook(book: BookInfo) {
-//        let viewController = FactoryViewControllers.createActorContent(actor: actor)
-//        navigationController?.pushViewController(viewController, animated: true)
-//    }
-//}
-
-

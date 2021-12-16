@@ -20,6 +20,7 @@ final class SearchInteractor: BaseInteractor {
         success: @escaping (APIResponse<SearchResponse>) -> Void,
         failure: @escaping (Error) -> Void
     ) {
+        print("IM HERE, IM SEARCHING!!")
         getSearchResult(
             path: "/volumes?q=",
             responseType: APIResponse<SearchResponse>.self,
@@ -55,6 +56,7 @@ final class SearchInteractor: BaseInteractor {
                 return
             }
             success(data)
+            print("i have found:", response.data.decode(type: T.self))
         }
         request.errorHandler = { error in
             failure(error)

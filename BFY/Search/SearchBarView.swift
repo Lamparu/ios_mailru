@@ -6,10 +6,41 @@
 //
 
 import UIKit
-//import Botticelli
 
 final class SearchBarView: UIView {
     let searchBar: UISearchBar = UISearchBar()
+//    let searchBar: UISearchBar = {
+//        let searchBar = UISearchBar()
+//        searchBar.searchTextField.backgroundColor = UIColor(rgb: 0xfffcf4)
+//        searchBar.searchTextField.textColor = UIColor(rgb: 0x666568)
+//
+////        searchBar.barTintColor = UIColor(rgb: 0xfffcf4)
+////        searchBar.tintColor = UIColor(rgb: 0x666568)
+////        searchBar.isTranslucent = true  // строка поиска полупрозрачная
+////        searchBar.showsCancelButton = true
+//
+//        // Customize placeholder
+//        searchBar.searchTextField.attributedPlaceholder = NSAttributedString(
+//            string: "Поиск",
+//            attributes: [NSAttributedString.Key.foregroundColor: UIColor(rgb: 0x666568)]
+//        )
+//
+//        // Customize corner radius
+//        searchBar.searchTextField.layer.cornerRadius = 1
+//        searchBar.searchTextField.clipsToBounds = true
+//        searchBar.searchTextField.layer.masksToBounds = true
+//
+//        // Delete background color
+//        searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
+//
+//        // Customize chanel button
+//        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).title = "Отмена"
+//        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = UIColor(rgb: 0x666568)
+//
+////        searchBar.translatesAutoresizingMaskIntoConstraints = false
+//        return searchBar
+//
+//    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -17,7 +48,7 @@ final class SearchBarView: UIView {
         setupSearchBar()
         
         addSubview(searchBar)
-        
+//
         setupConstraint()
     }
     
@@ -32,7 +63,7 @@ final class SearchBarView: UIView {
         
         // Customize placeholder
         searchBar.searchTextField.attributedPlaceholder = NSAttributedString(
-            string: "Поиск",
+            string: "Поиск книги",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor(rgb: 0x666568)]
         )
         
@@ -117,3 +148,5 @@ extension UISearchBar {
         }
     }
 }
+
+

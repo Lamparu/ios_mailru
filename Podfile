@@ -21,10 +21,11 @@ target 'BFY' do
   pod 'Firebase/Auth'
   pod 'Firebase/Messaging'
   pod 'Firebase/Database'
+  pod 'Firebase/Firestore'
 #  pod 'Firebase/Core'
 #  pod 'Firebase/Database'
 end
 
-target 'Hermes' do
-  use_frameworks!
-end
+#target 'Hermes' do
+#  use_frameworks!
+#end

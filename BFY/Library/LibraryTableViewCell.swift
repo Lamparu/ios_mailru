@@ -83,8 +83,8 @@ class LibraryTableViewCell: UITableViewCell {
     
     func configure (with book: BookInfo) {
         bookTitle.text = book.title
-//        bookAuthor.text = book.authors[0]
-//        bookImageView.
+        bookAuthor.text = book.authors[0]
+//        bookImageView = book.image
     }
     
     func createContainerViewConstraint() {

@@ -1,11 +1,16 @@
 import UIKit
+import Firebase
+import FirebaseFirestore
 
 
-class MainBookViewController: UIViewController {
-
+class MainBookViewController: UIViewController, UITextFieldDelegate {
+    
+    let db = Firestore.firestore()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
+    
     let mainFrame: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -17,13 +22,13 @@ class MainBookViewController: UIViewController {
     }()
     
     let bookImage: UIImageView = {
-        let imageName = "bookImage" //подгуржать с бэкэнда
+        let imageName = "BookCover" //подгуржать с бэкэнда
         let image = UIImage(named: imageName)
         let imageView = UIImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.borderWidth = 1
         imageView.layer.borderColor = UIColor.black.cgColor
-        imageView.layer.cornerRadius=28
+        //        imageView.layer.cornerRadius=28
         imageView.layer.masksToBounds = true
         return imageView
     }()
@@ -33,16 +38,16 @@ class MainBookViewController: UIViewController {
         let imageName = "playButton"
         let image = UIImage(named: imageName)
         playButton.setImage(UIImage(named: imageName), for: .normal)
-        playButton.layer.cornerRadius=50
+        playButton.layer.cornerRadius=30
         playButton.layer.masksToBounds = true
         playButton.translatesAutoresizingMaskIntoConstraints = false
         return playButton
     } ()
     
     let stringBookName: UILabel = {
-        let text = "Гордость и предубеждение"
+        //        let text = "Гордость и предубеждение"
         let str = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-        str.text = text
+        //        str.text = text
         str.textColor = UIColor.black
         str.font = UIFont(name: "AppleSDGothicNeo-Light", size: 26)
         str.textAlignment = .center
@@ -51,9 +56,9 @@ class MainBookViewController: UIViewController {
     }()
     
     let stringBookAuthor: UILabel = {
-        let text = "Джейн Остен"
+        //        let text = "Джейн Остен"
         let str = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 24))
-        str.text = text
+        //        str.text = text
         str.textColor = UIColor.darkGray
         str.font = UIFont(name: "AppleSDGothicNeo-Light", size: 26)
         str.textAlignment = .center
@@ -62,21 +67,22 @@ class MainBookViewController: UIViewController {
     }()
     
     var numberOfListsField: UITextField = {
-    let textField = UITextField()
-    let list = 10
-    textField.placeholder = "\(list) стр.";// str (число из бэка данные по этой книге)
-    textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 25)
-    textField.borderStyle = UITextField.BorderStyle.roundedRect
-    textField.textAlignment = .center
-    textField.layer.cornerRadius = 20
-    textField.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
-    textField.layer.borderColor = UIColor(rgb: 0x6A7F60).cgColor
-    textField.layer.borderWidth = 1
-    textField.layer.masksToBounds = true
-    textField.translatesAutoresizingMaskIntoConstraints = false
-    textField.resignFirstResponder()
-
-    return textField
+        let textField = UITextField()
+        //        let list = 10
+        textField.keyboardType = .decimalPad
+        //        textField.placeholder = "\(list) стр.";// str (число из бэка данные по этой книге)
+        textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 25)
+        textField.borderStyle = UITextField.BorderStyle.roundedRect
+        textField.textAlignment = .center
+        textField.layer.cornerRadius = 20
+        textField.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
+        textField.layer.borderColor = UIColor(rgb: 0x6A7F60).cgColor
+        textField.layer.borderWidth = 1
+        textField.layer.masksToBounds = true
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.resignFirstResponder()
+        
+        return textField
     }()
     
     
@@ -93,6 +99,10 @@ class MainBookViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        numberOfListsField.delegate = self
+        setupKeyboard()
+        
         view.backgroundColor = UIColor(rgb: 0xfffcf4)
         view.addSubview(mainFrame)
         view.addSubview(bookImage)
@@ -111,13 +121,15 @@ class MainBookViewController: UIViewController {
         
         self.view.addSubview(playButton)
         applyShadowOnButtons(button: playButton)
-
+        
+        loadBook()
+        
         // Do any additional setup after loading the view.
         
-//        let backButton = UIBarButtonItem()
-//        backButton.title = ""
-//        backButton.tintColor = UIColor(rgb: 0x6A7F60)
-//        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+        //        let backButton = UIBarButtonItem()
+        //        backButton.title = ""
+        //        backButton.tintColor = UIColor(rgb: 0x6A7F60)
+        //        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
         navigationItem.hidesBackButton = true
     }
     
@@ -154,12 +166,12 @@ class MainBookViewController: UIViewController {
         stringToListsField.centerXAnchor.constraint(equalTo: numberOfListsField.centerXAnchor).isActive = true
         stringToListsField.centerYAnchor.constraint(equalTo: numberOfListsField.topAnchor, constant: -20).isActive = true
     }
-
+    
     
     @objc private func didTapRegButton(_ sender: UIButton) {
         let Timer = TimerViewContoller()
-   //           let navController = UINavigationController(rootViewController: Timer)
-   //            self.present(navController, animated: true, completion: nil)
+        //           let navController = UINavigationController(rootViewController: Timer)
+        //            self.present(navController, animated: true, completion: nil)
         self.navigationController?.pushViewController(Timer, animated: true)
     }
     
@@ -167,8 +179,8 @@ class MainBookViewController: UIViewController {
         button.layer.shadowColor = UIColor.black.cgColor
         button.centerXAnchor.constraint(equalTo: mainFrame.centerXAnchor).isActive = true
         button.centerYAnchor.constraint(equalTo: mainFrame.bottomAnchor, constant: 70).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 105).isActive = true
-        button.widthAnchor.constraint(equalToConstant: 105).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 75).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 75).isActive = true
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -180,6 +192,79 @@ class MainBookViewController: UIViewController {
         let profileVC = ProfileViewController()
         self.navigationController?.pushViewController(profileVC, animated: true)
     }
-
-
+    
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        if self.view.frame.origin.y == 0 {
+            self.view.frame.origin.y -= 100
+        }
+    }
+    
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
+    private func setupKeyboard()
+    {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    private func setDefaultBook() {
+        
+    }
+    
+    private func fetchDataBook() {
+        db.collection("Users").addSnapshotListener{ (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else {
+                print("No documents")
+                return
+            }
+            
+            
+        }
+    }
+    
+    private func loadBook() {
+        
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        let userRef = db.collection("Users").document(userID)
+//        let bookRefColl = db.collection("Books")
+        
+        userRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let library = document.data() //as! [String: Int]
+                let last = library?["lastBook"] as? String ?? ""
+                let bookRef = self.db.collection("Books").document("XnLVkQEACAAJ")
+//                let bookRef = bookRefColl.document(last)
+                bookRef.getDocument{ (bookDoc, bookErr) in
+                    if let bookDoc = bookDoc, bookDoc.exists {
+                        let book = bookDoc.data()
+                        let title = book?["title"] as? String ?? "Название книги"
+                        self.stringBookName.text = title //book?["title"] as? String ?? "Название книги"
+                        let authors = book?["authors"] as? String ?? ""
+                        self.stringBookAuthor.text = authors //book?["authors"] as? String ?? "Автор книги"
+                        let image = book?["image"] as? String ?? "BookCover"
+                        if image == "BookCover" {
+                            self.bookImage.image = UIImage(named: image)}
+//                        } else {
+//                            self.bookImage.load(url: URL(string: image)!)
+//                        }
+                    } else {
+                        print("Books collection does not exist")
+                    }
+                }
+                let lib = library?["library"] as? [String : String]
+                for (bookid, pages) in lib ?? [:] {
+                    if bookid == last {
+                        self.numberOfListsField.placeholder = "\(pages) стр."
+                    }
+                }
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
+    
 }
