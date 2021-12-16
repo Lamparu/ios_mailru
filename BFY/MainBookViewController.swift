@@ -107,7 +107,6 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
 //        let loader = self.loader()
         
         numberOfListsField.delegate = self
@@ -231,7 +230,11 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func setDefaultBook() {
-        
+        stringBookName.text = "Добавьте книгу из библиотеки"
+        bookImage.image = UIImage(named: "BookCover")
+        numberOfListsField.isHidden = true
+        playButton.isHidden = true
+        stringToListsField.isHidden = true
     }
     
 //    private func fetchDataBook() {
@@ -252,10 +255,6 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
         var authors = ""
         var image = ""
         let userRef = db.collection("Users").document(userID)
-//        let bookRefColl = db.collection("Books")
-//        let bookRefColl = db.collection("Books")
-        
-//        print(type(of: userRef))
         
         userRef.getDocument { (document, error) in
             if let document = document, document.exists {
@@ -310,18 +309,16 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
     private func updatePages() {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         let userRef = db.collection("Users").document(userID)
-//        let bookRefColl = db.collection("Books")
         
         userRef.getDocument { (document, error) in
             if let document = document, document.exists {
-                let library = document.data() //as! [String: Int]
-//                let last = library?["lastBook"] as? String ?? ""
-//                lastBookID = last.trimmingCharacters(in: .whitespaces)
-//                let bookRef = bookRefColl.document(last)
+                let library = document.data()
                 let lib = library?["library"] as? [String : String]
                 for (bookid, pages) in lib ?? [:] {
                     if bookid == lastBookID {
                         self.numberOfListsField.placeholder = "\(pages) стр."
+                    } else {
+                        self.numberOfListsField.placeholder = "0 стр."
                     }
                 }
             } else {
@@ -340,15 +337,19 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
             if let document = document, document.exists {
                 let library = document.data() //as! [String: Int]
                 let last = library?["lastBook"] as? String ?? ""
+                if (last == "") {
+                    self.setDefaultBook()
+                    return
+                }
                 lastBookID = last.trimmingCharacters(in: .whitespaces)
                 let bookRef = self.db.collection("Books").document(last.trimmingCharacters(in: .whitespaces))
 //                let bookRef = bookRefColl.document(last)
                 bookRef.getDocument{ (bookDoc, bookErr) in
                     if let bookDoc = bookDoc, bookDoc.exists {
                         let book = bookDoc.data()
-                        let title = book?["title"] as? String ?? "Название книги"
+                        let title = book?["title"] as? String ?? "Название"
                         self.stringBookName.text = title //book?["title"] as? String ?? "Название книги"
-                        let authors = book?["authors"] as? String ?? ""
+                        let authors = book?["authors"] as? String ?? "Автор"
                         self.stringBookAuthor.text = authors //book?["authors"] as? String ?? "Автор книги"
                         let image = book?["image"] as? String ?? "BookCover"
                         if image == "BookCover" {

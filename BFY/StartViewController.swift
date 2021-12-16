@@ -66,8 +66,6 @@ class StartViewController: UIViewController {
 
     @objc private func didTapOverallButton(_ sender: UIButton) {
         if Auth.auth().currentUser != nil {
-            loadBook()
-//            (bookTitleData, bookAuthorData, bookImageData, bookPagesData) = getBookData()
             let tabBarVC = TabBarController()
             self.navigationController?.pushViewController(tabBarVC, animated: true)
         } else {
@@ -75,44 +73,5 @@ class StartViewController: UIViewController {
             self.navigationController?.pushViewController(authVC, animated: false)
         }
         
-    }
-    
-    func loadBook() {
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        let userRef = db.collection("Users").document(userID)
-            .addSnapshotListener { documentSnapshot, error in
-                guard let document = documentSnapshot else {
-                        print("Error fetching document: \(error!)")
-                        return
-                }
-                guard let lib = document.data() else {
-                        print("Document data was empty.")
-                        return
-                }
-                let lastBook = lib["lastBook"] as? String ?? ""
-                print("Current data: \(lib)")
-                let bookRef = self.db.collection("Books").document(lastBook.trimmingCharacters(in: .whitespaces)).addSnapshotListener{ docSnap, err in
-                    guard let document = docSnap else {
-                            print("Error fetching document: \(error!)")
-                            return
-                    }
-                    guard let data = document.data() else {
-                            print("Document data was empty.")
-                            return
-                    }
-                    bookTitleData = data["title"] as? String ?? "Название"
-    //                        self.stringBookName.text = title //book?["title"] as? String ?? "Название книги"
-                    bookAuthorData = data["authors"] as? String ?? "Автор"
-    //                        self.stringBookAuthor.text = authors //book?["authors"] as? String ?? "Автор книги"
-                    bookImageData = data["image"] as? String ?? "BookCover"
-                    print("Current data: \(data)")
-//                    completion(bookTitleData, bookAuthorData, bookImageData)
-                }
-                print("aaaaa")
-                print(bookTitleData, bookAuthorData, bookImageData)
-                
-        }
-//        let bookRefColl = db.collection("Books")
-        print(userRef)
     }
 }
