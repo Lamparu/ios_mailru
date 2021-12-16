@@ -3,6 +3,7 @@ import Firebase
 import FirebaseFirestore
 import SwiftUI
 
+var lastBookID = ""
 
 class MainBookViewController: UIViewController, UITextFieldDelegate {
     
@@ -10,6 +11,7 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        updatePages()
         let loader = self.loader()
 //        loadBook()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
@@ -131,7 +133,7 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
         applyShadowOnButtons(button: playButton)
         
         loadBook()
-        
+
         navigationItem.hidesBackButton = true
         
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
@@ -259,6 +261,8 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
             if let document = document, document.exists {
                 let library = document.data() //as! [String: Int]
                 let last = library?["lastBook"] as? String ?? ""
+                lastBookID = last.trimmingCharacters(in: .whitespaces)
+//                print()
                 let bookRef = self.db.collection("Books").document(last.trimmingCharacters(in: .whitespaces))
 //                let bookRef = bookRefColl.document(last)
                 bookRef.getDocument{ (bookDoc, bookErr) in
@@ -303,6 +307,29 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
         self.numberOfListsField.placeholder = "\(pages) стр."
     }
     
+    private func updatePages() {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        let userRef = db.collection("Users").document(userID)
+//        let bookRefColl = db.collection("Books")
+        
+        userRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let library = document.data() //as! [String: Int]
+//                let last = library?["lastBook"] as? String ?? ""
+//                lastBookID = last.trimmingCharacters(in: .whitespaces)
+//                let bookRef = bookRefColl.document(last)
+                let lib = library?["library"] as? [String : String]
+                for (bookid, pages) in lib ?? [:] {
+                    if bookid == lastBookID {
+                        self.numberOfListsField.placeholder = "\(pages) стр."
+                    }
+                }
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
+    
     private func loadBook() {
         
         guard let userID = Auth.auth().currentUser?.uid else { return }
@@ -313,6 +340,7 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
             if let document = document, document.exists {
                 let library = document.data() //as! [String: Int]
                 let last = library?["lastBook"] as? String ?? ""
+                lastBookID = last.trimmingCharacters(in: .whitespaces)
                 let bookRef = self.db.collection("Books").document(last.trimmingCharacters(in: .whitespaces))
 //                let bookRef = bookRefColl.document(last)
                 bookRef.getDocument{ (bookDoc, bookErr) in

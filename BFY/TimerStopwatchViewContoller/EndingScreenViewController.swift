@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseFirestore
 
 class EndingScreenViewController: UIViewController, UITextFieldDelegate {
+    
+    let db = Firestore.firestore()
     
     //    let stringQuestion: UILabel = {
     //        let text = "Уверены,\nчто хотите завершить чтение?"
@@ -102,6 +106,7 @@ class EndingScreenViewController: UIViewController, UITextFieldDelegate {
         numberOfListsField.centerXAnchor.constraint(equalTo: stringLists.centerXAnchor).isActive = true
         numberOfListsField.centerYAnchor.constraint(equalTo: stringLists.bottomAnchor, constant: 30).isActive = true
     }
+    
     func createyesButtons(button: UIButton) {
         button.layer.shadowColor = UIColor.black.cgColor
         button.centerXAnchor.constraint(equalTo: numberOfListsField.centerXAnchor).isActive = true
@@ -112,6 +117,11 @@ class EndingScreenViewController: UIViewController, UITextFieldDelegate {
     
     
     @objc private func didTapRegButton(_ sender: UIButton) {
+        let pages = numberOfListsField.text
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        
+        db.collection("Users").document(userID).updateData(["library": [lastBookID : pages]])
+        
         self.dismiss(animated: false) {
             self.delegate?.onButtonTap(sender: sender)
         }
@@ -130,10 +140,16 @@ class EndingScreenViewController: UIViewController, UITextFieldDelegate {
             self.view.frame.origin.y = 0
         }
     }
+    
     private func setupKeyboard()
     {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        numberOfListsField.resignFirstResponder()
+        return true
     }
     
 }
