@@ -30,7 +30,7 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
     }()
     
     let bookImage: UIImageView = {
-        let imageName = "BookCover" //подгуржать с бэкэнда
+        let imageName = "" //подгуржать с бэкэнда
         let image = UIImage(named: imageName)
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
@@ -106,7 +106,6 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let loader = self.loader()
         
         numberOfListsField.delegate = self
         setupKeyboard()
@@ -131,7 +130,7 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
         applyShadowOnButtons(button: playButton)
         
         loadBook{ }
-
+        
         navigationItem.hidesBackButton = true
         
         initializeHideKeyboard()
@@ -243,79 +242,30 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
         stringToListsField.isHidden = true
     }
     
-//    private func fetchDataBook() {
-//        db.collection("Users").addSnapshotListener{ (querySnapshot, error) in
-//            guard let documents = querySnapshot?.documents else {
-//                print("No documents")
-//                return
-//            }
-//
-//
+//    private func setBookData(title: String, authors: String, image: String, pages: String) {
+//        if title == "" {
+//            self.stringBookName.text = "Название"
+//        } else {
+//            self.stringBookName.text = title
 //        }
+//        if authors == "" {
+//            self.stringBookAuthor.text = "Автор"
+//        } else {
+//            self.stringBookAuthor.text = authors
+//        }
+//        if image == "BookCover" || image == "" {
+//            self.bookImage.image = UIImage(named: image)
+//        } else {
+//            self.bookImage.load(url: URL(string: image)!)
+//        }
+//        self.numberOfListsField.placeholder = "\(pages) стр."
 //    }
-    
-    private func getBookData() -> (title: String, author: String, image: String, pages: String) {
-        guard let userID = Auth.auth().currentUser?.uid else { return ("", "", "", "") }
-        var pages = "0"
-        var title = ""
-        var authors = ""
-        var image = ""
-        let userRef = db.collection("Users").document(userID)
-        
-        userRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                let library = document.data() //as! [String: Int]
-                let last = library?["lastBook"] as? String ?? ""
-                lastBookID = last.trimmingCharacters(in: .whitespaces)
-//                print()
-                let bookRef = self.db.collection("Books").document(last.trimmingCharacters(in: .whitespaces))
-//                let bookRef = bookRefColl.document(last)
-                bookRef.getDocument{ (bookDoc, bookErr) in
-                    if let bookDoc = bookDoc, bookDoc.exists {
-                        let book = bookDoc.data()
-                        title = book?["title"] as? String ?? "Название книги"
-//                        self.stringBookName.text = title //book?["title"] as? String ?? "Название книги"
-                        authors = book?["authors"] as? String ?? ""
-//                        self.stringBookAuthor.text = authors //book?["authors"] as? String ?? "Автор книги"
-                        image = book?["image"] as? String ?? "BookCover"
-//                        if image == "BookCover" {
-//                            self.bookImage.image = UIImage(named: image)
-//                        } else {
-//                            self.bookImage.load(url: URL(string: image)!)
-//                        }
-                    } else {
-                        print("Books collection does not exist")
-                    }
-                }
-                let lib = library?["library"] as? [String : String]
-                for (bookid, lastPage) in lib ?? [:] {
-                    if bookid == last {
-                        pages = lastPage
-//                        self.numberOfListsField.placeholder = "\(pages) стр."
-                    }
-                }
-            } else {
-                print("Document does not exist")
-            }
-        }
-        return (title, authors, image, pages)
-    }
-    
-    private func setBookData(title: String, authors: String, image: String, pages: String) {
-        self.stringBookName.text = title
-        self.stringBookAuthor.text = authors
-        if image == "BookCover" || image == "" {
-            self.bookImage.image = UIImage(named: image)
-        } else {
-            self.bookImage.load(url: URL(string: image)!)
-        }
-        self.numberOfListsField.placeholder = "\(pages) стр."
-    }
     
     private func loadBook(completion: @escaping () -> Void) {
         
         guard let userID = Auth.auth().currentUser?.uid else { return }
         let userRef = db.collection("Users").document(userID)
+        let query = userRef.or
 //        let bookRefColl = db.collection("Books")
         
         userRef.addSnapshotListener { (snapshot, error) in
@@ -345,8 +295,8 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
                 let authors = book?["authors"] as? String ?? "Автор"
                 self.stringBookAuthor.text = authors //book?["authors"] as? String ?? "Автор книги"
                 let image = book?["image"] as? String ?? "BookCover"
-                if image == "BookCover" {
-                    self.bookImage.image = UIImage(named: image)
+                if image == "BookCover" || image == "" {
+                    self.bookImage.image = UIImage(named: "BookCover")
                 } else {
                     self.bookImage.load(url: URL(string: image)!)
                 }

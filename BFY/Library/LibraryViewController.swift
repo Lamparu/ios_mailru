@@ -50,7 +50,6 @@ final class LibraryViewController: BooksTableViewController {
                 completion()
                 return
             }
-            
             for (bookid, _) in lib ?? [:] {
                 self.db.collection("Books").document(bookid).addSnapshotListener { snapshot, error in
                     print(error ?? "OK user")
@@ -66,6 +65,7 @@ final class LibraryViewController: BooksTableViewController {
                     completion()
                 }
             }
+            completion()
         }
     }
     
@@ -117,7 +117,9 @@ final class LibraryViewController: BooksTableViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        updateLastBookDB(bookID: "6WUZTtGZYPQC")
+        let book = books[indexPath.section]
+        
+        updateLastBookDB(bookID: book.id)
         
         let destination = TabBarController()
         navigationController?.pushViewController(destination, animated: true)
