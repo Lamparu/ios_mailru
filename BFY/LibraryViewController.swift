@@ -45,7 +45,7 @@ final class LibraryViewController: BooksTableViewController {
     
     private func updateLastBookDB(bookID: String) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
-        db.collection("Users").document(userID).setData(["lastBook": bookID])
+        db.collection("Users").document(userID).updateData(["lastBook": bookID])
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -86,7 +86,7 @@ final class LibraryViewController: BooksTableViewController {
     }
     
     private func setupTableView() {
-        books = BookManager.shared.loadBooks()
+//        books = BookInfo.shared.loadBooks()
         
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor(rgb: 0xfffcf4)

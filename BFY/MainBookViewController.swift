@@ -25,7 +25,7 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
         view.backgroundColor = UIColor(rgb: 0xfffcf4)
         view.layer.borderWidth = 2
         view.layer.borderColor = UIColor.black.cgColor
-        view.layer.cornerRadius=28
+        view.layer.cornerRadius = 28
         return view
     }()
     
