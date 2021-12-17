@@ -71,7 +71,10 @@ class LibraryViewController: BooksTableViewController, UISearchBarDelegate {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
 //        return 0
-        return books.count
+        if isSearching == false {
+            return books.count
+        }
+        return booksInLibrary.count
     }
     
     @objc private func didTapAddBookButton(_ sender: UIButton) {

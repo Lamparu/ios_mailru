@@ -25,7 +25,7 @@ final class SearchModel: NSObject {
         interactor.search(from: from, count: count, query: query) { responce in
             print(responce)
             print("resp.body is", responce)
-//            success(self.trasformate(resp: responce.body ?? nil))
+            success(self.trasformate(resp: responce))
         } failure: { error in
             debugPrint(error)
         }
@@ -35,13 +35,13 @@ final class SearchModel: NSObject {
         guard let resp = resp else {
             return SearchResult(books: [])
         }
-        print("resp.result is", resp)
-//        let books = resp.result.books.items.map { BooksBody -> BookInfo in
-//            BookInfo(from: BooksBody)
-//        }
-//        let searchResult = SearchResult(books: books)
-//        return searchResult
-        return .init(books: [])
+//        print("resp.result is", resp)
+        let books = resp.items.map { BooksBody -> BookInfo in
+            BookInfo(from: BooksBody)
+        }
+        let searchResult = SearchResult(books: books)
+        return searchResult
+//        return .init(books: [])
     }
 }
     
