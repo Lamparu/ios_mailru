@@ -8,7 +8,6 @@
 import UIKit
 import Firebase
 import FirebaseAuth
-//import FirebaseDatabase
 import FirebaseFirestore
 
 class RegistrationViewController: UIViewController, UITextFieldDelegate {
@@ -67,7 +66,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     var loginTextField: UITextField = {
         let textField = UITextField()
-//        textField.textContentType = .username
         textField.keyboardType = .emailAddress
         textField.placeholder = "username"
         textField.textAlignment = .center
@@ -119,7 +117,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     var emailTextField: UITextField = {
         let textField = UITextField()
         textField.textContentType = .username
-//        textField.textContentType = .emailAddress
         textField.keyboardType = .emailAddress
         textField.placeholder = "example@domen.ru"
         textField.textAlignment = .center
@@ -141,7 +138,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 32)
         button.setTitleColor(UIColor(rgb: 0xfffcf4), for: .normal)
-//        button.backgroundColor = UIColor(rgb: 0x6A7F60)
         button.backgroundColor = UIColor(rgb: 0x919F8B)
         button.layer.cornerRadius = 20
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -165,10 +161,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         setupBackButton()
         
         initializeHideKeyboard()
-        
-//        let ref = Database.database().reference()
-//        //ref.child("userid/username").setValue("Colorit")
-//        ref.childByAutoId().setValue(["email" : ""])
     }
     
     private func setupBackButton() {
@@ -296,11 +288,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         button.layer.masksToBounds = false
     }
     
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        self.view.endEditing(true)
-//        return false
-//    }
-    
     @objc private func keyboardWillShow(notification: NSNotification) {
         if self.view.frame.origin.y == 0 {
             self.view.frame.origin.y -= 180
@@ -353,7 +340,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         
         if (!email.isEmpty && !pswd.isEmpty && !login.isEmpty && !pswd_again.isEmpty) {
-//        if (!email.isEmpty && !pswd.isEmpty && !pswd_again.isEmpty) {
             if (!emailPred.evaluate(with: email)) {
                 showMessageAlert(err: "Введите корректную электронную почту")
             } else if (pswd != pswd_again) {
@@ -366,8 +352,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
                         if let result = result {
                             print(result.user.uid)
                             self.addNewUser(username: login, email: email, uid: result.user.uid)
-//                            let ref = Database.database().reference()
-//                            ref.child(result.user.uid).setValue(["username": login, "email": email])
                             let tabBarVC = TabBarController()
                             self.navigationController?.pushViewController(tabBarVC, animated: true)
                         }

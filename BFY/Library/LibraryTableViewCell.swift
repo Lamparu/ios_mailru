@@ -88,7 +88,7 @@ class LibraryTableViewCell: UITableViewCell {
     func configure (with book: BookInfo) {
         bookTitle.text = book.title
         bookAuthor.text = makeStringAuthors(authors: book.authors ?? [""])
-        print(book.image)
+//        print(book.image)
         if book.image == "BookCover" || book.image == "" {
             bookImageView.image = UIImage(named: "BookCover")
         } else {

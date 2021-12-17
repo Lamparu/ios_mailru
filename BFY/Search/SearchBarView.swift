@@ -23,12 +23,7 @@ final class SearchBarView: UIView {
     private func setupSearchBar() {
         searchBar.searchTextField.backgroundColor = UIColor(rgb: 0xfffcf4)
         searchBar.searchTextField.textColor = UIColor(rgb: 0x666568)
-        
-//        searchBar.barTintColor = UIColor(rgb: 0xfffcf4)
-//        searchBar.tintColor = UIColor(rgb: 0x666568)
         searchBar.isTranslucent = true  // строка поиска полупрозрачная
-//        searchBar.showsCancelButton = true
-        
         searchBar.searchTextField.attributedPlaceholder = NSAttributedString(
             string: "Поиск книги",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor(rgb: 0x666568)]
@@ -69,10 +64,6 @@ final class SearchBarView: UIView {
     func stopAnimationLoading() {
         searchBar.isLoading = false
     }
-    
-//    func setShowsCancelButton(i: Bool, animated: Bool) {
-//        searchBar.setShowsCancelButton(i, animated: animated)
-//    }
 }
 
 // Extension for search loading indicator
