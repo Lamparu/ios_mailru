@@ -117,7 +117,7 @@ final class LibraryViewController: BooksTableViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let book = books[indexPath.section]
+        let book = books[indexPath.row]
         
         updateLastBookDB(bookID: book.id)
         
@@ -140,10 +140,6 @@ final class LibraryViewController: BooksTableViewController {
         self.present(navController, animated: true, completion: nil)
 //        self.navigationController?.pushViewController(AddNewBookViewController, animated: true)
     }
-    
-    
-    
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
