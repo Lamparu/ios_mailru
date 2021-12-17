@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
+import UIKit
+import AVFoundation
 
 var defaultTimeRemaining_sec: Int = 10
 let lineWith: CGFloat = 10
 let radius: CGFloat = 150
+let systemSoundID: SystemSoundID = 4095
+
 
 
 @available(iOS 13.0.0, *) struct TimerView: View {
@@ -144,7 +148,12 @@ let radius: CGFloat = 150
             if timeRemaining_sec > 0 {
                 timeRemaining_sec -= 1
             } else {
+                AudioServicesPlaySystemSound (systemSoundID)
                 isActive = false
+//                let EndingScreenViewController = EndingScreenViewController()
+//                //EndingScreenViewController.delegate = self
+//                let navController = UINavigationController(rootViewController: EndingScreenViewController)
+//                    .present(navController, animated: true, completion: nil)
                 timeRemaining_sec = availableMinutes[selectedPickerIndexHour] * 3600 + availableMinutes[selectedPickerIndexMins] * 60 + availableSecs[selectedPickerIndexSecs]
             }
             

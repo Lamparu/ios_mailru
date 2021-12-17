@@ -105,6 +105,8 @@ final class LibraryViewController: BooksTableViewController {
         return cell
     }
     
+    
+    
     func makeStringAuthors(authors: [String]) -> String {
         let stringAuthors = authors.joined(separator: ", ")
         return stringAuthors
@@ -124,6 +126,24 @@ final class LibraryViewController: BooksTableViewController {
         let destination = TabBarController()
         navigationController?.pushViewController(destination, animated: true)
        }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    //{
+       let book = books[indexPath.row] // для удаления из бд
+        let deleteAction = UIContextualAction(style: .normal, title: "Удалить") {
+            [self]  (contextualAction, view, boolValue) in
+           guard let userID = Auth.auth().currentUser?.uid else { return }
+            let userDF = self.db.collection("Users").document(userID)
+           userDF.updateData(["library." + book.id : FieldValue.delete()])
+            if book.id == lastBookID{
+                userDF.updateData(["lastBook" : ""])
+            }
+       }
+       let swipeActions = UISwipeActionsConfiguration(actions: [deleteAction])
+       return swipeActions
+   }
+    
+    
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
