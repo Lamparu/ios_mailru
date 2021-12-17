@@ -6,9 +6,13 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseFirestore
 
 final class LibraryViewController: BooksTableViewController {
 
+    let db = Firestore.firestore()
+    
     private var books: [Book] = [.init(id: "1", title: "Гордость и предубеждение", author: "Джейн Остен", image: URL(string: ""))]
 
     let searchBookBar = UISearchBar()
@@ -38,6 +42,19 @@ final class LibraryViewController: BooksTableViewController {
 
         return cell
     }
+    
+    private func updateLastBookDB(bookID: String) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        db.collection("Users").document(userID).setData(["lastBook": bookID])
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        updateLastBookDB(bookID: "6WUZTtGZYPQC")
+        
+        let destination = TabBarController()
+        navigationController?.pushViewController(destination, animated: true)
+       }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return books.count

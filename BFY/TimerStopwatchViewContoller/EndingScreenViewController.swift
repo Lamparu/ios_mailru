@@ -39,7 +39,7 @@ class EndingScreenViewController: UIViewController, UITextFieldDelegate {
     
     var numberOfListsField: UITextField = {
         let textField = UITextField()
-        textField.keyboardType = .decimalPad
+        textField.keyboardType = .numberPad
         textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         textField.textAlignment = .center
@@ -84,6 +84,8 @@ class EndingScreenViewController: UIViewController, UITextFieldDelegate {
         createnumberOfListsFieldConstraint()
         createyesButtons(button: yesButton)
         
+        initializeHideKeyboard()
+        
         // Do any additional setup after loading the view.
     }
     //    func createstringQuestionConstraint() {
@@ -115,11 +117,19 @@ class EndingScreenViewController: UIViewController, UITextFieldDelegate {
         button.widthAnchor.constraint(equalToConstant: 201).isActive = true
     }
     
+    private func showMessageAlert(err: String) {
+        let alert = UIAlertController(title: "Ошибка", message: err, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
     
     @objc private func didTapRegButton(_ sender: UIButton) {
         let pages = numberOfListsField.text
+        print("pages:", pages ?? "none")
+        if pages == "" {
+            showMessageAlert(err: "Впишите страницу, на которой остановились")
+        }
         guard let userID = Auth.auth().currentUser?.uid else { return }
-        
         db.collection("Users").document(userID).updateData(["library": [lastBookID : pages]])
         
         self.dismiss(animated: false) {
@@ -148,8 +158,8 @@ class EndingScreenViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        numberOfListsField.resignFirstResponder()
-        return true
+        self.view.endEditing(true)
+        return false
     }
     
 }

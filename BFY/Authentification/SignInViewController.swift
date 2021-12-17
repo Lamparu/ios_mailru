@@ -132,6 +132,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         setupKeyboard()
         setupBackButton()
         
+        initializeHideKeyboard()
+        
         //        rememberButton.isSelected = false
     }
     

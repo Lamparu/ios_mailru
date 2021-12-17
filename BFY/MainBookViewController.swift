@@ -33,11 +33,9 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
         let imageName = "BookCover" //подгуржать с бэкэнда
         let image = UIImage(named: imageName)
         let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = UIColor.black.cgColor
-        //        imageView.layer.cornerRadius=28
-        imageView.layer.masksToBounds = true
+        
         return imageView
     }()
     let playButton: UIButton = {
@@ -54,9 +52,10 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
     
     let stringBookName: UILabel = {
         //        let text = "Гордость и предубеждение"
-        let str = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        let str = UILabel()
         //        str.text = text
         str.textColor = UIColor.black
+        str.numberOfLines = 2
         str.font = UIFont(name: "AppleSDGothicNeo-Light", size: 26)
         str.textAlignment = .center
         str.translatesAutoresizingMaskIntoConstraints = false
@@ -65,7 +64,7 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
     
     let stringBookAuthor: UILabel = {
         //        let text = "Джейн Остен"
-        let str = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 24))
+        let str = UILabel()
         //        str.text = text
         str.textColor = UIColor.darkGray
         str.font = UIFont(name: "AppleSDGothicNeo-Light", size: 26)
@@ -77,7 +76,7 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
     var numberOfListsField: UITextField = {
         let textField = UITextField()
         //        let list = 10
-        textField.keyboardType = .decimalPad
+        textField.keyboardType = .numberPad
         //        textField.placeholder = "\(list) стр.";// str (число из бэка данные по этой книге)
         textField.font = UIFont(name: "AppleSDGothicNeo-Light", size: 25)
         textField.borderStyle = UITextField.BorderStyle.roundedRect
@@ -125,8 +124,8 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
         createbookImageConstraint()
         createstringBookNameConstraint()
         createstringBookAuthorConstraint()
-        createNumberOfListsFieldConstraint()
         createstringToListsFieldConstraint()
+        createNumberOfListsFieldConstraint()
         
         self.view.addSubview(playButton)
         applyShadowOnButtons(button: playButton)
@@ -134,6 +133,9 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
         loadBook()
 
         navigationItem.hidesBackButton = true
+        
+        initializeHideKeyboard()
+        setupToolbar()
         
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
 //            self.stopLoader(loader: loader)
@@ -152,38 +154,41 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
     }
     
     func createMainBookConstraint(){
-        mainFrame.widthAnchor.constraint(equalToConstant: 343).isActive = true
-        mainFrame.heightAnchor.constraint(equalToConstant: 463).isActive = true
-        mainFrame.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50).isActive = true
-        mainFrame.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-    }
-    
-    func createbookImageConstraint(){
-        bookImage.widthAnchor.constraint(equalToConstant: bookImage.frame.width / 2).isActive = true
-        bookImage.heightAnchor.constraint(equalToConstant: bookImage.frame.height / 2).isActive = true
-        bookImage.topAnchor.constraint(equalTo: mainFrame.topAnchor, constant: 30).isActive = true
-        bookImage.centerXAnchor.constraint(equalTo: mainFrame.centerXAnchor).isActive = true
+            mainFrame.widthAnchor.constraint(equalToConstant: 343).isActive = true
+            mainFrame.heightAnchor.constraint(equalToConstant: 463).isActive = true
+            mainFrame.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50).isActive = true
+            mainFrame.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        }
         
-    }
-    func createstringBookNameConstraint() {
-        stringBookName.centerXAnchor.constraint(equalTo: bookImage.centerXAnchor).isActive = true
-        stringBookName.centerYAnchor.constraint(equalTo: bookImage.bottomAnchor, constant: 30).isActive = true
-    }
-    
-    func createstringBookAuthorConstraint() {
-        stringBookAuthor.centerXAnchor.constraint(equalTo: stringBookName.centerXAnchor).isActive = true
-        stringBookAuthor.centerYAnchor.constraint(equalTo: stringBookName.bottomAnchor, constant: 20).isActive = true
-    }
-    
-    func createNumberOfListsFieldConstraint() {
-        numberOfListsField.centerXAnchor.constraint(equalTo: stringBookAuthor.centerXAnchor).isActive = true
-        numberOfListsField.bottomAnchor.constraint(equalTo: mainFrame.bottomAnchor, constant: -30).isActive = true
-    }
-    
-    func createstringToListsFieldConstraint() {
-        stringToListsField.centerXAnchor.constraint(equalTo: numberOfListsField.centerXAnchor).isActive = true
-        stringToListsField.centerYAnchor.constraint(equalTo: numberOfListsField.topAnchor, constant: -20).isActive = true
-    }
+        func createbookImageConstraint(){
+            bookImage.widthAnchor.constraint(equalToConstant: 200).isActive = true
+            bookImage.heightAnchor.constraint(equalToConstant: 250).isActive = true
+            bookImage.topAnchor.constraint(equalTo: mainFrame.topAnchor, constant: 30).isActive = true
+            bookImage.centerXAnchor.constraint(equalTo: mainFrame.centerXAnchor).isActive = true
+            
+        }
+        func createstringBookNameConstraint() {
+            stringBookName.widthAnchor.constraint(equalToConstant: 320).isActive = true
+            stringBookName.centerXAnchor.constraint(equalTo: bookImage.centerXAnchor).isActive = true
+            stringBookName.topAnchor.constraint(equalTo: bookImage.bottomAnchor, constant: 10).isActive = true
+        }
+        
+        func createstringBookAuthorConstraint() {
+            stringBookAuthor.widthAnchor.constraint(equalToConstant: 320).isActive = true
+            stringBookAuthor.centerXAnchor.constraint(equalTo: stringBookName.centerXAnchor).isActive = true
+            stringBookAuthor.topAnchor.constraint(equalTo: stringBookName.bottomAnchor, constant: 10).isActive = true
+        }
+        
+        func createstringToListsFieldConstraint() {
+            stringToListsField.centerXAnchor.constraint(equalTo: stringBookAuthor.centerXAnchor).isActive = true
+            stringToListsField.topAnchor.constraint(equalTo: stringBookAuthor.bottomAnchor, constant: 10).isActive = true
+        }
+        
+        func createNumberOfListsFieldConstraint() {
+            numberOfListsField.centerXAnchor.constraint(equalTo: stringToListsField.centerXAnchor).isActive = true
+            numberOfListsField.bottomAnchor.constraint(equalTo: mainFrame.bottomAnchor, constant: -15).isActive = true
+        }
+        
     
     
     @objc private func didTapRegButton(_ sender: UIButton) {
@@ -231,6 +236,7 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
     
     private func setDefaultBook() {
         stringBookName.text = "Добавьте книгу из библиотеки"
+//        stringBookAuthor.text = "Добавьте книгу из библиотеки"
         bookImage.image = UIImage(named: "BookCover")
         numberOfListsField.isHidden = true
         playButton.isHidden = true
@@ -315,7 +321,8 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
                 let library = document.data()
                 let lib = library?["library"] as? [String : String]
                 for (bookid, pages) in lib ?? [:] {
-                    if bookid == lastBookID {
+                    print("pages: ", pages)
+                    if bookid == lastBookID  && pages != "" {
                         self.numberOfListsField.placeholder = "\(pages) стр."
                     } else {
                         self.numberOfListsField.placeholder = "0 стр."
@@ -362,15 +369,59 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
                     }
                 }
                 let lib = library?["library"] as? [String : String]
-                for (bookid, pages) in lib ?? [:] {
+                if lib == nil {
+                    self.numberOfListsField.placeholder = "0 стр."
+                }
+                for (bookid, pages) in lib ?? ["":""] {
                     if bookid == last {
-                        self.numberOfListsField.placeholder = "\(pages) стр."
+                        print("pages: ", pages)
+                        if pages == "" {
+                            self.numberOfListsField.placeholder = "0 стр."
+                        } else {
+                            self.numberOfListsField.placeholder = "\(pages) стр."
+                        }
                     }
                 }
             } else {
                 print("Document does not exist")
             }
         }
+    }
+    
+    func setupToolbar(){
+        //Create a toolbar
+        let bar = UIToolbar()
+        
+        //Create a done button with an action to trigger our function to dismiss the keyboard
+        let doneBtn = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(dismissMyKeyboard))
+        
+        //Create a felxible space item so that we can add it around in toolbar to position our done button
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        //Add the created button items in the toobar
+        bar.items = [flexSpace, flexSpace, doneBtn]
+        bar.sizeToFit()
+        
+        //Add the toolbar to our textfield
+        numberOfListsField.inputAccessoryView = bar
+    }
+    
+    private func showMessageAlert(err: String) {
+        let alert = UIAlertController(title: "Ошибка", message: err, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    @objc override func dismissMyKeyboard() {
+        let pages = numberOfListsField.text
+        print("pages:", pages ?? "none")
+        numberOfListsField.text = ""
+        if pages != "" {
+            guard let userID = Auth.auth().currentUser?.uid else { return }
+            db.collection("Users").document(userID).updateData(["library": [lastBookID : pages]])
+            updatePages()
+        }
+        view.endEditing(true)
     }
     
 }
