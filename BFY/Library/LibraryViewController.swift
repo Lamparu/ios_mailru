@@ -5,20 +5,85 @@
 //  Created by Анастасия Московчук on 01.11.2021.
 //
 import UIKit
+import Firebase
+import FirebaseFirestore
+
+//var books: [BookInfo] = []
+var books = [BookInfo]()
 
 final class LibraryViewController: BooksTableViewController {
-
+    
+    let db = Firestore.firestore()
+    
+//    private var books: [Book] = [.init(id: "1", title: "Гордость и предубеждение", author: "Джейн Остен", image: URL(string: ""))]
     let searchBookBar = SearchBarView()
     let addBookButton = UIButton()
     let addBookLabel1 = UILabel()
     let addBookLabel2 = UILabel()
+    
+    func splitAuthors(authors: String) -> [String] {
+        let listAuthors = authors.split{$0 == ","}.map(String.init)
+        let trimmedAuthors = listAuthors.map { $0.trimmingCharacters(in: .whitespaces) }
+        return trimmedAuthors
+    }
 
+    func setEmptySearchResult(completion: @escaping () -> Void) {
+        books = []
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        let query = db.collection("Users").document(userID)
+        query.addSnapshotListener { snapshot, error in
+            print(error ?? "OK user")
+            guard let snapshot = snapshot else {
+                completion()
+                return
+            }
+            let data = snapshot.data()
+            let lib = data?["library"] as? [String : String]
+            if lib == nil {
+                completion()
+                return
+            }
+            books = []
+            for (bookid, _) in lib ?? [:] {
+                self.db.collection("Books").document(bookid).addSnapshotListener { snapshot, error in
+                    print(error ?? "OK user")
+                    guard let snapshot = snapshot else {
+                        completion()
+                        return
+                    }
+                    let data = snapshot.data()
+                    let authors = data?["authors"] as? String ?? "Автор"
+                    let title = data?["title"] as? String ?? "Название"
+                    var image = data?["image"] as? String ?? "BookCover"
+                    if image == "" {
+                        image = "BookCover"
+                    }
+                    books.append(BookInfo(id: bookid, title: title, authors: self.splitAuthors(authors: authors), image: image))
+                    completion()
+                }
+            }
+            completion()
+        }
+    }
+    
+    private func initBooks() {
+        setEmptySearchResult {
+            self.tableView.reloadData()
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupUI()
         
         [searchBookBar, tableView, addBookButton, addBookLabel1, addBookLabel2].forEach { view.addSubview($0) }
+        books = []
+        initBooks()
+//        setEmptySearchResult()
+        print(books)
+//        self.tableView.reloadData()
         
         configureGestures()
         
@@ -29,8 +94,10 @@ final class LibraryViewController: BooksTableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "LibraryTableViewCell", for: indexPath) as? LibraryTableViewCell else {
             return UITableViewCell()
         }
+        
         let book = books[indexPath.row]
-                
+        print("bool", book.title, "section", indexPath.section, "row", indexPath.row)
+
         cell.configure(with: book)
     
         
@@ -38,25 +105,32 @@ final class LibraryViewController: BooksTableViewController {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-      let destination = TabBarController()
-      navigationController?.pushViewController(destination, animated: true)
+    func makeStringAuthors(authors: [String]) -> String {
+        let stringAuthors = authors.joined(separator: ", ")
+        return stringAuthors
     }
     
-//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//
-//       //let place = books[indexPath.row]
-//       let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") {  (contextualAction, view, boolValue) in
-//
-//           //StorageManager.deleteObject(place)
-//           tableView.deleteRows(at: [indexPath], with: .automatic)
-//       }
-//       let swipeActions = UISwipeActionsConfiguration(actions: [deleteAction])
-//
-//       return swipeActions
-//   }
+    private func updateLastBookDB(bookID: String) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        db.collection("Users").document(userID).updateData(["lastBook": bookID])
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let book = books[indexPath.section]
+        
+        updateLastBookDB(bookID: book.id)
+        
+        let destination = TabBarController()
+        navigationController?.pushViewController(destination, animated: true)
+       }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+//        return 10
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return books.count
     }
     
@@ -140,7 +214,7 @@ final class LibraryViewController: BooksTableViewController {
     }
     
     private func setupTableView() {
-        books = BookManager.shared.loadBooks()
+//        books = BookInfo.shared.loadBooks()
         
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor(rgb: 0xfffcf4)

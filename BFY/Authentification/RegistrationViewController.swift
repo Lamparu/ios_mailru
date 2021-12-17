@@ -164,6 +164,8 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         setupShadows()
         setupBackButton()
         
+        initializeHideKeyboard()
+        
 //        let ref = Database.database().reference()
 //        //ref.child("userid/username").setValue("Colorit")
 //        ref.childByAutoId().setValue(["email" : ""])
@@ -294,10 +296,10 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         button.layer.masksToBounds = false
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return false
-    }
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        self.view.endEditing(true)
+//        return false
+//    }
     
     @objc private func keyboardWillShow(notification: NSNotification) {
         if self.view.frame.origin.y == 0 {

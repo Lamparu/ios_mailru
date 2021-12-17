@@ -45,4 +45,55 @@ extension UIImage {
     }
 }
 
+extension UIImageView {
+    func load(url: URL) {
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                }
+            }
+        }
+    }
+}
 
+extension UIViewController {
+    func loader() -> UIAlertController {
+        let alert = UIAlertController(title: nil, message: "Please wait", preferredStyle: .alert)
+        let indicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+        indicator.hidesWhenStopped = true
+        indicator.startAnimating()
+        indicator.style = .large
+        alert.view.addSubview(indicator)
+        present(alert, animated: true, completion: nil)
+        return alert
+    }
+    
+    func stopLoader(loader : UIAlertController) {
+        DispatchQueue.main.async {
+            loader.dismiss(animated: true, completion: nil)
+        }
+    }
+}
+
+extension UIViewController {
+    
+    func initializeHideKeyboard(){
+        //Declare a Tap Gesture Recognizer which will trigger our dismissMyKeyboard() function
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissMyKeyboard))
+        
+        //Add this tap gesture recognizer to the parent view
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissMyKeyboard(){
+        //endEditing causes the view (or one of its embedded text fields) to resign the first responder status.
+        //In short- Dismiss the active keyboard.
+        view.endEditing(true)
+    }
+    
+}
