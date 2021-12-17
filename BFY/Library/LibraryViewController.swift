@@ -37,7 +37,7 @@ final class LibraryViewController: BooksTableViewController {
     func setEmptySearchResult(completion: @escaping () -> Void) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         let query = db.collection("Users").document(userID)
-        query.getDocument { snapshot, error in
+        query.addSnapshotListener { snapshot, error in
             print(error ?? "OK user")
             books = []
             guard let snapshot = snapshot else {
@@ -52,7 +52,7 @@ final class LibraryViewController: BooksTableViewController {
             }
             
             for (bookid, _) in lib ?? [:] {
-                self.db.collection("Books").document(bookid).getDocument { snapshot, error in
+                self.db.collection("Books").document(bookid).addSnapshotListener { snapshot, error in
                     print(error ?? "OK user")
                     guard let snapshot = snapshot else {
                         completion()
@@ -95,8 +95,8 @@ final class LibraryViewController: BooksTableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "LibraryTableViewCell", for: indexPath) as? LibraryTableViewCell else {
             return UITableViewCell()
         }
-        let book = books[indexPath.row]
-        print("bool", book.title, "row", indexPath.row)
+        let book = books[indexPath.section]
+        print("bool", book.title, "row", indexPath.section)
                 
         cell.configure(with: book)
 //        let key = books[indexPath.row].key
