@@ -124,13 +124,13 @@ class EndingScreenViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc private func didTapRegButton(_ sender: UIButton) {
-        let pages = numberOfListsField.text
-        print("pages:", pages ?? "none")
+        guard let pages = numberOfListsField.text else { return }
+        print("pages:", pages)
         if pages == "" {
             showMessageAlert(err: "Впишите страницу, на которой остановились")
         }
         guard let userID = Auth.auth().currentUser?.uid else { return }
-        db.collection("Users").document(userID).updateData(["library": [lastBookID : pages]])
+        db.collection("Users").document(userID).updateData(["library." + lastBookID : pages])
         
         self.dismiss(animated: false) {
             self.delegate?.onButtonTap(sender: sender)

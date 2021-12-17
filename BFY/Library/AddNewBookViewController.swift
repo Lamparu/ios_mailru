@@ -241,48 +241,4 @@ class AddNewBookViewController: UIViewController, UITextFieldDelegate {
             plusButton.backgroundColor = UIColor(rgb: 0x919F8B)
         }
     }
-    
-    func splitAuthors(authors: String) -> [String] {
-        let listAuthors = authors.split{$0 == ","}.map(String.init)
-        let trimmedAuthors = listAuthors.map { $0.trimmingCharacters(in: .whitespaces) }
-        return trimmedAuthors
-    }
-
-    func setEmptySearchResult() {
-        books = []
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        let userRef = db.collection("Users").document(userID)
-        let bookRefColl = db.collection("Books")
-        
-        userRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                let library = document.data() //as! [String: Int]
-                let lib = library?["library"] as? [String : String]
-                if lib == nil {
-                    return
-                    // пустой экран
-                }
-                for (bookid, _) in lib ?? [:] {
-                    let bookRef = bookRefColl.document(bookid)
-                    bookRef.getDocument { (bookDoc, bookErr) in
-                        if let bookDoc = bookDoc, bookDoc.exists {
-                            let book = bookDoc.data()
-                            let title = book?["title"] as? String ?? "Название"
-                            let authors = book?["authors"] as? String ?? "Автор"
-                            let image = book?["image"] as? String ?? "BookCover"
-                            print("image: ", image)
-                            let newBook = BookInfo(id: bookid, title: title, authors: self.splitAuthors(authors: authors), image: image)
-                            books.append(newBook)
-                            print(books)
-                        } else {
-                            print("Books collection does not exist")
-                        }
-                    }
-                }
-            } else {
-                print("Document does not exist")
-            }
-        }
-    }
-    
 }

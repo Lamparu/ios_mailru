@@ -11,7 +11,7 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updatePages()
+//        updatePages()
         let loader = self.loader()
 //        loadBook()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
@@ -130,7 +130,7 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
         self.view.addSubview(playButton)
         applyShadowOnButtons(button: playButton)
         
-        loadBook()
+        loadBook{ }
 
         navigationItem.hidesBackButton = true
         
@@ -312,66 +312,48 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
         self.numberOfListsField.placeholder = "\(pages) стр."
     }
     
-    private func updatePages() {
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        let userRef = db.collection("Users").document(userID)
-        
-        userRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                let library = document.data()
-                let lib = library?["library"] as? [String : String]
-                for (bookid, pages) in lib ?? [:] {
-                    print("pages: ", pages)
-                    if bookid == lastBookID  && pages != "" {
-                        self.numberOfListsField.placeholder = "\(pages) стр."
-                    } else {
-                        self.numberOfListsField.placeholder = "0 стр."
-                    }
-                }
-            } else {
-                print("Document does not exist")
-            }
-        }
-    }
-    
-    private func loadBook() {
+    private func loadBook(completion: @escaping () -> Void) {
         
         guard let userID = Auth.auth().currentUser?.uid else { return }
         let userRef = db.collection("Users").document(userID)
 //        let bookRefColl = db.collection("Books")
         
-        userRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                let library = document.data() //as! [String: Int]
-                let last = library?["lastBook"] as? String ?? ""
-                if (last == "") {
-                    self.setDefaultBook()
+        userRef.addSnapshotListener { (snapshot, error) in
+            print(error ?? "OK user loadBook")
+            guard let snapshot = snapshot else {
+                completion()
+                return
+            }
+            let data = snapshot.data()
+            let last = data?["lastBook"] as? String ?? ""
+            if last == "" {
+                self.setDefaultBook()
+                completion()
+                return
+            }
+            lastBookID = last.trimmingCharacters(in: .whitespaces)
+            let bookRef = self.db.collection("Books").document(last.trimmingCharacters(in: .whitespaces))
+            bookRef.addSnapshotListener { (bookDoc, bookErr) in
+                print(error ?? "OK user loadBook")
+                guard let bookDoc = bookDoc else {
+                    completion()
                     return
                 }
-                lastBookID = last.trimmingCharacters(in: .whitespaces)
-                let bookRef = self.db.collection("Books").document(last.trimmingCharacters(in: .whitespaces))
-//                let bookRef = bookRefColl.document(last)
-                bookRef.getDocument{ (bookDoc, bookErr) in
-                    if let bookDoc = bookDoc, bookDoc.exists {
-                        let book = bookDoc.data()
-                        let title = book?["title"] as? String ?? "Название"
-                        self.stringBookName.text = title //book?["title"] as? String ?? "Название книги"
-                        let authors = book?["authors"] as? String ?? "Автор"
-                        self.stringBookAuthor.text = authors //book?["authors"] as? String ?? "Автор книги"
-                        let image = book?["image"] as? String ?? "BookCover"
-                        if image == "BookCover" {
-                            self.bookImage.image = UIImage(named: image)
-                        } else {
-                            self.bookImage.load(url: URL(string: image)!)
-                        }
-                    } else {
-                        print("Books collection does not exist")
-                    }
+                let book = bookDoc.data()
+                let title = book?["title"] as? String ?? "Название"
+                self.stringBookName.text = title //book?["title"] as? String ?? "Название книги"
+                let authors = book?["authors"] as? String ?? "Автор"
+                self.stringBookAuthor.text = authors //book?["authors"] as? String ?? "Автор книги"
+                let image = book?["image"] as? String ?? "BookCover"
+                if image == "BookCover" {
+                    self.bookImage.image = UIImage(named: image)
+                } else {
+                    self.bookImage.load(url: URL(string: image)!)
                 }
-                let lib = library?["library"] as? [String : String]
-                if lib == nil {
-                    self.numberOfListsField.placeholder = "0 стр."
-                }
+                completion()
+            }
+            let lib = data?["library"] as? [String : String]
+            if lib != nil {
                 for (bookid, pages) in lib ?? ["":""] {
                     if bookid == last {
                         print("pages: ", pages)
@@ -380,11 +362,13 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
                         } else {
                             self.numberOfListsField.placeholder = "\(pages) стр."
                         }
+                        completion()
+                        return
                     }
                 }
-            } else {
-                print("Document does not exist")
             }
+            self.numberOfListsField.placeholder = "0 стр."
+            completion()
         }
     }
     
@@ -413,13 +397,12 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc override func dismissMyKeyboard() {
-        let pages = numberOfListsField.text
-        print("pages:", pages ?? "none")
+        guard let pages = numberOfListsField.text else { return }
+        print("pages:", pages)
         numberOfListsField.text = ""
         if pages != "" {
             guard let userID = Auth.auth().currentUser?.uid else { return }
-            db.collection("Users").document(userID).updateData(["library": [lastBookID : pages]])
-            updatePages()
+            db.collection("Users").document(userID).updateData(["library." + lastBookID : pages])
         }
         view.endEditing(true)
     }
