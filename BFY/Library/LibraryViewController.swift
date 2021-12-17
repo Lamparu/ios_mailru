@@ -10,8 +10,14 @@ import Firebase
 import FirebaseFirestore
 
 var books = [BookInfo]()
+var isSearching: Bool = false
+var booksInLibrary = [BookInfo]()
 
-class LibraryViewController: BooksTableViewController {
+//protocol ButtonDelegate: class {
+//    func onButtonTap(sender: UIButton)
+//}
+
+class LibraryViewController: BooksTableViewController, UISearchBarDelegate {
     
     let db = Firestore.firestore()
     
@@ -51,8 +57,14 @@ class LibraryViewController: BooksTableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "LibraryTableViewCell", for: indexPath) as? LibraryTableViewCell else {
             return UITableViewCell()
         }
-        let book = books[indexPath.section]
-        cell.configure(with: book)
+        if isSearching == false {
+            var book = books[indexPath.section]
+            cell.configure(with: book)
+        }
+        if isSearching == true {
+            var book = booksInLibrary[indexPath.section]
+            cell.configure(with: book)
+        }
 
         return cell
     }
@@ -112,10 +124,10 @@ class LibraryViewController: BooksTableViewController {
     }
     
     private func initBooks() {
-            setEmptySearchResult {
-                self.tableView.reloadData()
-            }
+        setEmptySearchResult {
+            self.tableView.reloadData()
         }
+    }
     
     func setEmptySearchResult(completion: @escaping () -> Void) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
@@ -271,24 +283,23 @@ class LibraryViewController: BooksTableViewController {
         }))
         present(alert, animated: true, completion: nil)
     }
-}
-    
-extension LibraryViewController: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
     }
-    
+
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.resignFirstResponder()
         searchBar.text = ""
+        isSearching = false
+        tableView.reloadData()
 //        showRecommendationsGridView()
     }
-    
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.search(_:)), object: searchBar)
-        
+
         // Check if searh text is empty
         var delay: TimeInterval
         if let query = searchBar.text, query.trimmingCharacters(in: .whitespaces) == "" {
@@ -300,37 +311,13 @@ extension LibraryViewController: UISearchBarDelegate {
         }
         perform(#selector(self.search(_:)), with: searchBar, afterDelay: delay)
     }
-    
+
     @objc private func search(_ searchBar: UISearchBar) {
         // Check for empty query
         guard let query = searchBar.text, query.trimmingCharacters(in: .whitespaces) != "" else {
 //            self?.setEmptySearchResult(completion: () -> ())
             return
         }
-        
-//        searchModel.search(query: query, ) { [weak self] searchResult in
-//            DispatchQueue.main.async {
-//                print(searchResult.books)
-//                print(query)
-//                self?.searchBookBar.stopAnimationLoading()
-//                if searchResult.books.count == 0 {
-//                    self?.setEmptySearchResult(completion: () -> ())
-//                } else {
-//                    books = searchResult.books
-////                    let authors = searchResult.books.
-////                    let title =
-////                    let image =
-////                    books.append(BookInfo(id: bookid, title: title, authors: self.splitAuthors(authors: authors), image: image))
-//                    self?.tableView.reloadData()
-//                }
-//            }
-//        } failure: { [weak self] error in
-//            DispatchQueue.main.async {
-//                self?.alert(message: error)
-//            }
-//        }
-        
-        
         
         // Send request
         searchModel.search(query: query) { [weak self] searchResult in
@@ -339,18 +326,77 @@ extension LibraryViewController: UISearchBarDelegate {
                 print("QUERYYYYY", query)
                 self?.searchBookBar.stopAnimationLoading()
                 if searchResult.books.count == 0 {
-                    books = []
-//                    self?.setEmptySearchResult()
-                } else {
-                    books = searchResult.books
+                    isSearching = false
                     self?.tableView.reloadData()
-                    print("hello", searchResult.books)
+                } else {
+                    booksInLibrary = searchResult.books
+                    isSearching = true
+                    self?.tableView.reloadData()
                 }
             }
         } failure: { [weak self] error in
             DispatchQueue.main.async {
+                print("HOOOOOBBBBBBBBAAAAAAA")
                 self?.alert(message: error)
             }
         }
     }
 }
+    
+//extension LibraryViewController: UISearchBarDelegate {
+//
+//    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+//        searchBar.setShowsCancelButton(true, animated: true)
+//    }
+//
+//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+//        searchBar.setShowsCancelButton(false, animated: true)
+//        searchBar.resignFirstResponder()
+//        searchBar.text = ""
+////        showRecommendationsGridView()
+//    }
+//
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.search(_:)), object: searchBar)
+//
+//        // Check if searh text is empty
+//        var delay: TimeInterval
+//        if let query = searchBar.text, query.trimmingCharacters(in: .whitespaces) == "" {
+//            searchBookBar.stopAnimationLoading()
+//            delay = 0
+//        } else {
+//            delay = 0.5
+//            searchBookBar.startAnimationLoading()
+//        }
+//        perform(#selector(self.search(_:)), with: searchBar, afterDelay: delay)
+//    }
+//
+//    @objc private func search(_ searchBar: UISearchBar) {
+//        // Check for empty query
+//        guard let query = searchBar.text, query.trimmingCharacters(in: .whitespaces) != "" else {
+////            self?.setEmptySearchResult(completion: () -> ())
+//            return
+//        }
+//
+//        // Send request
+//        searchModel.search(query: query) { [weak self] searchResult in
+//            DispatchQueue.main.async {
+//                print("HOOOOOBBBBBBBBAAAAAAA", searchResult.books)
+//                print("QUERYYYYY", query)
+//                self?.searchBookBar.stopAnimationLoading()
+//                if searchResult.books.count == 0 {
+//                    isSearching = false
+//                    self?.tableView.reloadData()
+//                } else {
+//                    booksInLibrary = searchResult.books
+//                    isSearching = true
+//                    self?.tableView.reloadData()
+//                }
+//            }
+//        } failure: { [weak self] error in
+//            DispatchQueue.main.async {
+//                self?.alert(message: error)
+//            }
+//        }
+//    }
+//}
