@@ -4,7 +4,6 @@
 //
 //  Created by Анастасия Московчук on 01.11.2021.
 //
-
 import UIKit
 import Firebase
 import FirebaseFirestore
@@ -17,8 +16,7 @@ final class LibraryViewController: BooksTableViewController {
     let db = Firestore.firestore()
     
 //    private var books: [Book] = [.init(id: "1", title: "Гордость и предубеждение", author: "Джейн Остен", image: URL(string: ""))]
-
-    let searchBookBar = UISearchBar()
+    let searchBookBar = SearchBarView()
     let addBookButton = UIButton()
     let addBookLabel1 = UILabel()
     let addBookLabel2 = UILabel()
@@ -87,6 +85,8 @@ final class LibraryViewController: BooksTableViewController {
         print(books)
 //        self.tableView.reloadData()
         
+        configureGestures()
+        
         setupConstraints()
     }
     
@@ -99,8 +99,6 @@ final class LibraryViewController: BooksTableViewController {
         print("bool", book.title, "section", indexPath.section, "row", indexPath.row)
 
         cell.configure(with: book)
-//        let key = books[indexPath.row].key
-//        cell.setupViews(he: CGFloat(key))
 
         return cell
     }
@@ -139,7 +137,43 @@ final class LibraryViewController: BooksTableViewController {
         let navController = UINavigationController(rootViewController: AddNewBookViewController)
         self.present(navController, animated: true, completion: nil)
 //        self.navigationController?.pushViewController(AddNewBookViewController, animated: true)
-   }
+    }
+    
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        searchBookBar.becomeFirstResponder()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    private func configureGestures() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+        self.view.addGestureRecognizer(tapGesture)
+        tapGesture.cancelsTouchesInView = false
+
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+        self.view.addGestureRecognizer(panGesture)
+        panGesture.cancelsTouchesInView = false
+
+//        let scrollGesture = UIPanGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+//        scrollGesture.delegate = resultsGridView.collectionView
+//        self.resultsGridView.collectionView.addGestureRecognizer(scrollGesture)
+//        scrollGesture.cancelsTouchesInView = false
+    }
+    
+    @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        searchBookBar.searchBar.resignFirstResponder()
+        searchBookBar.searchBar.setShowsCancelButton(false, animated: true)
+    }
+    
+    
+    
     
     private func setupUI() {
         view.backgroundColor = UIColor(rgb: 0xfffcf4)
@@ -152,10 +186,11 @@ final class LibraryViewController: BooksTableViewController {
     }
     
     private func setupSearchBookBar() {
-        searchBookBar.barTintColor = UIColor(rgb: 0xfffcf4)
-        searchBookBar.tintColor = UIColor(rgb: 0x666568)
+//        searchBookBar.barTintColor = UIColor(rgb: 0xfffcf4)
+//        searchBookBar.tintColor = UIColor(rgb: 0x666568)
 //        searchBookBar.isTranslucent = true
-        searchBookBar.showsCancelButton = true
+//        searchBookBar.showsCancelButton = true
+//        searchBookBar.backgroundColor = UIColor.red
         searchBookBar.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -203,7 +238,7 @@ final class LibraryViewController: BooksTableViewController {
     private func createSearchBookBarConstraint() {
         searchBookBar.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         searchBookBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        searchBookBar.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -60).isActive = true
+        searchBookBar.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
         searchBookBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
@@ -239,5 +274,59 @@ final class LibraryViewController: BooksTableViewController {
         addBookLabel2.rightAnchor.constraint(equalTo: tableView.rightAnchor).isActive = true
         addBookLabel2.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50).isActive = true
 //        addBookLabel2.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+}
+    
+extension LibraryViewController: UISearchBarDelegate {
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.resignFirstResponder()
+        searchBar.text = ""
+//        showRecommendationsGridView()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.search(_:)), object: searchBar)
+        
+        // Check if searh text is empty
+        var delay: TimeInterval
+        if let query = searchBar.text, query.trimmingCharacters(in: .whitespaces) == "" {
+            searchBookBar.stopAnimationLoading()
+            delay = 0
+        } else {
+            delay = 0.5
+            searchBookBar.startAnimationLoading()
+        }
+        perform(#selector(self.search(_:)), with: searchBar, afterDelay: delay)
+    }
+
+    @objc private func search(_ searchBar: UISearchBar) {
+        // Check for empty query
+        guard let query = searchBar.text, query.trimmingCharacters(in: .whitespaces) != "" else {
+//            showRecommendationsGridView()
+            return
+        }
+        
+        // Send request
+//        searchModel.search(query: query) { [weak self] searchResult in
+//            DispatchQueue.main.async {
+//                self?.searchBarView.stopAnimationLoading()
+//                if searchResult.content.count == 0 && searchResult.actors.count == 0 {
+//                    self?.showEmptyResultView()
+//                } else {
+//                    self?.resultsGridView.updateData(content: searchResult.content, actors: searchResult.actors)
+//                    self?.showResultsGridView()
+//                }
+//            }
+//        } failure: { [weak self] error in
+//            DispatchQueue.main.async {
+//                self?.alert(message: error)
+//            }
+//        }
     }
 }

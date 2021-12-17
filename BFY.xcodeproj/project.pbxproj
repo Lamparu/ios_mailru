@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		18866898C7A1A32ADDB2C4C4 /* Pods_BFY.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 870424EC5A4164EB830D3B6F /* Pods_BFY.framework */; };
 		1DB04FDC2765321A00185D24 /* EndingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB04FDB2765321A00185D24 /* EndingScreenViewController.swift */; };
+		1DB04FE127674ACB00185D24 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB04FDD27674ACB00185D24 /* SearchBarView.swift */; };
+		1DB04FE227674ACB00185D24 /* ResultsGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB04FDE27674ACB00185D24 /* ResultsGridCell.swift */; };
+		1DB04FE327674ACB00185D24 /* ResultsGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB04FDF27674ACB00185D24 /* ResultsGridView.swift */; };
+		1DB04FE427674ACB00185D24 /* SearchEmptyResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB04FE027674ACB00185D24 /* SearchEmptyResultView.swift */; };
 		1DD5273F276504E0002A72C0 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD5273C276504E0002A72C0 /* TimerView.swift */; };
 		1DD52740276504E0002A72C0 /* StopwatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD5273D276504E0002A72C0 /* StopwatchView.swift */; };
 		1DD52741276504E0002A72C0 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD5273E276504E0002A72C0 /* TimerViewController.swift */; };
@@ -35,6 +39,10 @@
 
 /* Begin PBXFileReference section */
 		1DB04FDB2765321A00185D24 /* EndingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndingScreenViewController.swift; sourceTree = "<group>"; };
+		1DB04FDD27674ACB00185D24 /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		1DB04FDE27674ACB00185D24 /* ResultsGridCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsGridCell.swift; sourceTree = "<group>"; };
+		1DB04FDF27674ACB00185D24 /* ResultsGridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsGridView.swift; sourceTree = "<group>"; };
+		1DB04FE027674ACB00185D24 /* SearchEmptyResultView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchEmptyResultView.swift; sourceTree = "<group>"; };
 		1DD5273C276504E0002A72C0 /* TimerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		1DD5273D276504E0002A72C0 /* StopwatchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopwatchView.swift; sourceTree = "<group>"; };
 		1DD5273E276504E0002A72C0 /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +91,30 @@
 				889FA2DAD0B74421FFD3AE7C /* Pods-BFY.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		1DB04FE527674AF000185D24 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				1DB04FE027674ACB00185D24 /* SearchEmptyResultView.swift */,
+				1DB04FDD27674ACB00185D24 /* SearchBarView.swift */,
+				1DB04FDF27674ACB00185D24 /* ResultsGridView.swift */,
+				1DB04FDE27674ACB00185D24 /* ResultsGridCell.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		1DB04FE627674B1900185D24 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				51D09B66274709060083F029 /* AddNewBookViewController.swift */,
+				518FECD42742CF2500C16A1A /* Book.swift */,
+				51B09C78274444A300A3EFF8 /* BookManager.swift */,
+				51B09C7627442CE700A3EFF8 /* BooksTableViewController.swift */,
+				518FECD82742CF4F00C16A1A /* LibraryViewController.swift */,
+				518FECD62742CF3B00C16A1A /* LibraryTableViewCell.swift */,
+			);
+			path = Library;
 			sourceTree = "<group>";
 		};
 		1DD52735276502F2002A72C0 /* TimerStopwatchViewContoller */ = {
@@ -156,7 +188,8 @@
 		F5F80CE5272013C500E61826 /* BFY */ = {
 			isa = PBXGroup;
 			children = (
-				F574C554276C213700F4FC8E /* Library */,
+				1DB04FE627674B1900185D24 /* Library */,
+				1DB04FE527674AF000185D24 /* Search */,
 				F57AA60027492C9D009387A0 /* Authentification */,
 				F5CE4D3D272AF4C40095040D /* Extensions */,
 				F5F80CE6272013C500E61826 /* AppDelegate.swift */,
@@ -292,6 +325,7 @@
 				51B09C79274444A300A3EFF8 /* BookInfo.swift in Sources */,
 				51B09C7727442CE700A3EFF8 /* BooksTableViewController.swift in Sources */,
 				518FECD52742CF2500C16A1A /* Book.swift in Sources */,
+				1DB04FE327674ACB00185D24 /* ResultsGridView.swift in Sources */,
 				F59C8F3427625CFC00468667 /* TabBarController.swift in Sources */,
 				518FECD92742CF5000C16A1A /* LibraryViewController.swift in Sources */,
 				518FECD72742CF3B00C16A1A /* LibraryTableViewCell.swift in Sources */,
@@ -300,14 +334,17 @@
 				1DD52741276504E0002A72C0 /* TimerViewController.swift in Sources */,
 				1DD5273F276504E0002A72C0 /* TimerView.swift in Sources */,
 				1DD52740276504E0002A72C0 /* StopwatchView.swift in Sources */,
+				1DB04FE127674ACB00185D24 /* SearchBarView.swift in Sources */,
 				F5BE1AC02744364300A17D23 /* MainBookViewController.swift in Sources */,
 				F5F80CE7272013C500E61826 /* AppDelegate.swift in Sources */,
 				F5BE1ABA274188D000A17D23 /* SignInViewController.swift in Sources */,
+				1DB04FE227674ACB00185D24 /* ResultsGridCell.swift in Sources */,
 				F58BB452272A7F1A00462654 /* RegistrationViewController.swift in Sources */,
 				1DB04FDC2765321A00185D24 /* EndingScreenViewController.swift in Sources */,
 				F56D6F2A27562E5200ADB08F /* StartViewController.swift in Sources */,
 				F5F80CE9272013C500E61826 /* SceneDelegate.swift in Sources */,
 				F56D6F282755693E00ADB08F /* ProfileViewController.swift in Sources */,
+				1DB04FE427674ACB00185D24 /* SearchEmptyResultView.swift in Sources */,
 				F5BE1ABE2744328900A17D23 /* AuthViewController.swift in Sources */,
 				F5CE4D3F272AF4E90095040D /* UIColor+extensions.swift in Sources */,
 			);
