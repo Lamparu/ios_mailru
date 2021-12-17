@@ -90,9 +90,8 @@ class LibraryTableViewCell: UITableViewCell {
         bookAuthor.text = makeStringAuthors(authors: book.authors ?? [""])
         if book.image == "BookCover" || book.image == "" {
             bookImageView.image = UIImage(named: "BookCover")
-        }
-        else {
-            bookImageView.load(url: URL(string: book.image ?? "")!)
+        } else {
+            bookImageView.load(url: URL(string: book.image ?? "BookCover")!)
         }
     }
     
