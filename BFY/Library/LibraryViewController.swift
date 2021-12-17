@@ -9,7 +9,8 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 
-var books: [BookInfo] = []
+//var books: [BookInfo] = []
+var books = [BookInfo]()
 
 final class LibraryViewController: BooksTableViewController {
     
@@ -23,7 +24,8 @@ final class LibraryViewController: BooksTableViewController {
     let addBookLabel2 = UILabel()
     
     override func viewWillAppear(_ animated: Bool) {
-        setEmptySearchResult()
+//        setEmptySearchResult()
+//        tableView.reloadData()
     }
     
     func splitAuthors(authors: String) -> [String] {
@@ -32,43 +34,46 @@ final class LibraryViewController: BooksTableViewController {
         return trimmedAuthors
     }
 
-    func setEmptySearchResult() {
-//        books = []
+    func setEmptySearchResult(completion: @escaping () -> Void) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
-        let userRef = db.collection("Users").document(userID)
-        let bookRefColl = db.collection("Books")
-        
-        userRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                let library = document.data() //as! [String: Int]
-                let lib = library?["library"] as? [String : String]
-                if lib == nil {
-                    return
-                    // пустой экран
-                }
-                for (bookid, _) in lib ?? ["":""] {
-                    let bookRef = bookRefColl.document(bookid)
-                    bookRef.getDocument { (bookDoc, bookErr) in
-                        if let bookDoc = bookDoc, bookDoc.exists {
-                            let book = bookDoc.data()
-                            let title = book?["title"] as? String ?? "Название"
-                            let authors = book?["authors"] as? String ?? "Автор"
-                            let image = book?["image"] as? String ?? "BookCover"
-                            print("image: ", image)
-                            let newBook = BookInfo(id: bookid, title: title, authors: self.splitAuthors(authors: authors), image: image)
-                            books.append(newBook)
-                            print(books)
-                        } else {
-                            print("Books collection does not exist")
-                        }
+        let query = db.collection("Users").document(userID)
+        query.getDocument { snapshot, error in
+            print(error ?? "OK user")
+            books = []
+            guard let snapshot = snapshot else {
+                completion()
+                return
+            }
+            let data = snapshot.data()
+            let lib = data?["library"] as? [String : String]
+            if lib == nil {
+                completion()
+                return
+            }
+            
+            for (bookid, _) in lib ?? [:] {
+                self.db.collection("Books").document(bookid).getDocument { snapshot, error in
+                    print(error ?? "OK user")
+                    guard let snapshot = snapshot else {
+                        completion()
+                        return
                     }
+                    let data = snapshot.data()
+                    let authors = data?["authors"] as? String ?? ""
+                    let title = data?["title"] as? String ?? ""
+                    let image = data?["image"] as? String ?? ""
+                    books.append(BookInfo(id: bookid, title: title, authors: self.splitAuthors(authors: authors), image: image))
+                    completion()
                 }
-            } else {
-                print("Document does not exist")
             }
         }
     }
     
+    private func initBooks() {
+        setEmptySearchResult {
+            self.tableView.reloadData()
+        }
+    }
     
     
     override func viewDidLoad() {
@@ -78,8 +83,10 @@ final class LibraryViewController: BooksTableViewController {
         
         [searchBookBar, tableView, addBookButton, addBookLabel1, addBookLabel2].forEach { view.addSubview($0) }
         
+        initBooks()
 //        setEmptySearchResult()
         print(books)
+//        self.tableView.reloadData()
         
         setupConstraints()
     }
@@ -89,6 +96,7 @@ final class LibraryViewController: BooksTableViewController {
             return UITableViewCell()
         }
         let book = books[indexPath.row]
+        print("bool", book.title, "row", indexPath.row)
                 
         cell.configure(with: book)
 //        let key = books[indexPath.row].key
@@ -117,6 +125,7 @@ final class LibraryViewController: BooksTableViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return books.count
+//        return 10
     }
     
     @objc private func didTapAddBookButton(_ sender: UIButton) {

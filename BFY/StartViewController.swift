@@ -108,7 +108,7 @@ class StartViewController: UIViewController {
     
     @objc private func didTapOverallButton(_ sender: UIButton) {
         if Auth.auth().currentUser != nil {
-            setEmptySearchResult()
+//            setEmptySearchResult()
             let tabBarVC = TabBarController()
             self.navigationController?.pushViewController(tabBarVC, animated: true)
         } else {

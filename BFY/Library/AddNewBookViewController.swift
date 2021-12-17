@@ -92,6 +92,10 @@ class AddNewBookViewController: UIViewController, UITextFieldDelegate {
         return button
     } ()
     
+//    override func viewWillAppear(_ animated: Bool) {
+//        setEmptySearchResult()
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -220,7 +224,8 @@ class AddNewBookViewController: UIViewController, UITextFieldDelegate {
             db.collection("Books").document(hashString).setData(["title": title,
                                                                  "authors": author,
                                                                  "image" : ""])
-            setEmptySearchResult()
+//            setEmptySearchResult()
+            
             self.dismiss(animated: true)
         }
         
@@ -244,7 +249,7 @@ class AddNewBookViewController: UIViewController, UITextFieldDelegate {
     }
 
     func setEmptySearchResult() {
-//        books = []
+        books = []
         guard let userID = Auth.auth().currentUser?.uid else { return }
         let userRef = db.collection("Users").document(userID)
         let bookRefColl = db.collection("Books")
@@ -257,7 +262,7 @@ class AddNewBookViewController: UIViewController, UITextFieldDelegate {
                     return
                     // пустой экран
                 }
-                for (bookid, _) in lib ?? ["":""] {
+                for (bookid, _) in lib ?? [:] {
                     let bookRef = bookRefColl.document(bookid)
                     bookRef.getDocument { (bookDoc, bookErr) in
                         if let bookDoc = bookDoc, bookDoc.exists {
