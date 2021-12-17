@@ -23,11 +23,6 @@ final class LibraryViewController: BooksTableViewController {
     let addBookLabel1 = UILabel()
     let addBookLabel2 = UILabel()
     
-    override func viewWillAppear(_ animated: Bool) {
-//        setEmptySearchResult()
-//        tableView.reloadData()
-    }
-    
     func splitAuthors(authors: String) -> [String] {
         let listAuthors = authors.split{$0 == ","}.map(String.init)
         let trimmedAuthors = listAuthors.map { $0.trimmingCharacters(in: .whitespaces) }
@@ -35,11 +30,11 @@ final class LibraryViewController: BooksTableViewController {
     }
 
     func setEmptySearchResult(completion: @escaping () -> Void) {
+        books = []
         guard let userID = Auth.auth().currentUser?.uid else { return }
         let query = db.collection("Users").document(userID)
         query.addSnapshotListener { snapshot, error in
             print(error ?? "OK user")
-            books = []
             guard let snapshot = snapshot else {
                 completion()
                 return
@@ -50,6 +45,7 @@ final class LibraryViewController: BooksTableViewController {
                 completion()
                 return
             }
+            books = []
             for (bookid, _) in lib ?? [:] {
                 self.db.collection("Books").document(bookid).addSnapshotListener { snapshot, error in
                     print(error ?? "OK user")
@@ -58,9 +54,12 @@ final class LibraryViewController: BooksTableViewController {
                         return
                     }
                     let data = snapshot.data()
-                    let authors = data?["authors"] as? String ?? ""
-                    let title = data?["title"] as? String ?? ""
-                    let image = data?["image"] as? String ?? ""
+                    let authors = data?["authors"] as? String ?? "Автор"
+                    let title = data?["title"] as? String ?? "Название"
+                    var image = data?["image"] as? String ?? "BookCover"
+                    if image == "" {
+                        image = "BookCover"
+                    }
                     books.append(BookInfo(id: bookid, title: title, authors: self.splitAuthors(authors: authors), image: image))
                     completion()
                 }
@@ -82,7 +81,7 @@ final class LibraryViewController: BooksTableViewController {
         setupUI()
         
         [searchBookBar, tableView, addBookButton, addBookLabel1, addBookLabel2].forEach { view.addSubview($0) }
-        
+        books = []
         initBooks()
 //        setEmptySearchResult()
         print(books)

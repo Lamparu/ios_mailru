@@ -14,7 +14,7 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
 //        updatePages()
         let loader = self.loader()
 //        loadBook()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.stopLoader(loader: loader)
         }
     }
@@ -136,17 +136,8 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
         initializeHideKeyboard()
         setupToolbar()
         
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-//            self.stopLoader(loader: loader)
-//        }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-//        let loader = self.loader()
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-//            self.stopLoader(loader: loader)
-//        }
-    }
     
     private func checkBookDB() {
         
@@ -265,7 +256,6 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
         
         guard let userID = Auth.auth().currentUser?.uid else { return }
         let userRef = db.collection("Users").document(userID)
-        let query = userRef.or
 //        let bookRefColl = db.collection("Books")
         
         userRef.addSnapshotListener { (snapshot, error) in
