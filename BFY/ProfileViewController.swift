@@ -7,15 +7,15 @@
 
 import UIKit
 import Firebase
-import FirebaseDatabase
+import FirebaseFirestore
 
 class ProfileViewController: UIViewController {
-    
-//    guard let userID: String = Auth.auth().currentUser?.uid else { return label }
+
+    let db = Firestore.firestore()
     
     let changePswdButton: UIButton = {
         let button = UIButton()
-        //button.addTarget(self, action: #selector(didTapChangePswdButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapChangePswdButton), for: .touchUpInside)
         button.setTitle("Сменить пароль", for: .normal)
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
@@ -40,16 +40,8 @@ class ProfileViewController: UIViewController {
     }()
     
     let usernameLabel: UILabel = {
-        let ref = Database.database().reference()
         let label = UILabel()
-        guard let userID = Auth.auth().currentUser?.uid else { return label }
-        ref.child(userID).observeSingleEvent(of: .value, with: {(snapshot) in
-            let value = snapshot.value as? NSDictionary
-            let username = value?["username"] as? String ?? ""
-            label.text = username
-        })
-//        label.text = "Логин"
-        label.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
+        label.font = UIFont(name: "AppleSDGothicNeo-Light", size: 30)
         label.textColor = UIColor(rgb: 0x6A7F60)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -57,15 +49,8 @@ class ProfileViewController: UIViewController {
     }()
     
     let emailLable: UILabel = {
-        let ref = Database.database().reference()
         let label = UILabel()
-        guard let userID = Auth.auth().currentUser?.uid else { return label }
-        ref.child(userID).observeSingleEvent(of: .value, with: {(snapshot) in
-            let value = snapshot.value as? NSDictionary
-            let email = value?["email"] as? String ?? ""
-            label.text = email
-        })
-        label.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
+        label.font = UIFont(name: "AppleSDGothicNeo-Light", size: 24)
         label.textColor = UIColor(rgb: 0x6A7F60)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -76,6 +61,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         setupBackground()
+        setupUserLables()
         
         [changePswdButton, signOutButton,
          usernameLabel, emailLable].forEach {view.addSubview($0)}
@@ -83,17 +69,22 @@ class ProfileViewController: UIViewController {
         setupConstraints()
         setupShadows()
         setupBackButton()
+    }
+    
+    private func setupUserLables() {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        let docRef = db.collection("Users").document(userID)
         
-//        let profileVC = ProfileViewController()
-//        let bookVC = MainBookViewController()
-        
-//        let tabBarVC = UITabBarController()
-//        tabBarVC.setViewControllers([profileVC, bookVC], animated: true)
-//        
-//        addChild(tabBarVC)
-//        view.addSubview(tabBarVC.view)
-//        tabBarVC.didMove(toParent: self)
-        
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let username = document.get("username")
+                let email = document.get("email")
+                self.usernameLabel.text = username as? String
+                self.emailLable.text = email as? String
+            } else {
+                print("Document does not exist")
+            }
+        }
     }
     
     private func setupBackButton() {
@@ -128,7 +119,7 @@ class ProfileViewController: UIViewController {
     
     func createUsernameLabelConstraint() {
         usernameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        usernameLabel.bottomAnchor.constraint(equalTo: changePswdButton.topAnchor, constant: -60).isActive = true
+        usernameLabel.bottomAnchor.constraint(equalTo: changePswdButton.topAnchor, constant: -100).isActive = true
         usernameLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         usernameLabel.widthAnchor.constraint(equalToConstant: 225).isActive = true
     }
@@ -162,6 +153,48 @@ class ProfileViewController: UIViewController {
             self.navigationController?.pushViewController(authVC, animated: true)
         } catch let error as NSError {
             print(error.localizedDescription)
+        }
+    }
+    
+    private func showMessageAlert(err: String) {
+        let alert = UIAlertController(title: "Ошибка", message: err, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func showAlert(str: String) {
+        let alert = UIAlertController(title: "Внимание", message: str, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    @objc private func didTapChangePswdButton(_ sender: UIButton) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        let docRef = db.collection("Users").document(userID)
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                guard let email = document.get("email") else { return }
+                Auth.auth().sendPasswordReset(withEmail: email as? String ?? "") { error in
+                    if error != nil {
+                        guard let err = error else { return }
+                        guard let errCode = AuthErrorCode(rawValue: err._code) else { return }
+                        switch errCode {
+                        case .invalidEmail:
+                            self.showMessageAlert(err: "Введите корректную электронную почту")
+                        case .networkError:
+                            self.showMessageAlert(err: "Ошибка Интернет-соединения")
+                        case .userNotFound:
+                            self.showMessageAlert(err: "Пользователь не найден")
+                        default:
+                            self.showMessageAlert(err: "Неизвестная ошибка")
+                        }
+                    } else {
+                        self.showAlert(str: "На электронную почту отправлено письмо для смены пароля")
+                    }
+                }
+            } else {
+                print("Document does not exist")
+            }
         }
     }
 }

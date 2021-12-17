@@ -13,10 +13,6 @@ var books = [BookInfo]()
 var isSearching: Bool = false
 var booksInLibrary = [BookInfo]()
 
-//protocol ButtonDelegate: class {
-//    func onButtonTap(sender: UIButton)
-//}
-
 class LibraryViewController: BooksTableViewController, UISearchBarDelegate {
     
     let db = Firestore.firestore()
@@ -45,9 +41,7 @@ class LibraryViewController: BooksTableViewController, UISearchBarDelegate {
         [searchBookBar, tableView, addBookButton, addBookLabel1, addBookLabel2].forEach { view.addSubview($0) }
         
         initBooks()
-        
-//        print(books)
-        
+                
         configureGestures()
         
         setupConstraints()
@@ -58,42 +52,41 @@ class LibraryViewController: BooksTableViewController, UISearchBarDelegate {
             return UITableViewCell()
         }
         if isSearching == false {
-            var book = books[indexPath.section]
+            let book = books[indexPath.row]
             cell.configure(with: book)
         }
         if isSearching == true {
-            var book = booksInLibrary[indexPath.section]
+            let book = booksInLibrary[indexPath.row]
             cell.configure(with: book)
         }
-
         return cell
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-//        return 0
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isSearching == false {
             return books.count
         }
         return booksInLibrary.count
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let book = books[indexPath.row]
+        updateLastBookDB(bookID: book.id)
+        let destination = TabBarController()
+        navigationController?.pushViewController(destination, animated: true)
+    }
+    
     @objc private func didTapAddBookButton(_ sender: UIButton) {
         let AddNewBookViewController = AddNewBookViewController()
         let navController = UINavigationController(rootViewController: AddNewBookViewController)
         self.present(navController, animated: true, completion: nil)
-//        self.navigationController?.pushViewController(AddNewBookViewController, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        setEmptySearchResult()
         navigationController?.setNavigationBarHidden(true, animated: animated)
         searchBookBar.becomeFirstResponder()
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        setEmptySearchResult()
-//    }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -108,11 +101,6 @@ class LibraryViewController: BooksTableViewController, UISearchBarDelegate {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         self.view.addGestureRecognizer(panGesture)
         panGesture.cancelsTouchesInView = false
-
-//        let scrollGesture = UIPanGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
-//        scrollGesture.delegate = resultsTableView.tableView
-//        self.resultsTableView.tableView.addGestureRecognizer(scrollGesture)
-//        scrollGesture.cancelsTouchesInView = false
     }
     
     @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
@@ -133,10 +121,11 @@ class LibraryViewController: BooksTableViewController, UISearchBarDelegate {
     }
     
     func setEmptySearchResult(completion: @escaping () -> Void) {
+        books = []
         guard let userID = Auth.auth().currentUser?.uid else { return }
         let query = db.collection("Users").document(userID)
         query.addSnapshotListener { snapshot, error in
-            books = []
+            print(error ?? "OK user")
             guard let snapshot = snapshot else {
                 completion()
                 return
@@ -147,16 +136,21 @@ class LibraryViewController: BooksTableViewController, UISearchBarDelegate {
                 completion()
                 return
             }
+            books = []
             for (bookid, _) in lib ?? [:] {
                 self.db.collection("Books").document(bookid).addSnapshotListener { snapshot, error in
+                    print(error ?? "OK user")
                     guard let snapshot = snapshot else {
                         completion()
                         return
                     }
                     let data = snapshot.data()
-                    let authors = data?["authors"] as? String ?? ""
-                    let title = data?["title"] as? String ?? ""
-                    let image = data?["image"] as? String ?? ""
+                    let authors = data?["authors"] as? String ?? "Автор"
+                    let title = data?["title"] as? String ?? "Название"
+                    var image = data?["image"] as? String ?? "BookCover"
+                    if image == "" {
+                        image = "BookCover"
+                    }
                     books.append(BookInfo(id: bookid, title: title, authors: self.splitAuthors(authors: authors), image: image))
                     completion()
                 }

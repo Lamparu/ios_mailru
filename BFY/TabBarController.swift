@@ -39,7 +39,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .normal)
        
         bookVC.tabBarItem = book_icon
-        let controllers = [profileVC, libraryVC, bookVC]  //array of the root view controllers displayed by the tab bar interface
+        let controllers = [profileVC, libraryVC, bookVC]
         self.viewControllers = controllers
         self.selectedViewController = bookVC
         

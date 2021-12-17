@@ -13,7 +13,7 @@ class LibraryTableViewCell: UITableViewCell {
     var bookTitle: UILabel = UILabel()
     var bookAuthor: UILabel = UILabel()
     let bookImageView: UIImageView = {
-        let imageName = "bookImage.png"
+        let imageName = "BookCover"
         let image = UIImage(named: imageName)
         let imageView = UIImageView(image: image)
         return imageView
@@ -88,18 +88,21 @@ class LibraryTableViewCell: UITableViewCell {
     func configure (with book: BookInfo) {
         bookTitle.text = book.title
         bookAuthor.text = makeStringAuthors(authors: book.authors ?? [""])
+        print(book.image)
         if book.image == "BookCover" || book.image == "" {
             bookImageView.image = UIImage(named: "BookCover")
         } else {
-            bookImageView.load(url: URL(string: book.image ?? "BookCover")!)
+//            bookImageView.load(url: URL(string: book.image)!)
+            let url = URL(string: book.image ?? "BookCover")!
+
+            // Fetch Image Data
+            if let data = try? Data(contentsOf: url) {
+            // Create Image and Update Image View
+            bookImageView.image = UIImage(data: data)
+            }
         }
+        
     }
-    
-//    func configure (with book: BookInfo) {
-//        bookTitle.text = book.title
-//        bookAuthor.text = book.authors[0]
-////        bookImageView = book.image
-//    }
     
     func createContainerViewConstraint() {
         containerView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30).isActive = true
@@ -137,8 +140,6 @@ class LibraryTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }
