@@ -5,7 +5,7 @@
 import Foundation
 
 public final class HermesData {
-    private let data: Data
+    let data: Data
     
     private let decoder: JSONDecoder
     

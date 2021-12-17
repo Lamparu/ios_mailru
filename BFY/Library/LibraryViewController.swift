@@ -6,9 +6,14 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseFirestore
+
+var books = [BookInfo]()
 
 class LibraryViewController: BooksTableViewController {
-    var books: [BookInfo] = []
+    
+    let db = Firestore.firestore()
     
     let searchBookBar = SearchBarView()
     private let searchModel = SearchModel()
@@ -33,6 +38,10 @@ class LibraryViewController: BooksTableViewController {
         
         [searchBookBar, tableView, addBookButton, addBookLabel1, addBookLabel2].forEach { view.addSubview($0) }
         
+        initBooks()
+        
+//        print(books)
+        
         configureGestures()
         
         setupConstraints()
@@ -42,14 +51,14 @@ class LibraryViewController: BooksTableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "LibraryTableViewCell", for: indexPath) as? LibraryTableViewCell else {
             return UITableViewCell()
         }
-        let book = books[indexPath.row]
+        let book = books[indexPath.section]
         cell.configure(with: book)
 
         return cell
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-//        return 10
+//        return 0
         return books.count
     }
     
@@ -62,9 +71,14 @@ class LibraryViewController: BooksTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        setEmptySearchResult()
         navigationController?.setNavigationBarHidden(true, animated: animated)
         searchBookBar.becomeFirstResponder()
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        setEmptySearchResult()
+//    }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -91,13 +105,64 @@ class LibraryViewController: BooksTableViewController {
         searchBookBar.searchBar.setShowsCancelButton(false, animated: true)
     }
     
+    func splitAuthors(authors: String) -> [String] {
+        let listAuthors = authors.split{$0 == ","}.map(String.init)
+        let trimmedAuthors = listAuthors.map { $0.trimmingCharacters(in: .whitespaces) }
+        return trimmedAuthors
+    }
+    
+    private func initBooks() {
+            setEmptySearchResult {
+                self.tableView.reloadData()
+            }
+        }
+    
+    func setEmptySearchResult(completion: @escaping () -> Void) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        let query = db.collection("Users").document(userID)
+        query.addSnapshotListener { snapshot, error in
+            books = []
+            guard let snapshot = snapshot else {
+                completion()
+                return
+            }
+            let data = snapshot.data()
+            let lib = data?["library"] as? [String : String]
+            if lib == nil {
+                completion()
+                return
+            }
+            for (bookid, _) in lib ?? [:] {
+                self.db.collection("Books").document(bookid).addSnapshotListener { snapshot, error in
+                    guard let snapshot = snapshot else {
+                        completion()
+                        return
+                    }
+                    let data = snapshot.data()
+                    let authors = data?["authors"] as? String ?? ""
+                    let title = data?["title"] as? String ?? ""
+                    let image = data?["image"] as? String ?? ""
+                    books.append(BookInfo(id: bookid, title: title, authors: self.splitAuthors(authors: authors), image: image))
+                    completion()
+                }
+            }
+            completion()
+        }
+    }
+    
+    func makeStringAuthors(authors: [String]) -> String {
+        let stringAuthors = authors.joined(separator: ", ")
+        return stringAuthors
+    }
+    
+    private func updateLastBookDB(bookID: String) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        db.collection("Users").document(userID).updateData(["lastBook": bookID])
+    }
+    
     func setSearchResult(resultBooks: [BookInfo]) {
         books = resultBooks
         tableView.reloadData()
-    }
-    
-    func setEmptySearchResult() {
-//        books = //from farebase
     }
     
     private func setupUI() {
@@ -239,21 +304,47 @@ extension LibraryViewController: UISearchBarDelegate {
     @objc private func search(_ searchBar: UISearchBar) {
         // Check for empty query
         guard let query = searchBar.text, query.trimmingCharacters(in: .whitespaces) != "" else {
-            setEmptySearchResult()
+//            self?.setEmptySearchResult(completion: () -> ())
             return
         }
+        
+//        searchModel.search(query: query, ) { [weak self] searchResult in
+//            DispatchQueue.main.async {
+//                print(searchResult.books)
+//                print(query)
+//                self?.searchBookBar.stopAnimationLoading()
+//                if searchResult.books.count == 0 {
+//                    self?.setEmptySearchResult(completion: () -> ())
+//                } else {
+//                    books = searchResult.books
+////                    let authors = searchResult.books.
+////                    let title =
+////                    let image =
+////                    books.append(BookInfo(id: bookid, title: title, authors: self.splitAuthors(authors: authors), image: image))
+//                    self?.tableView.reloadData()
+//                }
+//            }
+//        } failure: { [weak self] error in
+//            DispatchQueue.main.async {
+//                self?.alert(message: error)
+//            }
+//        }
+        
+        
         
         // Send request
         searchModel.search(query: query) { [weak self] searchResult in
             DispatchQueue.main.async {
-                print(searchResult.books)
-                print(query)
+                print("HOOOOOBBBBBBBBAAAAAAA", searchResult.books)
+                print("QUERYYYYY", query)
                 self?.searchBookBar.stopAnimationLoading()
                 if searchResult.books.count == 0 {
-                    self?.setEmptySearchResult()
+                    books = []
+//                    self?.setEmptySearchResult()
                 } else {
-                    print(searchResult.books.count)
-                    self?.setSearchResult(resultBooks: searchResult.books)
+                    books = searchResult.books
+                    self?.tableView.reloadData()
+                    print("hello", searchResult.books)
                 }
             }
         } failure: { [weak self] error in

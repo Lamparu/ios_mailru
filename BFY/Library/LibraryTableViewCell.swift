@@ -12,13 +12,12 @@ class LibraryTableViewCell: UITableViewCell {
     var containerView: UIView = UIView()
     var bookTitle: UILabel = UILabel()
     var bookAuthor: UILabel = UILabel()
-    let bookImageView: UIImageView = UIImageView()
-//    {
-//        let imageName = "bookImage.png"
-//        let image = UIImage(named: imageName)
-//        let imageView = UIImageView(image: image)
-//        return imageView
-//    }()
+    let bookImageView: UIImageView = {
+        let imageName = "bookImage.png"
+        let image = UIImage(named: imageName)
+        let imageView = UIImageView(image: image)
+        return imageView
+    }()
         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -81,11 +80,27 @@ class LibraryTableViewCell: UITableViewCell {
 //        createBookAuthorConstraint(label: bookAuthor, to: bookTitle)
     }
     
+    func makeStringAuthors(authors: [String]) -> String {
+        let stringAuthors = authors.joined(separator: ", ")
+        return stringAuthors
+    }
+    
     func configure (with book: BookInfo) {
         bookTitle.text = book.title
-        bookAuthor.text = book.authors[0]
-//        bookImageView = book.image
+        bookAuthor.text = makeStringAuthors(authors: book.authors ?? [""])
+        if book.image == "BookCover" || book.image == "" {
+            bookImageView.image = UIImage(named: "BookCover")
+        }
+        else {
+            bookImageView.load(url: URL(string: book.image ?? "")!)
+        }
     }
+    
+//    func configure (with book: BookInfo) {
+//        bookTitle.text = book.title
+//        bookAuthor.text = book.authors[0]
+////        bookImageView = book.image
+//    }
     
     func createContainerViewConstraint() {
         containerView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30).isActive = true

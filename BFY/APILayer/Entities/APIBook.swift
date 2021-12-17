@@ -7,6 +7,162 @@
 
 import Foundation
 
+struct APIImageLinks: Codable {
+    let smallThumbnail: String?
+    let thumbnail: String?
+}
+
+struct APIPanelizationSummary: Codable {
+    let containsEpubBubbles: String
+    let containsImageBubbles: String
+}
+
+struct APIReadingModes: Codable {
+    let text: Bool
+    let image: Bool
+}
+
+struct APIIndustryIdentifiers: Codable {
+    let type: String
+    let identifier: String
+}
+
+struct APIVolumeInfo: Codable {
+    let title: String
+//    let subtitle: String?
+    let authors: [String]?
+//    let publishedDate: String
+//    let industryIdentifiers: [APIIndustryIdentifiers]
+//    let readingModes: APIReadingModes
+//    let pageCount: Int
+//    let printType: String
+//    let maturityRating: String
+//    let allowAnonLogging: Bool
+//    let contentVersion: String
+//    let panelizationSummary: APIPanelizationSummary
+//    let language: String
+//    let previewLink: String
+//    let infoLink: String
+//    let canonicalVolumeLink: String
+    let imageLinks: APIImageLinks?
+}
+
+struct APISaleInfo: Codable {
+    let country: String
+    let saleability: String
+    let isEbook: Bool
+}
+
+struct APIEpub: Codable {
+    let isAvailable: Bool
+}
+
+struct APIPdf: Codable {
+    let isAvailable: Bool
+}
+
+struct APIAccessInfo: Codable {
+    let country: String
+    let viewability: String
+    let embeddable: Bool
+    let publicDomain: Bool
+    let textToSpeechPermission: String
+    let epub: APIEpub
+    let pdf: APIPdf
+    let webReaderLink: String
+    let accessViewStatus: String
+    let quoteSharingAllowed: Bool
+}
+
+struct BooksBody: Codable {
+//    let kind: String
+    let id: String
+//    let etag: String
+//    let selfLink: String
+//    let selfLink: URL
+    let volumeInfo: APIVolumeInfo
+//    let saleInfo: APISaleInfo
+//    let accessInfo: APIAccessInfo
+}
+
+struct APIBook: Decodable  {
+    let kind: String
+    let totalItems: Int
+    let items: [BooksBody]
+}
+
+//struct Book: Decodable {
+//    let kind: String
+//    let totalItems: Int
+//    let items: [APIBook]
+//}
+//
+//struct APIBook: Decodable {
+//    let kind, id, etag, selfLink: String
+//    let volumeInfo: VolumeInfo
+//    let saleInfo: SaleInfo
+//    let accessInfo: AccessInfo
+//}
+//
+//struct AccessInfo: Decodable {
+//    let country, viewability: String
+//    let embeddable, publicDomain: Bool
+//    let textToSpeechPermission: String
+//    let epub, pdf: Epub
+//    let webReaderLink, accessViewStatus: String
+//    let quoteSharingAllowed: Bool
+//}
+//
+//struct Epub: Decodable {
+//    let isAvailable: Bool
+//}
+//
+//struct SaleInfo: Decodable {
+//    let country, saleability: String
+//    let isEbook: Bool
+//}
+//
+//struct VolumeInfo: Decodable {
+//    let title: String
+//    let authors: [String]
+//    let publisher, publishedDate, description: String
+//    let industryIdentifiers: [IndustryIdentifier]
+//    let readingModes: ReadingModes
+//    let pageCount, printedPageCount: Int
+//    let dimensions: Dimensions
+//    let printType: String
+//    let categories: [String]
+//    let averageRating: Double
+//    let ratingsCount: Int
+//    let maturityRating: String
+//    let allowAnonLogging: Bool
+//    let contentVersion: String
+//    let panelizationSummary: PanelizationSummary
+//    let imageLinks: ImageLinks
+//    let language, previewLink, infoLink, canonicalVolumeLink: String
+//}
+//
+//struct Dimensions: Decodable {
+//    let height, width, thickness: String
+//}
+//
+//struct ImageLinks: Decodable {
+//    let smallThumbnail, thumbnail: String
+//}
+//
+//struct IndustryIdentifier: Decodable {
+//    let type, identifier: String
+//}
+//
+//struct PanelizationSummary: Decodable {
+//    let containsEpubBubbles, containsImageBubbles: Bool
+//}
+//
+//struct ReadingModes: Decodable {
+//    let text, image: Bool
+//}
+
+//_______________________
 //struct APIImageLinks: Decodable {
 //    let smallThumbnail: String
 //    let thumbnail: String
@@ -27,89 +183,89 @@ import Foundation
 //    let items: [BooksBody]
 //}
 
-struct APIImageLinks: Decodable {
-    let smallThumbnail: String
-    let thumbnail: String
-}
-
-struct APIPanelizationSummary: Decodable {
-    let containsEpubBubbles: String
-    let containsImageBubbles: String
-}
-
-struct APIReadingModes: Decodable {
-    let text: Bool
-    let image: Bool
-}
-
-struct APIIndustryIdentifiers: Decodable {
-    let type: String
-    let identifier: String
-}
-
-struct APIVolumeInfo: Decodable {
-    let title: String
-    let subtitle: String?
-    let authors: [String]
-    let publishedDate: String
-    let industryIdentifiers: [APIIndustryIdentifiers]
-    let readingModes: APIReadingModes
-    let pageCount: Int
-    let printType: String
-    let maturityRating: String
-    let allowAnonLogging: Bool
-    let contentVersion: String
-    let panelizationSummary: APIPanelizationSummary
-    let language: String
-    let previewLink: String
-    let infoLink: String
-    let canonicalVolumeLink: String
-//    let imageLinks: APIImageLinks
-}
-
-struct APISaleInfo: Decodable {
-    let country: String
-    let saleability: String
-    let isEbook: Bool
-}
-
-struct APIEpub: Decodable {
-    let isAvailable: Bool
-}
-
-struct APIPdf: Decodable {
-    let isAvailable: Bool
-}
-
-struct APIAccessInfo: Decodable {
-    let country: String
-    let viewability: String
-    let embeddable: Bool
-    let publicDomain: Bool
-    let textToSpeechPermission: String
-    let epub: APIEpub
-    let pdf: APIPdf
-    let webReaderLink: String
-    let accessViewStatus: String
-    let quoteSharingAllowed: Bool
-}
-
-struct BooksBody: Decodable {
-    let kind: String
-    let id: String
-    let etag: String
-    let selfLink: String
-//    let selfLink: URL
-    let volumeInfo: APIVolumeInfo
-    let saleInfo: APISaleInfo
-    let accessInfo: APIAccessInfo
-}
-
-struct APIBook: Decodable  {
-    let kind: String
-    let totalItems: Int
-    let items: [BooksBody]
-}
+//_____________________
+//struct APIImageLinks: Decodable {
+//    let smallThumbnail: String
+//    let thumbnail: String
+//}
+//
+//struct APIPanelizationSummary: Decodable {
+//    let containsEpubBubbles: String
+//    let containsImageBubbles: String
+//}
+//
+//struct APIReadingModes: Decodable {
+//    let text: Bool
+//    let image: Bool
+//}
+//
+//struct APIIndustryIdentifiers: Decodable {
+//    let type: String
+//    let identifier: String
+//}
+//
+//struct APIVolumeInfo: Decodable {
+//    let title: String
+//    let subtitle: String?
+//    let authors: [String]
+//    let publishedDate: String
+//    let industryIdentifiers: [APIIndustryIdentifiers]
+//    let readingModes: APIReadingModes
+//    let pageCount: Int
+//    let printType: String
+//    let maturityRating: String
+//    let allowAnonLogging: Bool
+//    let contentVersion: String
+//    let panelizationSummary: APIPanelizationSummary
+//    let language: String
+//    let previewLink: String
+//    let infoLink: String
+//    let canonicalVolumeLink: String
+////    let imageLinks: APIImageLinks
+//}
+//
+//struct APISaleInfo: Decodable {
+//    let country: String
+//    let saleability: String
+//    let isEbook: Bool
+//}
+//
+//struct APIEpub: Decodable {
+//    let isAvailable: Bool
+//}
+//
+//struct APIPdf: Decodable {
+//    let isAvailable: Bool
+//}
+//
+//struct APIAccessInfo: Decodable {
+//    let country: String
+//    let viewability: String
+//    let embeddable: Bool
+//    let publicDomain: Bool
+//    let textToSpeechPermission: String
+//    let epub: APIEpub
+//    let pdf: APIPdf
+//    let webReaderLink: String
+//    let accessViewStatus: String
+//    let quoteSharingAllowed: Bool
+//}
+//
+//struct BooksBody: Decodable {
+//    let kind: String
+//    let id: String
+//    let etag: String
+//    let selfLink: String
+//    let volumeInfo: APIVolumeInfo
+//    let saleInfo: APISaleInfo
+//    let accessInfo: APIAccessInfo
+//}
+//
+//struct APIBook: Decodable  {
+//    let kind: String
+//    let totalItems: Int
+//    let items: [BooksBody]
+//}
 
 
 /*

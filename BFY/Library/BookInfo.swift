@@ -11,16 +11,15 @@ final class BookInfo: Equatable {
     
     let id: String
     let title: String
-    let authors: [String]
-    let image: String
+    let authors: [String]?
+    let image: String?
     
-    convenience init(from book: BooksBody) { 
+    convenience init(from book: BooksBody) {
         self.init(
             id: book.id,
             title: book.volumeInfo.title,
-            authors: book.volumeInfo.authors,
-//            image: book.volumeInfo.imageLinks.smallThumbnail ?? ""
-            image: ""
+            authors: book.volumeInfo.authors ?? [""],
+            image: book.volumeInfo.imageLinks?.smallThumbnail ?? ""
         )
     }
     

@@ -1,14 +1,9 @@
-//
-//  SearchInteractor.swift
-//  BFY
-//
-//  Created by Анастасия Московчук on 10.12.2021.
-//
-
 import Foundation
 
-struct SearchResponse: Decodable {
-    let result: APIResult
+struct SearchResponse: Codable {
+    let kind: String
+    let totalItems: Int
+    let items: [BooksBody]
 }
 
 final class SearchInteractor: BaseInteractor {
@@ -17,12 +12,11 @@ final class SearchInteractor: BaseInteractor {
         from: Int,
         count: Int,
         query: String,
-        success: @escaping (APIResponse<SearchResponse>) -> Void,
+        success: @escaping (SearchResponse) -> Void,
         failure: @escaping (Error) -> Void
     ) {
-        print("IM HERE, IM SEARCHING!!")
         getSearchResult(
-            path: "/volumes?q=",
+            path: "/volumes",
             responseType: APIResponse<SearchResponse>.self,
             from: from,
             count: count,
@@ -38,7 +32,7 @@ final class SearchInteractor: BaseInteractor {
         from: Int,
         count: Int,
         query: String,
-        success: @escaping (T) -> Void,
+        success: @escaping (SearchResponse) -> Void,
         failure: @escaping (Error) -> Void
     ) where T: Decodable {
         let request = HermesRequest(
@@ -51,12 +45,22 @@ final class SearchInteractor: BaseInteractor {
             ]
         )
         request.successHandler = { response in
-            guard let data = response.data.decode(type: T.self) else {
-                failure(InteractorError.emptyData)
+            var data: SearchResponse
+            do {
+                let decoder = JSONDecoder()
+                data = try decoder.decode(SearchResponse.self, from: response.data.data)
+            } catch let error {
+                failure(error)
                 return
             }
             success(data)
-            print("i have found:", response.data.decode(type: T.self))
+
+//            let stat = try! decoder.decode(SearchResponse.self, from: response.data.data)
+//            guard let data = response.data.decode(type: T.self) else {
+//                failure(InteractorError.emptyData)
+//                return
+//            }
+//            success(data)
         }
         request.errorHandler = { error in
             failure(error)
@@ -64,4 +68,3 @@ final class SearchInteractor: BaseInteractor {
         client.run(with: request)
     }
 }
-

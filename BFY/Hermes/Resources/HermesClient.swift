@@ -79,6 +79,11 @@ public final class HermesClient {
                 failure(HermesError.emptyData)
                 return
             }
+//            let decoder = JSONDecoder()
+//            struct A: Codable {
+//                let totalItems: Int
+//            }
+//            let stat = try! decoder.decode(A.self, from: data)
             success(.init(data: .init(with: data), code: response.statusCode, headers: response.allHeaderFields))
         }
         task.resume()
