@@ -80,7 +80,7 @@ class LibraryTableViewCell: UITableViewCell {
 //        createBookAuthorConstraint(label: bookAuthor, to: bookTitle)
     }
     
-    func configure (with book: Book) {
+    func configure (with book: BookInfo) {
         bookTitle.text = book.title
         bookAuthor.text = book.author
     }

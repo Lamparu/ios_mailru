@@ -104,6 +104,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F574C554276C213700F4FC8E /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				51D09B66274709060083F029 /* AddNewBookViewController.swift */,
+				51B09C7627442CE700A3EFF8 /* BooksTableViewController.swift */,
+				518FECD82742CF4F00C16A1A /* LibraryViewController.swift */,
+				518FECD62742CF3B00C16A1A /* LibraryTableViewCell.swift */,
+				518FECD42742CF2500C16A1A /* Book.swift */,
+				51B09C78274444A300A3EFF8 /* BookInfo.swift */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
 		F57AA60027492C9D009387A0 /* Authentification */ = {
 			isa = PBXGroup;
 			children = (
@@ -143,12 +156,7 @@
 		F5F80CE5272013C500E61826 /* BFY */ = {
 			isa = PBXGroup;
 			children = (
-				51B09C7627442CE700A3EFF8 /* BooksTableViewController.swift */,
-				518FECD82742CF4F00C16A1A /* LibraryViewController.swift */,
-				518FECD62742CF3B00C16A1A /* LibraryTableViewCell.swift */,
-				518FECD42742CF2500C16A1A /* Book.swift */,
-				51B09C78274444A300A3EFF8 /* BookInfo.swift */,
-				51D09B66274709060083F029 /* AddNewBookViewController.swift */,
+				F574C554276C213700F4FC8E /* Library */,
 				F57AA60027492C9D009387A0 /* Authentification */,
 				F5CE4D3D272AF4C40095040D /* Extensions */,
 				F5F80CE6272013C500E61826 /* AppDelegate.swift */,

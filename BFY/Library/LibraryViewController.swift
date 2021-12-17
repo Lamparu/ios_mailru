@@ -11,9 +11,11 @@ import FirebaseFirestore
 
 final class LibraryViewController: BooksTableViewController {
 
+    var books: [BookInfo] = []
+    
     let db = Firestore.firestore()
     
-    private var books: [Book] = [.init(id: "1", title: "Гордость и предубеждение", author: "Джейн Остен", image: URL(string: ""))]
+//    private var books: [Book] = [.init(id: "1", title: "Гордость и предубеждение", author: "Джейн Остен", image: URL(string: ""))]
 
     let searchBookBar = UISearchBar()
     let addBookButton = UIButton()
@@ -42,6 +44,52 @@ final class LibraryViewController: BooksTableViewController {
 
         return cell
     }
+    
+    func makeStringAuthors(authors: [String]) -> String {
+        let stringAuthors = authors.joined(separator: ", ")
+        return stringAuthors
+    }
+    
+    func splitAuthors(authors: String) -> [String] {
+        let listAuthors = authors.split{$0 == ","}.map(String.init)
+        let trimmedAuthors = listAuthors.map { $0.trimmingCharacters(in: .whitespaces) }
+        return trimmedAuthors
+    }
+    
+    func setEmptySearchResult() {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        let userRef = db.collection("Users").document(userID)
+        let bookRefColl = db.collection("Books")
+        
+        userRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let library = document.data() //as! [String: Int]
+                let lib = library?["library"] as? [String : String]
+                if lib == nil {
+                    return
+                    // пустой экран
+                }
+                for (bookid, _) in lib ?? ["":""] {
+                    let bookRef = bookRefColl.document(bookid)
+                    bookRef.getDocument { (bookDoc, bookErr) in
+                        if let bookDoc = bookDoc, bookDoc.exists {
+                            let book = bookDoc.data()
+                            let title = book?["title"] as? String ?? "Название"
+                            let authors = book?["authors"] as? String ?? "Автор"
+                            let image = book?["image"] as? String ?? "BookCover"
+                            let newBook = BookInfo(id: bookid, title: title, authors: self.splitAuthors(authors: authors), image: image)
+                            self.books.append(newBook)
+                        } else {
+                            print("Books collection does not exist")
+                        }
+                    }
+                }
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
+    
     
     private func updateLastBookDB(bookID: String) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
