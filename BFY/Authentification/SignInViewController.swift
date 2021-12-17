@@ -222,7 +222,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         continueSignInButton.bottomAnchor.constraint(equalTo: viewEmptyRectangle.bottomAnchor, constant: -20).isActive = true
         continueSignInButton.heightAnchor.constraint(equalToConstant: 64).isActive = true
         continueSignInButton.widthAnchor.constraint(equalToConstant: 240).isActive = true
-        
     }
     
     func createForgetButtonConstraint() {
@@ -231,20 +230,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         forgetButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         forgetButton.widthAnchor.constraint(equalToConstant: 180).isActive = true
     }
-    
-    //    func createRememberButtonConstraint() {
-    //        rememberButton.centerXAnchor.constraint(equalTo: viewEmptyRectangle.leftAnchor, constant: 70).isActive = true
-    //        rememberButton.centerYAnchor.constraint(equalTo: forgetButton.bottomAnchor, constant: 38).isActive = true
-    //        rememberButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-    //        rememberButton.widthAnchor.constraint(equalTo: rememberButton.heightAnchor).isActive = true
-    //    }
-    //
-    //    func createRememberTextButtonConstraint() {
-    //        rememberTextButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-    //        rememberTextButton.widthAnchor.constraint(equalToConstant: 180).isActive = true
-    //        rememberTextButton.leftAnchor.constraint(equalTo: rememberButton.centerXAnchor).isActive = true
-    //        rememberTextButton.centerYAnchor.constraint(equalTo: rememberButton.centerYAnchor).isActive = true
-    //    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
@@ -258,16 +243,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         button.layer.shadowRadius = 3
         button.layer.masksToBounds = false
     }
-    
-    //    @objc private func didTapRememberButton(_ sender: UIButton) {
-    //        if rememberButton.isSelected {
-    //            rememberButton.setBackgroundImage(UIImage(named: "box_empty"), for: .normal)
-    //            rememberButton.isSelected = false
-    //        } else {
-    //            rememberButton.setBackgroundImage(UIImage(named: "box_filled"), for:.normal)
-    //            rememberButton.isSelected = true
-    //        }
-    //    }
     
     private func showMessageAlert(err: String) {
         let alert = UIAlertController(title: "Ошибка", message: err, preferredStyle: .alert)

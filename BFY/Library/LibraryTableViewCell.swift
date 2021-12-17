@@ -80,9 +80,20 @@ class LibraryTableViewCell: UITableViewCell {
 //        createBookAuthorConstraint(label: bookAuthor, to: bookTitle)
     }
     
+    func makeStringAuthors(authors: [String]) -> String {
+        let stringAuthors = authors.joined(separator: ", ")
+        return stringAuthors
+    }
+    
     func configure (with book: BookInfo) {
         bookTitle.text = book.title
-        bookAuthor.text = book.author
+        bookAuthor.text = makeStringAuthors(authors: book.authors)
+        print(book.image)
+        if book.image == "BookCover" || book.image == "" {
+            bookImageView.image = UIImage(named: "BookCover")
+        } else {
+            bookImageView.load(url: URL(string: book.image)!)
+        }
     }
     
     func createContainerViewConstraint() {

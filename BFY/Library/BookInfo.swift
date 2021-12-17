@@ -28,7 +28,7 @@ final class BookInfo {
         self.id = id
         self.title = title
         self.authors = authors
-        self.image = ""
+        self.image = image
     }
 //
 //    static func ==(lhs: BookInfo, rhs: BookInfo) -> Bool {
