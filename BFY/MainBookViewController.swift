@@ -253,7 +253,6 @@ class MainBookViewController: UIViewController, UITextFieldDelegate {
 //    }
     
     private func loadBook(completion: @escaping () -> Void) {
-        
         guard let userID = Auth.auth().currentUser?.uid else { return }
         let userRef = db.collection("Users").document(userID)
 //        let bookRefColl = db.collection("Books")

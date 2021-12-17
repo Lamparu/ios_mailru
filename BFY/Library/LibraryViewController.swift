@@ -94,9 +94,10 @@ final class LibraryViewController: BooksTableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "LibraryTableViewCell", for: indexPath) as? LibraryTableViewCell else {
             return UITableViewCell()
         }
-        let book = books[indexPath.section]
-        print("bool", book.title, "row", indexPath.section)
-                
+        
+        let book = books[indexPath.row]
+        print("bool", book.title, "section", indexPath.section, "row", indexPath.row)
+
         cell.configure(with: book)
 //        let key = books[indexPath.row].key
 //        cell.setupViews(he: CGFloat(key))
@@ -125,8 +126,12 @@ final class LibraryViewController: BooksTableViewController {
        }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return books.count
+        return 1
 //        return 10
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return books.count
     }
     
     @objc private func didTapAddBookButton(_ sender: UIButton) {
